@@ -1,4 +1,4 @@
-namespace Gy.QySin.Application.Consultas.ListarOrdenables
+namespace Gy.QySin.Application.Ordenables.Consultas.ListarOrdenables
 {
     public class OrdenableCategoriaDto
     {

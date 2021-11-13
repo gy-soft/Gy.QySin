@@ -7,7 +7,7 @@ using Gy.QySin.Domain.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Gy.QySin.Application.Consultas.ListarOrdenables
+namespace Gy.QySin.Application.Ordenables.Consultas.ListarOrdenables
 {
     public class ListarOrdenablesCon : IRequest<OrdenablesVm>
     {
