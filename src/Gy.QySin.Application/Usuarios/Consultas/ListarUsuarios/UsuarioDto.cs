@@ -1,9 +1,6 @@
-using Gy.QySin.Application.Common.Mappings;
-using Gy.QySin.Domain.Entities;
-
 namespace Gy.QySin.Application.Consultas.ListarUsuarios
 {
-    public class UsuarioDto : IMapFrom<Usuario>
+    public class UsuarioDto
     {
         public string Clave { get; set; }
         public string NombreCorto { get; set; }
