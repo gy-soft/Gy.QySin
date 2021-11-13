@@ -30,7 +30,7 @@ namespace Gy.QySin.Application.Consultas.ListarUsuarios
                     .Select(r => new UsuarioRolDto { Value = (int)r, Name = r.ToString() })
                     .ToList(),
                 Usuarios = await context.Usuarios
-                    .Where(u => u.Activo)
+                    .Where(u => u.Activo == request.Activo)
                     .OrderBy(u => u.Nombre)
                     .Select(u => new UsuarioDto
                     {

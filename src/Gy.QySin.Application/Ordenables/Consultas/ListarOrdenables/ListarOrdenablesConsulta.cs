@@ -37,7 +37,8 @@ namespace Gy.QySin.Application.Consultas.ListarOrdenables
                     {
                         Clave = o.Clave,
                         Nombre = o.Nombre,
-                        Precio = o.Precio
+                        Precio = o.Precio,
+                        Categoria = o.Categoria
                     })
                     .AsNoTracking()
                     .ToListAsync()
