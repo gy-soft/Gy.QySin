@@ -2,8 +2,6 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using Gy.QySin.Application.Common;
 using Gy.QySin.Domain.Enums;
 using MediatR;
@@ -19,26 +17,30 @@ namespace Gy.QySin.Application.Consultas.ListarOrdenables
     public class ListarOrdenablesConsultaManejador : IRequestHandler<ListarOrdenablesConsulta, OrdenablesVm>
     {
         private readonly IApplicationDbContext contex;
-        private readonly IMapper mapper;
 
-        public ListarOrdenablesConsultaManejador(IApplicationDbContext contex, IMapper mapper)
+        public ListarOrdenablesConsultaManejador(IApplicationDbContext contex)
         {
             this.contex = contex;
-            this.mapper = mapper;
         }
         public async Task<OrdenablesVm> Handle(ListarOrdenablesConsulta request, CancellationToken cancellationToken)
         {
             return new OrdenablesVm
             {
                 Categorias = Enum.GetValues(typeof(OrdenableCategorias))
-                .Cast<OrdenableCategorias>()
-                .Select(c => new OrdenableCategoriaDto { Value = (int)c, Name = c.ToString() })
-                .ToList(),
+                    .Cast<OrdenableCategorias>()
+                    .Select(c => new OrdenableCategoriaDto { Value = (int)c, Name = c.ToString() })
+                    .ToList(),
                 Ordenables = await contex.Ordenables
-                .Where(o => string.IsNullOrWhiteSpace(request.PalabraClave) || o.Nombre.Contains(request.PalabraClave))
-                .AsNoTracking()
-                .ProjectTo<OrdenableDto>(mapper.ConfigurationProvider)
-                .ToListAsync()
+                    .Where(o => string.IsNullOrWhiteSpace(request.PalabraClave) || o.Nombre.Contains(request.PalabraClave))
+                    .Where(o => !request.Categoria.HasValue || o.Categoria == request.Categoria)
+                    .Select(o => new OrdenableDto
+                    {
+                        Clave = o.Clave,
+                        Nombre = o.Nombre,
+                        Precio = o.Precio
+                    })
+                    .AsNoTracking()
+                    .ToListAsync()
             };
         }
     }
