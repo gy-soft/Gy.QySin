@@ -9,20 +9,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Gy.QySin.Application.Consultas.ListarOrdenables
 {
-    public class ListarOrdenablesConsulta : IRequest<OrdenablesVm>
+    public class ListarOrdenablesCon : IRequest<OrdenablesVm>
     {
         public OrdenableCategorias? Categoria { get; set; }
         public string PalabraClave { get; set; }
     }
-    public class ListarOrdenablesConsultaManejador : IRequestHandler<ListarOrdenablesConsulta, OrdenablesVm>
+    public class ListarOrdenablesConMnjr : IRequestHandler<ListarOrdenablesCon, OrdenablesVm>
     {
-        private readonly IApplicationDbContext contex;
+        private readonly IApplicationDbContext context;
 
-        public ListarOrdenablesConsultaManejador(IApplicationDbContext contex)
+        public ListarOrdenablesConMnjr(IApplicationDbContext context)
         {
-            this.contex = contex;
+            this.context = context;
         }
-        public async Task<OrdenablesVm> Handle(ListarOrdenablesConsulta request, CancellationToken cancellationToken)
+        public async Task<OrdenablesVm> Handle(ListarOrdenablesCon request, CancellationToken cancellationToken)
         {
             return new OrdenablesVm
             {
@@ -30,7 +30,7 @@ namespace Gy.QySin.Application.Consultas.ListarOrdenables
                     .Cast<OrdenableCategorias>()
                     .Select(c => new OrdenableCategoriaDto { Value = (int)c, Name = c.ToString() })
                     .ToList(),
-                Ordenables = await contex.Ordenables
+                Ordenables = await context.Ordenables
                     .Where(o => string.IsNullOrWhiteSpace(request.PalabraClave) || o.Nombre.Contains(request.PalabraClave))
                     .Where(o => !request.Categoria.HasValue || o.Categoria == request.Categoria)
                     .Select(o => new OrdenableDto

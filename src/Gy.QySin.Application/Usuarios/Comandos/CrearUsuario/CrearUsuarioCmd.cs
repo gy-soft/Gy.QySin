@@ -12,11 +12,11 @@ namespace Gy.QySin.Application.Usuarios.Comandos.CrearUsuario
         public string Nombre { get; set; }
         public UsuarioRoles Rol { get; set; }
     }
-    public class CrearUsuarioCmdManejador : IRequestHandler<CrearUsuarioCmd, string>
+    public class CrearUsuarioCmdMnjr : IRequestHandler<CrearUsuarioCmd, string>
     {
         private readonly IApplicationDbContext context;
 
-        public CrearUsuarioCmdManejador(IApplicationDbContext context)
+        public CrearUsuarioCmdMnjr(IApplicationDbContext context)
         {
             this.context = context;
         }

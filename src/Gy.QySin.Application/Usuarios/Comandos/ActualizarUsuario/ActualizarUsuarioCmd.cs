@@ -12,11 +12,11 @@ namespace Gy.QySin.Application.Usuarios.ActualizarUsuario
         public string Nombre { get; set; }
         public string NombreCorto { get; set; }
     }
-    public class ActualizarUsuarioCmdManejador : IRequestHandler<ActualizarUsuarioCmd>
+    public class ActualizarUsuarioCmdMnjr : IRequestHandler<ActualizarUsuarioCmd>
     {
         private readonly IApplicationDbContext context;
 
-        public ActualizarUsuarioCmdManejador(IApplicationDbContext context)
+        public ActualizarUsuarioCmdMnjr(IApplicationDbContext context)
         {
             this.context = context;
         }

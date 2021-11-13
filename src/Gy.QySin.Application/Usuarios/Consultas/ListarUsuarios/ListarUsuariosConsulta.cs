@@ -9,19 +9,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Gy.QySin.Application.Consultas.ListarUsuarios
 {
-    public class ListarUsuariosConsulta : IRequest<UsuariosVm>
+    public class ListarUsuariosCon : IRequest<UsuariosVm>
     {
         public bool Activo { get; set; }
     }
-    public class ListarUsuariosConsultaManejador : IRequestHandler<ListarUsuariosConsulta, UsuariosVm>
+    public class ListarUsuariosConMnjr : IRequestHandler<ListarUsuariosCon, UsuariosVm>
     {
         private readonly IApplicationDbContext context;
 
-        public ListarUsuariosConsultaManejador(IApplicationDbContext context)
+        public ListarUsuariosConMnjr(IApplicationDbContext context)
         {
             this.context = context;
         }
-        public async Task<UsuariosVm> Handle(ListarUsuariosConsulta request, CancellationToken cancellationToken)
+        public async Task<UsuariosVm> Handle(ListarUsuariosCon request, CancellationToken cancellationToken)
         {
             return new UsuariosVm
             {

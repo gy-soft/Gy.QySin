@@ -10,11 +10,11 @@ namespace Gy.QySin.Application.Usuarios.Comandos.DesactivarUsuario
     {
         public string Clave { get; set; }
     }
-    public class DesactivarUsuarioCmdManejador : IRequestHandler<DesactivarUsuarioCmd>
+    public class DesactivarUsuarioCmdMnjr : IRequestHandler<DesactivarUsuarioCmd>
     {
         private readonly IApplicationDbContext context;
 
-        public DesactivarUsuarioCmdManejador(IApplicationDbContext context)
+        public DesactivarUsuarioCmdMnjr(IApplicationDbContext context)
         {
             this.context = context;
         }
