@@ -7,7 +7,7 @@ using Gy.QySin.Domain.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Gy.QySin.Application.Consultas.ListarUsuarios
+namespace Gy.QySin.Application.Usuarios.Consultas.ListarUsuarios
 {
     public class ListarUsuariosCon : IRequest<UsuariosVm>
     {
