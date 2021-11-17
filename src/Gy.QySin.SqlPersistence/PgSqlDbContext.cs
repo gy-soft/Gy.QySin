@@ -8,14 +8,23 @@ namespace Gy.QySin.SqlPersistence
     {
         private readonly string connectionString;
 
-        // Use with DI
+        /// <summary>
+        /// Constructor para que un tercero configure la conexión a base de datos.
+        /// Para usarse con un administrador de dependencias (DI).
+        /// </summary>
+        /// <param name="options">El objeto con la configuración.</param>
         public PgSqlDbContext(DbContextOptions<PgSqlDbContext> options)
             : base(options) {}
-        // Manual setup
+        /// <summary>
+        /// Constructor para configurar manualmente la cadena de conexión.
+        /// Para usarse en pruebas unitarias por ejemplo.
+        /// </summary>
+        /// <param name="connectionString">Cadena de conexión a la base de datos PostgreSQL.</param>
         public PgSqlDbContext(string connectionString)
         {
             this.connectionString = connectionString;
         }
+
         public DbSet<BaseOrdenable> Ordenables { get; set; }
         public DbSet<Bebida> Bebidas { get; set; }
         public DbSet<Platillo> Platillos { get; set; }
@@ -26,7 +35,14 @@ namespace Gy.QySin.SqlPersistence
         {
             if (connectionString != null)
                 optionsBuilder.UseNpgsql(connectionString);
-                
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Bebida>()
+                .ToView("vBebidas");
+            modelBuilder.Entity<Platillo>()
+                .ToView("vPlatillos");
         }
     }
 }
