@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Gy.QySin.Domain.Enums;
 using Gy.QySin.Domain.Interfaces;
@@ -8,6 +9,7 @@ namespace Gy.QySin.Domain.Entities
     {
         public Usuario(string nombre, UsuarioRoles rol)
         {
+            Clave = Guid.NewGuid().ToString();
             Nombre = nombre;
             Roles = new List<UsuarioRoles>()
             {
