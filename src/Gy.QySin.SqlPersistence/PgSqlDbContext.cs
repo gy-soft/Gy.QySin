@@ -9,8 +9,8 @@ namespace Gy.QySin.SqlPersistence
         private readonly string connectionString;
 
         /// <summary>
-        /// Constructor para que un tercero configure la conexión a base de datos.
-        /// Para usarse con un administrador de dependencias (DI).
+        /// Constructor pensado para usarse con Inyección de Dependencias (DI).
+        /// Es llamado implícitamente por el método UsePostgres(...).
         /// </summary>
         /// <param name="options">El objeto con la configuración.</param>
         public PgSqlDbContext(DbContextOptions<PgSqlDbContext> options)
