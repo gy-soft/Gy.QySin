@@ -11,7 +11,7 @@ namespace Gy.QySin.Application.Usuarios.Consultas.ListarUsuarios
 {
     public class ListarUsuariosCon : IRequest<UsuariosVm>
     {
-        public bool Activo { get; set; }
+        public bool? Activo { get; set; }
     }
     public class ListarUsuariosConMnjr : IRequestHandler<ListarUsuariosCon, UsuariosVm>
     {
@@ -30,14 +30,14 @@ namespace Gy.QySin.Application.Usuarios.Consultas.ListarUsuarios
                     .Select(r => new UsuarioRolDto { Value = (int)r, Name = r.ToString() })
                     .ToList(),
                 Usuarios = await context.Usuarios
-                    .Where(u => u.Activo == request.Activo)
+                    .Where(u => !request.Activo.HasValue || u.Activo == request.Activo)
                     .OrderBy(u => u.Nombre)
                     .Select(u => new UsuarioDto
                     {
                         Clave = u.Clave.ToString(),
                         NombreCorto = u.NombreCorto,
                         Nombre = u.Nombre,
-                        Activo = request.Activo
+                        Activo = u.Activo
                     })
                     .AsNoTracking()
                     .ToListAsync()
