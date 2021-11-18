@@ -3,7 +3,7 @@ using Gy.QySin.Domain.Enums;
 
 namespace Gy.QySin.Application.Usuarios.Consultas.DetalleUsuario
 {
-    public class UsuarioDto
+    public class DetalleUsuarioDto
     {
         public string Clave { get; set; }
         public string NombreCorto { get; set; }

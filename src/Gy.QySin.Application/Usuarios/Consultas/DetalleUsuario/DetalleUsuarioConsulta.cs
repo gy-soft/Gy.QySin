@@ -6,11 +6,11 @@ using MediatR;
 
 namespace Gy.QySin.Application.Usuarios.Consultas.DetalleUsuario
 {
-    public class DetalleUsuarioCon : IRequest<UsuarioDto>
+    public class DetalleUsuarioCon : IRequest<DetalleUsuarioDto>
     {
         public string Clave { get; set; }
     }
-    public class DetalleUsuarioConMnjr : IRequestHandler<DetalleUsuarioCon, UsuarioDto>
+    public class DetalleUsuarioConMnjr : IRequestHandler<DetalleUsuarioCon, DetalleUsuarioDto>
     {
         private readonly IApplicationDbContext context;
 
@@ -18,17 +18,18 @@ namespace Gy.QySin.Application.Usuarios.Consultas.DetalleUsuario
         {
             this.context = context;
         }
-        public async Task<UsuarioDto> Handle(DetalleUsuarioCon request, CancellationToken cancellationToken)
+        public async Task<DetalleUsuarioDto> Handle(DetalleUsuarioCon request, CancellationToken cancellationToken)
         {
+            var pk = System.Guid.Parse(request.Clave);
             var entity = await context.Usuarios
-                .FindAsync(request.Clave);
+                .FindAsync(pk);
 
             if (entity == null)
             {
                 throw new NotFoundException(nameof(Usuario), request.Clave);
             }
 
-            return new UsuarioDto
+            return new DetalleUsuarioDto
             {
                 Clave = entity.Clave.ToString(),
                 Nombre = entity.Nombre,
