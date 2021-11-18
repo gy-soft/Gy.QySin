@@ -6,7 +6,7 @@ using Gy.QySin.Domain.Interfaces;
 
 namespace Gy.QySin.Domain.Entities
 {
-    public class Usuario : IUsuario
+    public class Usuario
     {
         public Usuario() {}
         public Usuario(string nombre, UsuarioRoles rol)
