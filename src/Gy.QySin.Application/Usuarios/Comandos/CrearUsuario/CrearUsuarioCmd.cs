@@ -30,7 +30,7 @@ namespace Gy.QySin.Application.Usuarios.Comandos.CrearUsuario
             await context.Usuarios.AddAsync(entity, cancellationToken);
             await context.SaveChangesAsync(cancellationToken);
             
-            return entity.Clave;
+            return entity.Clave.ToString();
         }
     }
 }

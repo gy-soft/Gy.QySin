@@ -30,7 +30,7 @@ namespace Gy.QySin.Application.Usuarios.Consultas.DetalleUsuario
 
             return new UsuarioDto
             {
-                Clave = entity.Clave,
+                Clave = entity.Clave.ToString(),
                 Nombre = entity.Nombre,
                 NombreCorto = entity.NombreCorto,
                 Activo = entity.Activo,

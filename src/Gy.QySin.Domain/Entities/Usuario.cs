@@ -11,7 +11,7 @@ namespace Gy.QySin.Domain.Entities
         public Usuario() {}
         public Usuario(string nombre, UsuarioRoles rol)
         {
-            Clave = Guid.NewGuid().ToString();
+            Clave = Guid.NewGuid();
             Nombre = nombre;
             Roles = new List<UsuarioRoles>()
             {
@@ -19,7 +19,7 @@ namespace Gy.QySin.Domain.Entities
             };
         }
         [Key]
-        public string Clave { get; set; }
+        public Guid Clave { get; set; }
         public string NombreCorto { get; set; }
         public string Nombre { get; set; }
         public List<UsuarioRoles> Roles { get; set; }

@@ -34,7 +34,7 @@ namespace Gy.QySin.Application.Usuarios.Consultas.ListarUsuarios
                     .OrderBy(u => u.Nombre)
                     .Select(u => new UsuarioDto
                     {
-                        Clave = u.Clave,
+                        Clave = u.Clave.ToString(),
                         NombreCorto = u.NombreCorto,
                         Nombre = u.Nombre,
                         Activo = request.Activo
