@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Gy.QySin.Application.Usuarios.Comandos.ActualizarUsuario;
 using Gy.QySin.Application.Usuarios.Comandos.CrearUsuario;
 using Gy.QySin.Application.Usuarios.Comandos.DesactivarUsuario;
+using Gy.QySin.Application.Usuarios.Comandos.ExtenderUsuario;
 using Gy.QySin.Application.Usuarios.Consultas.DetalleUsuario;
 using Gy.QySin.Application.Usuarios.Consultas.ListarUsuarios;
 using Microsoft.AspNetCore.Mvc;
@@ -36,8 +37,15 @@ namespace Gy.QySin.WebApi.Controllers
             await Mediator.Send(comando);
             return NoContent();
         }
+        [HttpPatch("{id}")]
+        public async Task<ActionResult> Patch(string id, ExtenderUsuarioCmd comando)
+        {
+            comando.Clave = id;
+            await Mediator.Send(comando);
+            return NoContent();
+        }
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Update(string id)
+        public async Task<ActionResult> Delete(string id)
         {
             var comando = new DesactivarUsuarioCmd
             {
