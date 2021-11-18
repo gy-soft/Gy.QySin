@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Gy.QySin.Domain.Enums;
 
@@ -7,18 +8,18 @@ namespace Gy.QySin.Domain.Entities
 {
     public class Comanda
     {
-        public Comanda(int numeroOrden, string mesero)
+        public Comanda() {}
+        public Comanda(string mesero)
         {
-            NumeroOrden = numeroOrden;
             Mesero = mesero;
             Estado = ComandaEstados.Nueva;
             Ordenes = new List<Orden>();
         }
-        public int NumeroOrden { get; }
+        public int NumeroComanda { get; set; }
         public int Mesa { get; set; }
         public string Mesero { get; set; }
         public DateTime FechaHoraAlta { get; set; }
-        public IEnumerable<Orden> Ordenes { get; set; }
+        public List<Orden> Ordenes { get; set; }
         public ComandaEstados Estado { get; set; }
         
         public decimal CalcularTotal()

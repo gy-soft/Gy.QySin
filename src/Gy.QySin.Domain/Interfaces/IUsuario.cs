@@ -7,6 +7,6 @@ namespace Gy.QySin.Domain.Interfaces
     {
         string Clave { get; }
         string NombreCorto { get; }
-        IEnumerable<UsuarioRoles> Roles { get; }
+        List<UsuarioRoles> Roles { get; }
     }
 }

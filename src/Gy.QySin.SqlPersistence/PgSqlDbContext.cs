@@ -1,5 +1,6 @@
 using Gy.QySin.Application.Common;
 using Gy.QySin.Domain.Entities;
+using Gy.QySin.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gy.QySin.SqlPersistence
@@ -39,10 +40,11 @@ namespace Gy.QySin.SqlPersistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Bebida>()
-                .ToView("vBebidas");
-            modelBuilder.Entity<Platillo>()
-                .ToView("vPlatillos");
+            modelBuilder.Entity<BaseOrdenable>()
+                .HasDiscriminator(o => o.Categoria);
+            modelBuilder.Entity<Comanda>()
+                .HasKey(c => c.NumeroComanda)
+                .HasName("Comanda_pkey");
         }
     }
 }
