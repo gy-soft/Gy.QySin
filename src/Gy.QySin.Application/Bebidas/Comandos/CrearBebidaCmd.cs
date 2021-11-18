@@ -32,6 +32,8 @@ namespace Gy.QySin.Application.Bebidas.Comandos
             );
 
             await context.Bebidas.AddAsync(entity, cancellationToken);
+            await context.SaveChangesAsync(cancellationToken);
+
             return entity.Clave.ToString();
         }
     }

@@ -1,7 +1,8 @@
 -- drop tables
-DROP TABLE IF EXIST "Ordenables";
-DROP TABLE IF EXIST "Usuarios";
+DROP TABLE IF EXISTS "Bebidas";
+DROP TABLE IF EXISTS "Ordenables";
+DROP TABLE IF EXISTS "Usuarios";
 
 --drop types
-DROP TYPE IF EXIST "OrdenableCategoria";
-DROP TYPE IF EXIST "UsuarioRoles";
+DROP TYPE IF EXISTS "OrdenableCategorias";
+DROP TYPE IF EXISTS "UsuarioRoles";

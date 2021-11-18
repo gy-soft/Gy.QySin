@@ -18,6 +18,7 @@ namespace Gy.QySin.SqlPersistence
             : base(options) {
             NpgsqlConnection.GlobalTypeMapper.MapEnum<OrdenableCategorias>();
             NpgsqlConnection.GlobalTypeMapper.MapEnum<UsuarioRoles>("UsuarioRoles");
+            NpgsqlConnection.GlobalTypeMapper.MapEnum<OrdenableCategorias>("OrdenableCategorias");
         }
 
         public DbSet<Ordenable> Ordenables { get; set; }
@@ -28,8 +29,8 @@ namespace Gy.QySin.SqlPersistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasPostgresEnum<OrdenableCategorias>();
             modelBuilder.HasPostgresEnum<UsuarioRoles>();
+            modelBuilder.HasPostgresEnum<OrdenableCategorias>();
             modelBuilder.Entity<Ordenable>()
                 .ToTable("Ordenables");
             modelBuilder.Entity<Bebida>()
