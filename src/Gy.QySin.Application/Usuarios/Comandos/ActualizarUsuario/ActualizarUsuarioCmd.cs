@@ -4,7 +4,7 @@ using Gy.QySin.Application.Common;
 using Gy.QySin.Domain.Entities;
 using MediatR;
 
-namespace Gy.QySin.Application.Usuarios.ActualizarUsuario
+namespace Gy.QySin.Application.Usuarios.Comandos.ActualizarUsuario
 {
     public class ActualizarUsuarioCmd : IRequest
     {
@@ -23,8 +23,9 @@ namespace Gy.QySin.Application.Usuarios.ActualizarUsuario
 
         public async Task<Unit> Handle(ActualizarUsuarioCmd request, CancellationToken cancellationToken)
         {
+            var pk = System.Guid.Parse(request.Clave);
             var entity = await context.Usuarios
-                .FindAsync(request.Clave, cancellationToken);
+                .FindAsync(pk, cancellationToken);
 
             if (entity == null)
             {

@@ -21,6 +21,7 @@ namespace Gy.QySin.Application.Usuarios.Comandos.DesactivarUsuario
 
         public async Task<Unit> Handle(DesactivarUsuarioCmd request, CancellationToken cancellationToken)
         {
+            var pk = System.Guid.Parse(request.Clave);
             var entity = await context.Usuarios
                 .FindAsync(request.Clave, cancellationToken);
 
@@ -29,6 +30,7 @@ namespace Gy.QySin.Application.Usuarios.Comandos.DesactivarUsuario
                 throw new NotFoundException(nameof(Usuario), request.Clave);
             }
 
+            entity.Roles = null;
             entity.Activo = false;
             await context.SaveChangesAsync(cancellationToken);
 

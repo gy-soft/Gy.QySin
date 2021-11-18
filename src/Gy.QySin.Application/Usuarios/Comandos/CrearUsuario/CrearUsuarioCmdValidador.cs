@@ -8,7 +8,8 @@ namespace Gy.QySin.Application.Usuarios.Comandos.CrearUsuario
         {
             RuleFor(cmd => cmd.Nombre)
                 .NotEmpty().WithMessage("'Nombre' es requerido.");
-            // Validar longitud del campo
+            RuleFor(cmd => cmd.Nombre)
+                .MaximumLength(50);
         }
     }
 }
