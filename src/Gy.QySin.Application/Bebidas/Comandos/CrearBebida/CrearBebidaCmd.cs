@@ -4,7 +4,7 @@ using Gy.QySin.Application.Common;
 using Gy.QySin.Domain.Entities;
 using MediatR;
 
-namespace Gy.QySin.Application.Bebidas.Comandos
+namespace Gy.QySin.Application.Bebidas.Comandos.CrearBebida
 {
     public class CrearBebidaCmd : IRequest<string>
     {
