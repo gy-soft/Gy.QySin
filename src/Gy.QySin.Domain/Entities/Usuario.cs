@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Gy.QySin.Domain.Enums;
-using Gy.QySin.Domain.Interfaces;
 
 namespace Gy.QySin.Domain.Entities
 {
@@ -17,6 +16,7 @@ namespace Gy.QySin.Domain.Entities
             {
                 rol
             };
+            Activo = true;
         }
         [Key]
         public Guid Clave { get; set; }
