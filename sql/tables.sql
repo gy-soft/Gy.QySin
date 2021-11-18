@@ -8,7 +8,7 @@ CREATE TABLE "Usuarios" (
 
 CREATE TABLE "Ordenables" (
     "Clave" UUID UNIQUE NOT NULL,
-    "Nombre" CHARACTER VARYING(50) NOT NULL,
+    "Nombre" CHARACTER VARYING(50) UNIQUE NOT NULL,
     "Imagen" TEXT,
     "Precio" MONEY NOT NULL,
     "Categoria" "OrdenableCategoria" NOT NULL

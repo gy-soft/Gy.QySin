@@ -5,8 +5,12 @@ namespace Gy.QySin.Domain.Entities
 {
     public class Ordenable
     {
+        public Ordenable(string nombre, decimal precio) {
+            Nombre = nombre;
+            Precio = precio;
+        }
         [Key]
-        public string Clave { get; set; }
+        public System.Guid Clave { get; set; }
         public string Nombre { get; set; }
         public string Imagen { get; set; }
         public decimal Precio { get; set; }

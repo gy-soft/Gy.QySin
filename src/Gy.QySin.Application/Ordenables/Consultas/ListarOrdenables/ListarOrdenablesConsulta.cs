@@ -35,7 +35,7 @@ namespace Gy.QySin.Application.Ordenables.Consultas.ListarOrdenables
                     .Where(o => !request.Categoria.HasValue || o.Categoria == request.Categoria)
                     .Select(o => new OrdenableDto
                     {
-                        Clave = o.Clave,
+                        Clave = o.Clave.ToString(),
                         Nombre = o.Nombre,
                         Precio = o.Precio,
                         Categoria = o.Categoria
