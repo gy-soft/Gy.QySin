@@ -12,6 +12,7 @@ namespace Gy.QySin.Application.Usuarios.Consultas.ListarUsuarios
     public class ListarUsuariosCon : IRequest<UsuariosVm>
     {
         public bool? Activo { get; set; }
+        public UsuarioRoles? Rol { get; set; }
     }
     public class ListarUsuariosConMnjr : IRequestHandler<ListarUsuariosCon, UsuariosVm>
     {
@@ -31,6 +32,7 @@ namespace Gy.QySin.Application.Usuarios.Consultas.ListarUsuarios
                     .ToList(),
                 Usuarios = await context.Usuarios
                     .Where(u => !request.Activo.HasValue || u.Activo == request.Activo)
+                    .Where(u => !request.Rol.HasValue || u.Roles.Contains(request.Rol.Value))
                     .OrderBy(u => u.Nombre)
                     .Select(u => new UsuarioDto
                     {
