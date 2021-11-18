@@ -23,7 +23,7 @@ namespace Gy.QySin.Application.Usuarios.Comandos.DesactivarUsuario
         {
             var pk = System.Guid.Parse(request.Clave);
             var entity = await context.Usuarios
-                .FindAsync(request.Clave, cancellationToken);
+                .FindAsync(pk);
 
             if (entity == null)
             {

@@ -25,7 +25,7 @@ namespace Gy.QySin.Application.Usuarios.Comandos.ActualizarUsuario
         {
             var pk = System.Guid.Parse(request.Clave);
             var entity = await context.Usuarios
-                .FindAsync(pk, cancellationToken);
+                .FindAsync(pk);
 
             if (entity == null)
             {
