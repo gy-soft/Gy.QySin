@@ -31,7 +31,10 @@ namespace Gy.QySin.Application.Ordenables.Consultas.ListarOrdenables
                     .Select(c => new OrdenableCategoriaDto { Value = (int)c, Name = c.ToString() })
                     .ToList(),
                 Ordenables = await context.Ordenables
-                    .Where(o => string.IsNullOrWhiteSpace(request.PalabraClave) || o.Nombre.Contains(request.PalabraClave))
+                    .Where(o => 
+                        string.IsNullOrWhiteSpace(request.PalabraClave)
+                        || o.Nombre.ToUpper().Contains(request.PalabraClave.ToUpper())
+                    )
                     .Where(o => !request.Categoria.HasValue || o.Categoria == request.Categoria)
                     .Select(o => new OrdenableDto
                     {
