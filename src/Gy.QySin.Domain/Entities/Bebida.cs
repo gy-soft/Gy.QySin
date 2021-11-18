@@ -2,7 +2,7 @@ using Gy.QySin.Domain.Enums;
 
 namespace Gy.QySin.Domain.Entities
 {
-    public class Bebida : BaseOrdenable
+    public class Bebida : Ordenable
     {
         // Mililitros
         public int Contenido { get; set; }

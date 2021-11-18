@@ -2,7 +2,7 @@ using Gy.QySin.Domain.Enums;
 
 namespace Gy.QySin.Domain.Entities
 {
-    public class Platillo : BaseOrdenable
+    public class Platillo : Ordenable
     {
         public string Descripción { get; set; }
         public bool Vegetariano { get; set; }

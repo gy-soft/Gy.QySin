@@ -8,6 +8,6 @@ namespace Gy.QySin.Domain.Entities
         public int NoOrden { get; set; }
         public string NotaMesero { get; set; }
         public string NotaCocina { get; set; }
-        public BaseOrdenable Ordenable { get; set; }
+        public Ordenable Ordenable { get; set; }
     }
 }

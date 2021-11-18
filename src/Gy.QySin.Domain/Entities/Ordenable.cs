@@ -1,10 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 using Gy.QySin.Domain.Enums;
-using Gy.QySin.Domain.Interfaces;
 
 namespace Gy.QySin.Domain.Entities
 {
-    public class BaseOrdenable : IOrdenable
+    public class Ordenable
     {
         [Key]
         public string Clave { get; set; }

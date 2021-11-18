@@ -7,7 +7,7 @@ namespace Gy.QySin.Application.Common
 {
     public interface IApplicationDbContext
     {
-        DbSet<BaseOrdenable> Ordenables {get;set;}
+        DbSet<Ordenable> Ordenables {get;set;}
         DbSet<Bebida> Bebidas { get; set; }
         DbSet<Platillo> Platillos { get; set; }
         DbSet<Comanda> Comandas { get; set; }

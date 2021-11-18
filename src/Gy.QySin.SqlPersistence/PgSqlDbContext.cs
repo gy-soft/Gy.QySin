@@ -20,7 +20,7 @@ namespace Gy.QySin.SqlPersistence
             NpgsqlConnection.GlobalTypeMapper.MapEnum<UsuarioRoles>("UsuarioRoles");
         }
 
-        public DbSet<BaseOrdenable> Ordenables { get; set; }
+        public DbSet<Ordenable> Ordenables { get; set; }
         public DbSet<Bebida> Bebidas { get; set; }
         public DbSet<Platillo> Platillos { get; set; }
         public DbSet<Comanda> Comandas { get; set; }
@@ -30,7 +30,7 @@ namespace Gy.QySin.SqlPersistence
         {
             modelBuilder.HasPostgresEnum<OrdenableCategorias>();
             modelBuilder.HasPostgresEnum<UsuarioRoles>();
-            modelBuilder.Entity<BaseOrdenable>()
+            modelBuilder.Entity<Ordenable>()
                 .ToTable("Ordenables");
             modelBuilder.Entity<Bebida>()
                 .ToTable("Bebidas");
