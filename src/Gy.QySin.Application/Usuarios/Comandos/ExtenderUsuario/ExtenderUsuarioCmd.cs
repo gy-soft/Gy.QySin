@@ -1,7 +1,7 @@
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Gy.QySin.Application.Common;
+using Gy.QySin.Application.Common.Exceptions;
 using Gy.QySin.Domain.Entities;
 using Gy.QySin.Domain.Enums;
 using MediatR;

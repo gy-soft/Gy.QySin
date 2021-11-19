@@ -1,6 +1,6 @@
 using System;
 
-namespace Gy.QySin.Application.Common
+namespace Gy.QySin.Application.Common.Exceptions
 {
     public class NotFoundException : Exception
     {
