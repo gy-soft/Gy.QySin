@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
 using FluentValidation.Results;
+using Gy.QySin.Application.Common.Exceptions;
 using MediatR;
 
 namespace Gy.QySin.Application.Common
@@ -27,15 +28,18 @@ namespace Gy.QySin.Application.Common
 
             var context = new ValidationContext<TRequest>(request);
             IEnumerable<ValidationFailure> errores = validators
-                .Select(res => res.Validate(context))
+                .Select(val => val.Validate(context))
                 .SelectMany(res => res.Errors)
-                .Where(e => e is not null);
+                .Where(e => e is not null)
+                .ToArray();
 
             if (errores.Any())
             {
-                throw new ValidationException(
-                    $"Error validando la petición {typeof(TRequest).Name}",
-                    errores
+                throw new RequestValidationException(
+                    new ValidationException(
+                        $"Error validando la petición {typeof(TRequest).Name}",
+                        errores
+                    )
                 );
             }
 

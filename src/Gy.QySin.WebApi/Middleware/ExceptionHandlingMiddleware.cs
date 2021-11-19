@@ -1,8 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Gy.QySin.Application.Common.Exceptions;
 using Microsoft.AspNetCore.Http;
 
 namespace Gy.QySin.WebApi.Middleware
@@ -15,7 +15,7 @@ namespace Gy.QySin.WebApi.Middleware
             {
                 await next(context);
             }
-            catch (FluentValidation.ValidationException e)
+            catch (RequestValidationException e)
             {
                 var response = new
                 {
