@@ -10,6 +10,7 @@ namespace Gy.QySin.Application.Bebidas.Comandos.ExtenderBebida
     {
         public string Clave { get; set; }
         public string Nombre { get; set; }
+        public string Imagen { get; set; }
         public int? Contenido { get; set; }
         public bool? Rellenable { get; set; }
     }
@@ -33,6 +34,7 @@ namespace Gy.QySin.Application.Bebidas.Comandos.ExtenderBebida
             }
 
             entity.Nombre = request.Nombre is null ? entity.Nombre : request.Nombre;
+            entity.Imagen = request.Imagen is null ? entity.Imagen : request.Imagen;
             entity.Contenido = request.Contenido ?? entity.Contenido;
             entity.Rellenable = request.Rellenable ?? entity.Rellenable;
 
