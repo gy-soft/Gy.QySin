@@ -2,6 +2,7 @@ using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using MediatR;
 using FluentValidation;
+using Gy.QySin.Application.Common;
 
 namespace Gy.QySin.Application
 {
@@ -11,6 +12,7 @@ namespace Gy.QySin.Application
         {
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             return services;
         }
     }

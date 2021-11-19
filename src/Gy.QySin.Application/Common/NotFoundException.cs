@@ -17,7 +17,7 @@ namespace Gy.QySin.Application.Common
         { }
 
         public NotFoundException(string name, object key)
-            : base($"Entity \"name\" ({key}) was not found.")
+            : base($"La entidad \"{name}\" ({key}) no fué encontrada.")
         { }
     }
 }
