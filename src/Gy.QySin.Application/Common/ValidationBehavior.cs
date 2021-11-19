@@ -34,7 +34,7 @@ namespace Gy.QySin.Application.Common
             if (errores.Any())
             {
                 throw new ValidationException(
-                    $"Error validando la petición {nameof(TRequest)}",
+                    $"Error validando la petición {typeof(TRequest).Name}",
                     errores
                 );
             }
