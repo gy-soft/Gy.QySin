@@ -24,5 +24,19 @@ namespace Gy.QySin.Domain.Entities
         public string Nombre { get; set; }
         public List<UsuarioRoles> Roles { get; set; }
         public bool Activo { get; set; }
+        public void AgregarRol(UsuarioRoles rol)
+        {
+            if (Roles is null)
+            {
+                Roles = new List<UsuarioRoles>()
+                {
+                    rol
+                };
+            }
+            else if (!Roles.Contains(rol))
+            {
+                Roles.Add(rol);
+            }
+        }
     }
 }

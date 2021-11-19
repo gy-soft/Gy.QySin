@@ -33,17 +33,8 @@ namespace Gy.QySin.Application.Usuarios.Comandos.ExtenderUsuario
             }
 
             entity.Activo = true;
-            if (entity.Roles is null)
-            {
-                entity.Roles = new List<UsuarioRoles>()
-                {
-                    request.Rol
-                };
-            }
-            else if (!entity.Roles.Contains(request.Rol))
-            {
-                entity.Roles.Add(request.Rol);
-            }
+            entity.AgregarRol(request.Rol);
+            
             await context.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
