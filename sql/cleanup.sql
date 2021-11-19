@@ -1,5 +1,6 @@
 -- drop tables
 DROP TABLE IF EXISTS "Bebidas";
+DROP TABLE IF EXISTS "Platillos";
 DROP TABLE IF EXISTS "Ordenables";
 DROP TABLE IF EXISTS "Usuarios";
 

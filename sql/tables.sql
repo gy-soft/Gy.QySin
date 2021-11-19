@@ -11,7 +11,7 @@ CREATE TABLE "Ordenables" (
     "Nombre" CHARACTER VARYING(50) UNIQUE NOT NULL,
     "Imagen" TEXT,
     "Precio" MONEY NOT NULL,
-    "Categoria" "OrdenableCategoria" NOT NULL
+    "Categoria" "OrdenableCategorias" NOT NULL
 );
 
 CREATE TABLE "Bebidas" (
@@ -19,4 +19,11 @@ CREATE TABLE "Bebidas" (
     "Contenido" INTEGER NOT NULL,
     "Rellenable" BOOLEAN NOT NULL,
     CONSTRAINT "Bebidas_Ordenables_Clave_fkey" FOREIGN KEY("Clave") REFERENCES "Ordenables"("Clave")
+);
+
+CREATE TABLE "Platillos" (
+    "Clave" UUID CONSTRAINT "Platillos_pkey" PRIMARY KEY,
+    "Descripción" TEXT,
+    "Vegetariano" BOOLEAN NOT NULL,
+    CONSTRAINT "Platillos_Ordenables_Clave_fkey" FOREIGN KEY("Clave") REFERENCES "Ordenables"("Clave")
 );
