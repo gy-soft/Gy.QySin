@@ -4,7 +4,7 @@ using Gy.QySin.Application.Common;
 using Gy.QySin.Domain.Entities;
 using MediatR;
 
-namespace Gy.QySin.Application.Platillos.CrearPlatillo
+namespace Gy.QySin.Application.Platillos.Comandos.CrearPlatillo
 {
     public class CrearPlatilloCmd : IRequest<string>
     {
