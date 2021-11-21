@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using Gy.QySin.Application.Common;
+using Gy.QySin.Application.Common.Interfaces;
 
 namespace Gy.QySin.SqlPersistence
 {
