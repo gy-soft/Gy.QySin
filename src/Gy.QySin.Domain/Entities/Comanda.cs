@@ -20,19 +20,12 @@ namespace Gy.QySin.Domain.Entities
         public List<Orden> Ordenes { get; set; }
         public ComandaEstados Estado { get; set; }
         
-        public void AgregarOrden(Orden orden)
+        public void AgregarOrdenes(IEnumerable<Orden> ordenes)
         {
             if (Ordenes is null)
-            {
-                Ordenes = new List<Orden>
-                {
-                    orden
-                };
-            }
-            else
-            {
-                Ordenes.Add(orden);
-            }
+                Ordenes = new List<Orden>();
+
+            Ordenes.AddRange(ordenes);
         }
         public decimal CalcularTotal()
         {

@@ -22,6 +22,7 @@ namespace Gy.QySin.Application.Comandas.Comandos.CrearComanda
         public async Task<int> Handle(CrearComandaCmd request, CancellationToken cancellationToken)
         {
             var entity = new Comanda(request.Mesero, request.Mesa);
+            entity.FechaHoraAlta = System.DateTime.Now;
             
             await context.Comandas.AddAsync(entity, cancellationToken);
             await context.SaveChangesAsync(cancellationToken);
