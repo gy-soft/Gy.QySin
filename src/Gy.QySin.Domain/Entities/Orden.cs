@@ -6,8 +6,7 @@ namespace Gy.QySin.Domain.Entities
     {
         [Key]
         public int NoOrden { get; set; }
-        public string NotaMesero { get; set; }
-        public string NotaCocina { get; set; }
+        public string Nota { get; set; }
         public Ordenable Ordenable { get; set; }
     }
 }
