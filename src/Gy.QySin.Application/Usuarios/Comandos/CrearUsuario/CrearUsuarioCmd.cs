@@ -14,11 +14,11 @@ namespace Gy.QySin.Application.Usuarios.Comandos.CrearUsuario
     }
     public class CrearUsuarioCmdMnjr : IRequestHandler<CrearUsuarioCmd, string>
     {
-        private readonly IApplicationDbContext context;
+        private readonly IApplicationRepositories repos;
 
-        public CrearUsuarioCmdMnjr(IApplicationDbContext context)
+        public CrearUsuarioCmdMnjr(IApplicationRepositories repos)
         {
-            this.context = context;
+            this.repos = repos;
         }
         public async Task<string> Handle(CrearUsuarioCmd request, CancellationToken cancellationToken)
         {
@@ -27,10 +27,9 @@ namespace Gy.QySin.Application.Usuarios.Comandos.CrearUsuario
                 request.Rol
             );
 
-            await context.Usuarios.AddAsync(entity, cancellationToken);
-            await context.SaveChangesAsync(cancellationToken);
+            var id = await repos.Usuarios.AddAsync(entity, cancellationToken);
             
-            return entity.Clave.ToString();
+            return id.ToString();
         }
     }
 }

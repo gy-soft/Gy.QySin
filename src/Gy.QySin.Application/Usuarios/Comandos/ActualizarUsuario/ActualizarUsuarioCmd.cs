@@ -15,18 +15,18 @@ namespace Gy.QySin.Application.Usuarios.Comandos.ActualizarUsuario
     }
     public class ActualizarUsuarioCmdMnjr : IRequestHandler<ActualizarUsuarioCmd>
     {
-        private readonly IApplicationDbContext context;
+        private readonly IApplicationRepositories repos;
 
-        public ActualizarUsuarioCmdMnjr(IApplicationDbContext context)
+        public ActualizarUsuarioCmdMnjr(IApplicationRepositories repos)
         {
-            this.context = context;
+            this.repos = repos;
         }
 
         public async Task<Unit> Handle(ActualizarUsuarioCmd request, CancellationToken cancellationToken)
         {
             var pk = System.Guid.Parse(request.Clave);
-            var entity = await context.Usuarios
-                .FindAsync(pk);
+            var entity = await repos.Usuarios
+                .GetAsync(pk, cancellationToken);
 
             if (entity == null)
             {
@@ -36,7 +36,7 @@ namespace Gy.QySin.Application.Usuarios.Comandos.ActualizarUsuario
             entity.Nombre = request.Nombre;
             entity.NombreCorto = request.NombreCorto;
             
-            await context.SaveChangesAsync(cancellationToken);
+            await repos.Usuarios.AddAsync(entity, cancellationToken);
             return Unit.Value;
         }
     }
