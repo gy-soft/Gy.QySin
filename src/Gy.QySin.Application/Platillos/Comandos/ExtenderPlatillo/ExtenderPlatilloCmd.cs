@@ -4,6 +4,7 @@ using Gy.QySin.Application.Common.Interfaces;
 using Gy.QySin.Application.Common.Exceptions;
 using Gy.QySin.Domain.Entities;
 using MediatR;
+using System;
 
 namespace Gy.QySin.Application.Platillos.ExtenderPlatillo
 {
@@ -17,29 +18,32 @@ namespace Gy.QySin.Application.Platillos.ExtenderPlatillo
     }
     public class ExtenderPlatilloCmdMnjr : IRequestHandler<ExtenderPlatilloCmd>
     {
-        private readonly IApplicationDbContext context;
+        private readonly IApplicationRepositories repos;
 
-        public ExtenderPlatilloCmdMnjr(IApplicationDbContext context)
+        public ExtenderPlatilloCmdMnjr(IApplicationRepositories repos)
         {
-            this.context = context;
+            this.repos = repos;
         }
         public async Task<Unit> Handle(ExtenderPlatilloCmd request, CancellationToken cancellationToken)
         {
             var pk = System.Guid.Parse(request.Clave);
-            var entity = await context.Platillos
-                .FindAsync(pk);
+            var entity = await repos.Platillos
+                .GetAsync(pk, cancellationToken);
 
             if (entity == null)
             {
                 throw new NotFoundException(nameof(Platillo), request.Clave);
             }
 
-            entity.Nombre = request.Nombre ?? entity.Nombre;
-            entity.Imagen = request.Imagen ?? entity.Imagen;
-            entity.Descripción = request.Descripción ?? entity.Descripción;
-            entity.Vegetariano = request.Vegetariano ?? entity.Vegetariano;
+            Action<Platillo> updateAction = (platillo) =>
+            {
+                platillo.Nombre = request.Nombre ?? platillo.Nombre;
+                platillo.Imagen = request.Imagen ?? platillo.Imagen;
+                platillo.Descripción = request.Descripción ?? platillo.Descripción;
+                platillo.Vegetariano = request.Vegetariano ?? platillo.Vegetariano;
+            };
 
-            await context.SaveChangesAsync(cancellationToken);
+            await repos.Platillos.UpdateAsync(entity, updateAction, cancellationToken);
             return Unit.Value;
         }
     }

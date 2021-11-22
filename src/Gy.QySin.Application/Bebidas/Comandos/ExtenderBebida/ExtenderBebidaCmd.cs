@@ -4,6 +4,7 @@ using Gy.QySin.Application.Common.Interfaces;
 using Gy.QySin.Application.Common.Exceptions;
 using Gy.QySin.Domain.Entities;
 using MediatR;
+using System;
 
 namespace Gy.QySin.Application.Bebidas.Comandos.ExtenderBebida
 {
@@ -17,29 +18,32 @@ namespace Gy.QySin.Application.Bebidas.Comandos.ExtenderBebida
     }
     public class ExtenderBebidaCmdMnjr : IRequestHandler<ExtenderBebidaCmd>
     {
-        private readonly IApplicationDbContext context;
+        private readonly IApplicationRepositories repos;
 
-        public ExtenderBebidaCmdMnjr(IApplicationDbContext context)
+        public ExtenderBebidaCmdMnjr(IApplicationRepositories repos)
         {
-            this.context = context;
+            this.repos = repos;
         }
         public async Task<Unit> Handle(ExtenderBebidaCmd request, CancellationToken cancellationToken)
         {
-            var pk = System.Guid.Parse(request.Clave);
-            var entity = await context.Bebidas
-                .FindAsync(pk);
+            var pk = Guid.Parse(request.Clave);
+            var entity = await repos.Bebidas
+                .GetAsync(pk, cancellationToken);
 
             if (entity == null)
             {
                 throw new NotFoundException(nameof(Bebida), request.Clave);
             }
 
-            entity.Nombre = request.Nombre ?? entity.Nombre;
-            entity.Imagen = request.Imagen ?? entity.Imagen;
-            entity.Contenido = request.Contenido ?? entity.Contenido;
-            entity.Rellenable = request.Rellenable ?? entity.Rellenable;
+            Action<Bebida> updateAction = (bebida) =>
+            {
+                bebida.Nombre = request.Nombre ?? bebida.Nombre;
+                bebida.Imagen = request.Imagen ?? bebida.Imagen;
+                bebida.Contenido = request.Contenido ?? bebida.Contenido;
+                bebida.Rellenable = request.Rellenable ?? bebida.Rellenable;
+            };
 
-            await context.SaveChangesAsync(cancellationToken);
+            await repos.Bebidas.UpdateAsync(entity, updateAction, cancellationToken);
             return Unit.Value;
         }
     }

@@ -15,15 +15,14 @@ namespace Gy.QySin.Application.Bebidas.Comandos.CrearBebida
     }
     public class CrearBebidaCmdMnjr : IRequestHandler<CrearBebidaCmd, string>
     {
-        private readonly IApplicationDbContext context;
+        private readonly IApplicationRepositories repos;
 
-        public CrearBebidaCmdMnjr(IApplicationDbContext context)
+        public CrearBebidaCmdMnjr(IApplicationRepositories repos)
         {
-            this.context = context;
+            this.repos = repos;
         }
         public async Task<string> Handle(CrearBebidaCmd request, CancellationToken cancellationToken)
         {
-            // TODO: Agregar validador de nombre único
             var entity = new Bebida(
                 request.Nombre,
                 request.Precio,
@@ -31,10 +30,9 @@ namespace Gy.QySin.Application.Bebidas.Comandos.CrearBebida
                 request.Rellenable
             );
 
-            await context.Bebidas.AddAsync(entity, cancellationToken);
-            await context.SaveChangesAsync(cancellationToken);
+            var id = await repos.Bebidas.AddAsync(entity, cancellationToken);
 
-            return entity.Clave.ToString();
+            return id.ToString();
         }
     }
 }

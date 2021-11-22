@@ -15,11 +15,11 @@ namespace Gy.QySin.Application.Platillos.Comandos.CrearPlatillo
     }
     public class CrearPlatilloCmdMnjr : IRequestHandler<CrearPlatilloCmd, string>
     {
-        private readonly IApplicationDbContext context;
+        private readonly IApplicationRepositories repos;
 
-        public CrearPlatilloCmdMnjr(IApplicationDbContext context)
+        public CrearPlatilloCmdMnjr(IApplicationRepositories repos)
         {
-            this.context = context;
+            this.repos = repos;
         }
 
         public async Task<string> Handle(CrearPlatilloCmd request, CancellationToken cancellationToken)
@@ -31,10 +31,9 @@ namespace Gy.QySin.Application.Platillos.Comandos.CrearPlatillo
                 request.Vegetariano
             );
 
-            await context.Platillos.AddAsync(entity, cancellationToken);
-            await context.SaveChangesAsync(cancellationToken);
+            var id = await repos.Platillos.AddAsync(entity, cancellationToken);
 
-            return entity.Clave.ToString();
+            return id.ToString();
         }
     }
 }
