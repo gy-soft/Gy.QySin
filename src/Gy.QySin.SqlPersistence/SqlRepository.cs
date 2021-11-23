@@ -43,7 +43,9 @@ namespace Gy.QySin.SqlPersistence
 
         public IQueryable<TEntity> AsQueryable()
         {
-            return dbSet.AsQueryable();
+            return dbSet
+                .AsNoTracking()
+                .AsQueryable();
         }
     }
 }

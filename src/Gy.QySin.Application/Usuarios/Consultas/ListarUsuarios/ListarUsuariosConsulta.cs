@@ -42,7 +42,6 @@ namespace Gy.QySin.Application.Usuarios.Consultas.ListarUsuarios
                         Nombre = u.Nombre,
                         Activo = u.Activo
                     })
-                    .AsNoTracking()
                     .ToListAsync()
             };
         }

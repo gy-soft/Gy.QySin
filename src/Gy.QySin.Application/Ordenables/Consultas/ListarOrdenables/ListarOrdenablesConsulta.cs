@@ -44,7 +44,6 @@ namespace Gy.QySin.Application.Ordenables.Consultas.ListarOrdenables
                         Precio = o.Precio,
                         Categoria = o.Categoria
                     })
-                    .AsNoTracking()
                     .ToListAsync()
             };
         }
