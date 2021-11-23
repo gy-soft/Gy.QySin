@@ -2,6 +2,7 @@ using System;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Gy.QySin.Application.Bebidas.Comandos.ExtenderBebida;
+using Gy.QySin.Application.Common.Exceptions;
 using Gy.QySin.WebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +20,7 @@ namespace Gy.QySin.WebApi.Controllers
             var tipoComando = Type.GetType(typeName);
             if (tipoComando is null)
             {
-                throw new NotSupportedException("Entidad o comando no válidos.");
+                throw new InvalidCommandException();
             }
             var comando = JsonSerializer.Deserialize(petición.Valor, tipoComando);
             var response = await Mediator.Send(comando);

@@ -9,6 +9,7 @@ namespace Gy.QySin.WebApi.Middleware
 {
     public class ExceptionHandlingMiddleware : IMiddleware
     {
+        private const string STATUS_500_MESSAGE = "Ocurrió un error inesperado procesando la petición.";
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
             try
@@ -26,15 +27,16 @@ namespace Gy.QySin.WebApi.Middleware
                 context.Response.ContentType = "application/json";
                 await context.Response.WriteAsync(JsonSerializer.Serialize(response));
             }
+            catch (InvalidCommandException e)
+            {
+                context.Response.StatusCode = StatusCodes.Status400BadRequest;
+                await context.Response.WriteAsync(e.Message);
+            }
             catch (System.Exception)
             {
-                throw;
+                context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                await context.Response.WriteAsync(STATUS_500_MESSAGE);
             }
-        }
-        // TODO: Crear una excepción en la capa de Aplicación para formatear el error.
-        private IReadOnlyDictionary<string, string> GetValidationErrors(IEnumerable<FluentValidation.Results.ValidationFailure> validatonErrors)
-        {
-            return validatonErrors.ToDictionary(e => e.PropertyName, e => e.ErrorMessage);
         }
     }
 }
