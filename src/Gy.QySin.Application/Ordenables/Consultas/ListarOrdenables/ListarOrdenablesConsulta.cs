@@ -16,11 +16,11 @@ namespace Gy.QySin.Application.Ordenables.Consultas.ListarOrdenables
     }
     public class ListarOrdenablesConMnjr : IRequestHandler<ListarOrdenablesCon, OrdenablesVm>
     {
-        private readonly IApplicationDbContext context;
+        private readonly IApplicationRepositories repos;
 
-        public ListarOrdenablesConMnjr(IApplicationDbContext context)
+        public ListarOrdenablesConMnjr(IApplicationRepositories repos)
         {
-            this.context = context;
+            this.repos = repos;
         }
         public async Task<OrdenablesVm> Handle(ListarOrdenablesCon request, CancellationToken cancellationToken)
         {
@@ -30,7 +30,8 @@ namespace Gy.QySin.Application.Ordenables.Consultas.ListarOrdenables
                     .Cast<OrdenableCategorias>()
                     .Select(c => new OrdenableCategoriaDto { Value = (int)c, Name = c.ToString() })
                     .ToList(),
-                Ordenables = await context.Ordenables
+                Ordenables = await repos.Ordenables
+                    .AsQueryable()
                     .Where(o => 
                         string.IsNullOrWhiteSpace(request.PalabraClave)
                         || o.Nombre.ToUpper().Contains(request.PalabraClave.ToUpper())

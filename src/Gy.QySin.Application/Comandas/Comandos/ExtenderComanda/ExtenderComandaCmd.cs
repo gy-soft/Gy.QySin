@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,19 +15,22 @@ namespace Gy.QySin.Application.Comandas.Comandos.ExtenderComanda
     }
     public class ExtenderComandaCmdMnjr : IRequestHandler<ExtenderComandaCmd>
     {
-        private readonly IApplicationDbContext context;
+        private readonly IApplicationRepositories repos;
 
-        public ExtenderComandaCmdMnjr(IApplicationDbContext context)
+        public ExtenderComandaCmdMnjr(IApplicationRepositories repos)
         {
-            this.context = context;
+            this.repos = repos;
         }
         public async Task<Unit> Handle(ExtenderComandaCmd request, CancellationToken cancellationToken)
         {
-            var entity = await context.Comandas
-                .FindAsync(request.NumeroComanda);
-            
-            entity.AgregarOrdenes(request.Ordenes);
-            await context.SaveChangesAsync(cancellationToken);
+            var entity = await repos.Comandas
+                .GetAsync(request.NumeroComanda, cancellationToken);
+
+            Action<Comanda> updateAction = (comanda) =>
+            {
+                entity.AgregarOrdenes(request.Ordenes);
+            };
+            await repos.Comandas.UpdateAsync(entity, updateAction);
             return Unit.Value;
         }
     }

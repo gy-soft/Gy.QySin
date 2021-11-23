@@ -13,19 +13,18 @@ namespace Gy.QySin.Application.Comandas.Comandos.CrearComanda
     }
     public class CrearComandaCmdMnjr : IRequestHandler<CrearComandaCmd, int>
     {
-        private readonly IApplicationDbContext context;
+        private readonly IApplicationRepositories repos;
 
-        public CrearComandaCmdMnjr(IApplicationDbContext context)
+        public CrearComandaCmdMnjr(IApplicationRepositories repos)
         {
-            this.context = context;
+            this.repos = repos;
         }
         public async Task<int> Handle(CrearComandaCmd request, CancellationToken cancellationToken)
         {
             var entity = new Comanda(request.Mesero, request.Mesa);
             entity.FechaHoraAlta = System.DateTime.Now;
-            
-            await context.Comandas.AddAsync(entity, cancellationToken);
-            await context.SaveChangesAsync(cancellationToken);
+
+            await repos.Comandas.AddAsync(entity, cancellationToken);
 
             return entity.NúmeroComanda;
         }
