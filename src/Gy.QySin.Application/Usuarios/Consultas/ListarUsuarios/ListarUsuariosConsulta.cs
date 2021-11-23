@@ -16,11 +16,11 @@ namespace Gy.QySin.Application.Usuarios.Consultas.ListarUsuarios
     }
     public class ListarUsuariosConMnjr : IRequestHandler<ListarUsuariosCon, UsuariosVm>
     {
-        private readonly IApplicationDbContext context;
+        private readonly IApplicationRepositories repos;
 
-        public ListarUsuariosConMnjr(IApplicationDbContext context)
+        public ListarUsuariosConMnjr(IApplicationRepositories repos)
         {
-            this.context = context;
+            this.repos = repos;
         }
         public async Task<UsuariosVm> Handle(ListarUsuariosCon request, CancellationToken cancellationToken)
         {
@@ -30,7 +30,8 @@ namespace Gy.QySin.Application.Usuarios.Consultas.ListarUsuarios
                     .Cast<UsuarioRoles>()
                     .Select(r => new UsuarioRolDto { Value = (int)r, Name = r.ToString() })
                     .ToList(),
-                Usuarios = await context.Usuarios
+                Usuarios = await repos.Usuarios
+                    .AsQueryable()
                     .Where(u => !request.Activo.HasValue || u.Activo == request.Activo)
                     .Where(u => !request.Rol.HasValue || u.Roles.Contains(request.Rol.Value))
                     .OrderBy(u => u.Nombre)

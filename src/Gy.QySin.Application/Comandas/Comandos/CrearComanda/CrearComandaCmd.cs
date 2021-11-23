@@ -27,7 +27,7 @@ namespace Gy.QySin.Application.Comandas.Comandos.CrearComanda
             await context.Comandas.AddAsync(entity, cancellationToken);
             await context.SaveChangesAsync(cancellationToken);
 
-            return entity.NumeroComanda;
+            return entity.NúmeroComanda;
         }
     }
 }

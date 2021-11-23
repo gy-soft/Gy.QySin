@@ -13,17 +13,17 @@ namespace Gy.QySin.Application.Usuarios.Consultas.DetalleUsuario
     }
     public class DetalleUsuarioConMnjr : IRequestHandler<DetalleUsuarioCon, DetalleUsuarioDto>
     {
-        private readonly IApplicationDbContext context;
+        private readonly IApplicationRepositories repos;
 
-        public DetalleUsuarioConMnjr(IApplicationDbContext context)
+        public DetalleUsuarioConMnjr(IApplicationRepositories repos)
         {
-            this.context = context;
+            this.repos = repos;
         }
         public async Task<DetalleUsuarioDto> Handle(DetalleUsuarioCon request, CancellationToken cancellationToken)
         {
             var pk = System.Guid.Parse(request.Clave);
-            var entity = await context.Usuarios
-                .FindAsync(pk);
+            var entity = await repos.Usuarios
+                .GetAsync(pk, cancellationToken);
 
             if (entity == null)
             {

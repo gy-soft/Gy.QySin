@@ -38,7 +38,7 @@ namespace Gy.QySin.SqlPersistence
             modelBuilder.Entity<Platillo>()
                 .ToTable("Platillos");
             modelBuilder.Entity<Comanda>()
-                .HasKey(c => c.NumeroComanda)
+                .HasKey(c => c.NúmeroComanda)
                 .HasName("Comanda_pkey");
         }
     }

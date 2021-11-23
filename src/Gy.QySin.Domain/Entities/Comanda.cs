@@ -8,6 +8,10 @@ namespace Gy.QySin.Domain.Entities
 {
     public class Comanda : IEntity
     {
+        public Comanda()
+        {
+            
+        }
         public Comanda(string mesero, int mesa)
         {
             Mesero = System.Guid.Parse(mesero);

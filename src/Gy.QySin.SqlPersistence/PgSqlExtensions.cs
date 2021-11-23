@@ -19,6 +19,7 @@ namespace Gy.QySin.SqlPersistence
             services.AddDbContext<IApplicationDbContext, PgSqlDbContext>(options =>
                 options.UseNpgsql(configuration.GetConnectionString("PostgresConnectionString"))
             );
+            services.AddScoped<IApplicationRepositories, ApplicationRepositories>();
             services.AddScoped<IDbConfigurations, DbConfigurations>();
             return services;
         }
