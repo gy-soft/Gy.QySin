@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Gy.QySin.Domain.Enums;
+using Gy.QySin.Domain.Interfaces;
 
 namespace Gy.QySin.Domain.Entities
 {
-    public class Usuario
+    public class Usuario : IEntity
     {
         public Usuario() {}
         public Usuario(string nombre, UsuarioRoles rol)
@@ -24,6 +25,9 @@ namespace Gy.QySin.Domain.Entities
         public string Nombre { get; set; }
         public List<UsuarioRoles> Roles { get; set; }
         public bool Activo { get; set; }
+
+        public object Id => Clave;
+
         public void AgregarRol(UsuarioRoles rol)
         {
             if (Roles is null)
