@@ -5,21 +5,21 @@ using Gy.QySin.Application.Common.Exceptions;
 using Gy.QySin.Domain.Entities;
 using MediatR;
 
-namespace Gy.QySin.Application.Usuarios.Consultas.DetalleUsuario
+namespace Gy.QySin.Application.Usuarios.Consultas.DetalleUsuarios
 {
-    public class DetalleUsuarioCon : IRequest<DetalleUsuarioDto>
+    public class DetalleUsuariosCon : IRequest<DetalleUsuarioDto>
     {
         public string Clave { get; set; }
     }
-    public class DetalleUsuarioConMnjr : IRequestHandler<DetalleUsuarioCon, DetalleUsuarioDto>
+    public class DetalleUsuariosConMnjr : IRequestHandler<DetalleUsuariosCon, DetalleUsuarioDto>
     {
         private readonly IApplicationRepositories repos;
 
-        public DetalleUsuarioConMnjr(IApplicationRepositories repos)
+        public DetalleUsuariosConMnjr(IApplicationRepositories repos)
         {
             this.repos = repos;
         }
-        public async Task<DetalleUsuarioDto> Handle(DetalleUsuarioCon request, CancellationToken cancellationToken)
+        public async Task<DetalleUsuarioDto> Handle(DetalleUsuariosCon request, CancellationToken cancellationToken)
         {
             var pk = System.Guid.Parse(request.Clave);
             var entity = await repos.Usuarios

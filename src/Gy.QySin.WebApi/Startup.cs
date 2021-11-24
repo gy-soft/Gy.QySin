@@ -45,7 +45,7 @@ namespace Gy.QySin.WebApi
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}"
+                    pattern: "/{entity}/{operation}"
                 );
             });
         }

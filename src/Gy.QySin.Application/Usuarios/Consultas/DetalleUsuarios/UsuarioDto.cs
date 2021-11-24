@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Gy.QySin.Domain.Enums;
 
-namespace Gy.QySin.Application.Usuarios.Consultas.DetalleUsuario
+namespace Gy.QySin.Application.Usuarios.Consultas.DetalleUsuarios
 {
     public class DetalleUsuarioDto
     {
