@@ -4,6 +4,7 @@ using Gy.QySin.Application.Common.Interfaces;
 using Gy.QySin.Application.Common.Exceptions;
 using Gy.QySin.Domain.Entities;
 using MediatR;
+using System;
 
 namespace Gy.QySin.Application.Usuarios.Comandos.Actualizar
 {
@@ -33,10 +34,13 @@ namespace Gy.QySin.Application.Usuarios.Comandos.Actualizar
                 throw new NotFoundException(nameof(Usuario), request.Clave);
             }
 
-            entity.Nombre = request.Nombre;
-            entity.NombreCorto = request.NombreCorto;
-            
-            await repos.Usuarios.AddAsync(entity, cancellationToken);
+            Action<Usuario> updateAction = (usuario) =>
+            {
+                entity.Nombre = request.Nombre;
+                entity.NombreCorto = request.NombreCorto;
+            };
+
+            await repos.Usuarios.UpdateAsync(entity, updateAction, cancellationToken);
             return Unit.Value;
         }
     }

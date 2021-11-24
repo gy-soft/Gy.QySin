@@ -1,7 +1,7 @@
 using FluentValidation;
 using Gy.QySin.Application.Common.Interfaces;
 
-namespace Gy.QySin.Application.Bebidas.Comandos.CrearBebida
+namespace Gy.QySin.Application.Bebidas.Comandos.Crear
 {
     public class CrearBebidaCmdValidador : AbstractValidator<CrearCmd>
     {
