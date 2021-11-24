@@ -24,11 +24,8 @@ namespace Gy.QySin.WebApi.Controllers
             }
             var comando = JsonSerializer.Deserialize(petición.Valor, tipoComando);
             var response = await Mediator.Send(comando);
-            if (response is null)
-            {
-                return NoContent();
-            }
-            return Content(JsonSerializer.Serialize(response), "application/json");
+                
+            return NoContent();
         }
     }
 }
