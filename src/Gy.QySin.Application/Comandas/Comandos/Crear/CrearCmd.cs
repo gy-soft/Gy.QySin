@@ -4,22 +4,22 @@ using Gy.QySin.Application.Common.Interfaces;
 using Gy.QySin.Domain.Entities;
 using MediatR;
 
-namespace Gy.QySin.Application.Comandas.Comandos.CrearComanda
+namespace Gy.QySin.Application.Comandas.Comandos.Crear
 {
-    public class CrearComandaCmd : IRequest
+    public class CrearCmd : IRequest
     {
         public string Mesero { get; set; }
         public int Mesa { get; set; }
     }
-    public class CrearComandaCmdMnjr : IRequestHandler<CrearComandaCmd>
+    public class CrearCmdMnjr : IRequestHandler<CrearCmd>
     {
         private readonly IApplicationRepositories repos;
 
-        public CrearComandaCmdMnjr(IApplicationRepositories repos)
+        public CrearCmdMnjr(IApplicationRepositories repos)
         {
             this.repos = repos;
         }
-        public async Task<Unit> Handle(CrearComandaCmd request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CrearCmd request, CancellationToken cancellationToken)
         {
             var entity = new Comanda(request.Mesero, request.Mesa);
             entity.FechaHoraAlta = System.DateTime.Now;

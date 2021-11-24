@@ -1,15 +1,15 @@
 using FluentValidation;
 
-namespace Gy.QySin.Application.Comandas.Comandos.CrearComanda
+namespace Gy.QySin.Application.Comandas.Comandos.Crear
 {
-    public class CrearComandaCmdValidador : AbstractValidator<CrearComandaCmd>
+    public class CrearComandaCmdValidador : AbstractValidator<CrearCmd>
     {
         public CrearComandaCmdValidador()
         {
             RuleFor(cmd => cmd.Mesero)
                 .NotEmpty();
             RuleFor(cmd => cmd.Mesa)
-                .GreaterThan<CrearComandaCmd, int>(0);
+                .GreaterThan<CrearCmd, int>(0);
         }
     }
 }

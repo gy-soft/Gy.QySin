@@ -6,22 +6,22 @@ using Gy.QySin.Application.Common.Interfaces;
 using Gy.QySin.Domain.Entities;
 using MediatR;
 
-namespace Gy.QySin.Application.Comandas.Comandos.ExtenderComanda
+namespace Gy.QySin.Application.Comandas.Comandos.AgregarOrden
 {
-    public class ExtenderComandaCmd : IRequest
+    public class AgregarOrdenCmd : IRequest
     {
         public int NumeroComanda { get; set; }
         public IEnumerable<Orden> Ordenes { get; set; }
     }
-    public class ExtenderComandaCmdMnjr : IRequestHandler<ExtenderComandaCmd>
+    public class AgregarOrdenCmdMnjr : IRequestHandler<AgregarOrdenCmd>
     {
         private readonly IApplicationRepositories repos;
 
-        public ExtenderComandaCmdMnjr(IApplicationRepositories repos)
+        public AgregarOrdenCmdMnjr(IApplicationRepositories repos)
         {
             this.repos = repos;
         }
-        public async Task<Unit> Handle(ExtenderComandaCmd request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(AgregarOrdenCmd request, CancellationToken cancellationToken)
         {
             var entity = await repos.Comandas
                 .GetAsync(request.NumeroComanda, cancellationToken);
