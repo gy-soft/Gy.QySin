@@ -5,24 +5,24 @@ using Gy.QySin.Application.Common.Exceptions;
 using Gy.QySin.Domain.Entities;
 using MediatR;
 
-namespace Gy.QySin.Application.Usuarios.Comandos.ActualizarUsuario
+namespace Gy.QySin.Application.Usuarios.Comandos.Actualizar
 {
-    public class ActualizarUsuarioCmd : IRequest
+    public class ActualizarCmd : IRequest
     {
         public string Clave { get; set; }
         public string Nombre { get; set; }
         public string NombreCorto { get; set; }
     }
-    public class ActualizarUsuarioCmdMnjr : IRequestHandler<ActualizarUsuarioCmd>
+    public class ActualizarCmdMnjr : IRequestHandler<ActualizarCmd>
     {
         private readonly IApplicationRepositories repos;
 
-        public ActualizarUsuarioCmdMnjr(IApplicationRepositories repos)
+        public ActualizarCmdMnjr(IApplicationRepositories repos)
         {
             this.repos = repos;
         }
 
-        public async Task<Unit> Handle(ActualizarUsuarioCmd request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(ActualizarCmd request, CancellationToken cancellationToken)
         {
             var pk = System.Guid.Parse(request.Clave);
             var entity = await repos.Usuarios

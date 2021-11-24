@@ -1,17 +1,17 @@
 using FluentValidation;
 using Gy.QySin.Application.Common.Interfaces;
 
-namespace Gy.QySin.Application.Usuarios.Comandos.ActualizarUsuario
+namespace Gy.QySin.Application.Usuarios.Comandos.Actualizar
 {
-    public class ActualizarUsuarioCmdValidador : AbstractValidator<ActualizarUsuarioCmd>
+    public class ActualizarCmdValidador : AbstractValidator<ActualizarCmd>
     {
         private readonly IDbConfigurations dbConfigurations;
 
-        public ActualizarUsuarioCmdValidador(IDbConfigurations dbConfigurations)
+        public ActualizarCmdValidador(IDbConfigurations dbConfigurations)
         {
             this.dbConfigurations = dbConfigurations;
         }
-        public ActualizarUsuarioCmdValidador()
+        public ActualizarCmdValidador()
         {
             RuleFor(cmd => cmd.Clave)
                 .NotEmpty();
