@@ -6,14 +6,14 @@ using MediatR;
 
 namespace Gy.QySin.Application.Bebidas.Comandos.CrearBebida
 {
-    public class CrearBebidaCmd : IRequest<string>
+    public class CrearBebidaCmd : IRequest
     {
         public string Nombre { get; set; }
         public decimal Precio { get; set; }
         public int Contenido { get; set; }
         public bool Rellenable { get; set; }
     }
-    public class CrearBebidaCmdMnjr : IRequestHandler<CrearBebidaCmd, string>
+    public class CrearBebidaCmdMnjr : IRequestHandler<CrearBebidaCmd>
     {
         private readonly IApplicationRepositories repos;
 
@@ -21,7 +21,7 @@ namespace Gy.QySin.Application.Bebidas.Comandos.CrearBebida
         {
             this.repos = repos;
         }
-        public async Task<string> Handle(CrearBebidaCmd request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CrearBebidaCmd request, CancellationToken cancellationToken)
         {
             var entity = new Bebida(
                 request.Nombre,
@@ -32,7 +32,7 @@ namespace Gy.QySin.Application.Bebidas.Comandos.CrearBebida
 
             var id = await repos.Bebidas.AddAsync(entity, cancellationToken);
 
-            return id.ToString();
+            return Unit.Value;
         }
     }
 }

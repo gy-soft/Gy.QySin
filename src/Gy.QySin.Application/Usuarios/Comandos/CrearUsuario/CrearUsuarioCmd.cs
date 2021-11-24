@@ -7,12 +7,12 @@ using MediatR;
 
 namespace Gy.QySin.Application.Usuarios.Comandos.CrearUsuario
 {
-    public class CrearUsuarioCmd : IRequest<string>
+    public class CrearUsuarioCmd : IRequest
     {
         public string Nombre { get; set; }
         public UsuarioRoles Rol { get; set; }
     }
-    public class CrearUsuarioCmdMnjr : IRequestHandler<CrearUsuarioCmd, string>
+    public class CrearUsuarioCmdMnjr : IRequestHandler<CrearUsuarioCmd>
     {
         private readonly IApplicationRepositories repos;
 
@@ -20,7 +20,7 @@ namespace Gy.QySin.Application.Usuarios.Comandos.CrearUsuario
         {
             this.repos = repos;
         }
-        public async Task<string> Handle(CrearUsuarioCmd request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CrearUsuarioCmd request, CancellationToken cancellationToken)
         {
             var entity = new Usuario(
                 request.Nombre,
@@ -29,7 +29,7 @@ namespace Gy.QySin.Application.Usuarios.Comandos.CrearUsuario
 
             var id = await repos.Usuarios.AddAsync(entity, cancellationToken);
             
-            return id.ToString();
+            return Unit.Value;
         }
     }
 }

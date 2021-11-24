@@ -25,11 +25,6 @@ namespace Gy.QySin.WebApi.Controllers
             };
             return await Mediator.Send(consulta);
         }
-        [HttpPost]
-        public async Task<ActionResult<string>> Create(CrearUsuarioCmd comando)
-        {
-            return await Mediator.Send(comando);
-        }
         [HttpPut("{id}")]
         public async Task<ActionResult> Update(string id, ActualizarUsuarioCmd comando)
         {
