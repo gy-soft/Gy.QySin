@@ -7,22 +7,22 @@ using Gy.QySin.Domain.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Gy.QySin.Application.Ordenables.Consultas.ListarOrdenables
+namespace Gy.QySin.Application.Ordenables.Consultas.Listar
 {
-    public class ListarOrdenablesCon : IRequest<OrdenablesVm>
+    public class ListarCon : IRequest<OrdenablesVm>
     {
         public OrdenableCategorias? Categoria { get; set; }
         public string PalabraClave { get; set; }
     }
-    public class ListarOrdenablesConMnjr : IRequestHandler<ListarOrdenablesCon, OrdenablesVm>
+    public class ListarConMnjr : IRequestHandler<ListarCon, OrdenablesVm>
     {
         private readonly IApplicationRepositories repos;
 
-        public ListarOrdenablesConMnjr(IApplicationRepositories repos)
+        public ListarConMnjr(IApplicationRepositories repos)
         {
             this.repos = repos;
         }
-        public async Task<OrdenablesVm> Handle(ListarOrdenablesCon request, CancellationToken cancellationToken)
+        public async Task<OrdenablesVm> Handle(ListarCon request, CancellationToken cancellationToken)
         {
             return new OrdenablesVm
             {

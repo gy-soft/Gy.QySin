@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Gy.QySin.Application.Ordenables.Consultas.ListarOrdenables
+namespace Gy.QySin.Application.Ordenables.Consultas.Listar
 {
     public class OrdenablesVm
     {

@@ -6,22 +6,22 @@ using Gy.QySin.Domain.Entities;
 using MediatR;
 using System;
 
-namespace Gy.QySin.Application.Ordenables.Comandos.ExtenderOrdenable
+namespace Gy.QySin.Application.Ordenables.Comandos.ActualziarPrecio
 {
-    public class ExtenderOrdenableCmd : IRequest
+    public class ActualizarPrecioCmd : IRequest
     {
         public string Clave { get; set; }
         public decimal Precio { get; set; }
     }
-    public class ExtenderOrdenableCmdMnjr : IRequestHandler<ExtenderOrdenableCmd>
+    public class ActualizarPrecioCmdMnjr : IRequestHandler<ActualizarPrecioCmd>
     {
         private readonly IApplicationRepositories repos;
 
-        public ExtenderOrdenableCmdMnjr(IApplicationRepositories repos)
+        public ActualizarPrecioCmdMnjr(IApplicationRepositories repos)
         {
             this.repos = repos;
         }
-        public async Task<Unit> Handle(ExtenderOrdenableCmd request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(ActualizarPrecioCmd request, CancellationToken cancellationToken)
         {
             var pk = System.Guid.Parse(request.Clave);
             var entity = await repos.Ordenables
