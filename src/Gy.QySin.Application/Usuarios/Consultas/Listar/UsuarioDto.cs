@@ -1,4 +1,4 @@
-namespace Gy.QySin.Application.Usuarios.Consultas.ListarUsuarios
+namespace Gy.QySin.Application.Usuarios.Consultas.Listar
 {
     public class UsuarioDto
     {

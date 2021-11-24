@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using Gy.QySin.Domain.Enums;
 
-namespace Gy.QySin.Application.Usuarios.Consultas.DetalleUsuarios
+namespace Gy.QySin.Application.Usuarios.Consultas.Detalle
 {
-    public class DetalleUsuarioDto
+    public class DetalleDto
     {
         public string Clave { get; set; }
         public string NombreCorto { get; set; }

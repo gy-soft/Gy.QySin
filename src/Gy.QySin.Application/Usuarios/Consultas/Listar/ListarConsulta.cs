@@ -7,22 +7,22 @@ using Gy.QySin.Domain.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Gy.QySin.Application.Usuarios.Consultas.ListarUsuarios
+namespace Gy.QySin.Application.Usuarios.Consultas.Listar
 {
-    public class ListarUsuariosCon : IRequest<UsuariosVm>
+    public class ListarCon : IRequest<UsuariosVm>
     {
         public bool? Activo { get; set; }
         public UsuarioRoles? Rol { get; set; }
     }
-    public class ListarUsuariosConMnjr : IRequestHandler<ListarUsuariosCon, UsuariosVm>
+    public class ListarConMnjr : IRequestHandler<ListarCon, UsuariosVm>
     {
         private readonly IApplicationRepositories repos;
 
-        public ListarUsuariosConMnjr(IApplicationRepositories repos)
+        public ListarConMnjr(IApplicationRepositories repos)
         {
             this.repos = repos;
         }
-        public async Task<UsuariosVm> Handle(ListarUsuariosCon request, CancellationToken cancellationToken)
+        public async Task<UsuariosVm> Handle(ListarCon request, CancellationToken cancellationToken)
         {
             return new UsuariosVm
             {

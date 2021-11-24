@@ -1,9 +1,9 @@
 using FluentValidation;
 using Gy.QySin.Application.Common.Interfaces;
 
-namespace Gy.QySin.Application.Usuarios.Comandos.CrearUsuario
+namespace Gy.QySin.Application.Usuarios.Comandos.Crear
 {
-    public class CrearUsuarioCmdValidador : AbstractValidator<CrearUsuarioCmd>
+    public class CrearUsuarioCmdValidador : AbstractValidator<CrearCmd>
     {
         private readonly IDbConfigurations dbConfigurations;
 

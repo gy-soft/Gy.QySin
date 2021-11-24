@@ -6,22 +6,22 @@ using Gy.QySin.Domain.Entities;
 using MediatR;
 using System;
 
-namespace Gy.QySin.Application.Usuarios.Comandos.DesactivarUsuario
+namespace Gy.QySin.Application.Usuarios.Comandos.Desactivar
 {
-    public class DesactivarUsuarioCmd : IRequest
+    public class DesactivarCmd : IRequest
     {
         public string Clave { get; set; }
     }
-    public class DesactivarUsuarioCmdMnjr : IRequestHandler<DesactivarUsuarioCmd>
+    public class DesactivarCmdMnjr : IRequestHandler<DesactivarCmd>
     {
         private readonly IApplicationRepositories repos;
 
-        public DesactivarUsuarioCmdMnjr(IApplicationRepositories repos)
+        public DesactivarCmdMnjr(IApplicationRepositories repos)
         {
             this.repos = repos;
         }
 
-        public async Task<Unit> Handle(DesactivarUsuarioCmd request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DesactivarCmd request, CancellationToken cancellationToken)
         {
             var pk = System.Guid.Parse(request.Clave);
             var entity = await repos.Usuarios

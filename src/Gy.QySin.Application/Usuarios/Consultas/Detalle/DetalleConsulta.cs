@@ -5,21 +5,21 @@ using Gy.QySin.Application.Common.Exceptions;
 using Gy.QySin.Domain.Entities;
 using MediatR;
 
-namespace Gy.QySin.Application.Usuarios.Consultas.DetalleUsuarios
+namespace Gy.QySin.Application.Usuarios.Consultas.Detalle
 {
-    public class DetalleUsuariosCon : IRequest<DetalleUsuarioDto>
+    public class DetalleCon : IRequest<DetalleDto>
     {
         public string Clave { get; set; }
     }
-    public class DetalleUsuariosConMnjr : IRequestHandler<DetalleUsuariosCon, DetalleUsuarioDto>
+    public class DetalleConMnjr : IRequestHandler<DetalleCon, DetalleDto>
     {
         private readonly IApplicationRepositories repos;
 
-        public DetalleUsuariosConMnjr(IApplicationRepositories repos)
+        public DetalleConMnjr(IApplicationRepositories repos)
         {
             this.repos = repos;
         }
-        public async Task<DetalleUsuarioDto> Handle(DetalleUsuariosCon request, CancellationToken cancellationToken)
+        public async Task<DetalleDto> Handle(DetalleCon request, CancellationToken cancellationToken)
         {
             var pk = System.Guid.Parse(request.Clave);
             var entity = await repos.Usuarios
@@ -30,7 +30,7 @@ namespace Gy.QySin.Application.Usuarios.Consultas.DetalleUsuarios
                 throw new NotFoundException(nameof(Usuario), request.Clave);
             }
 
-            return new DetalleUsuarioDto
+            return new DetalleDto
             {
                 Clave = entity.Clave.ToString(),
                 Nombre = entity.Nombre,

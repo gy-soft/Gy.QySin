@@ -5,22 +5,22 @@ using Gy.QySin.Domain.Entities;
 using Gy.QySin.Domain.Enums;
 using MediatR;
 
-namespace Gy.QySin.Application.Usuarios.Comandos.CrearUsuario
+namespace Gy.QySin.Application.Usuarios.Comandos.Crear
 {
-    public class CrearUsuarioCmd : IRequest
+    public class CrearCmd : IRequest
     {
         public string Nombre { get; set; }
         public UsuarioRoles Rol { get; set; }
     }
-    public class CrearUsuarioCmdMnjr : IRequestHandler<CrearUsuarioCmd>
+    public class CrearCmdMnjr : IRequestHandler<CrearCmd>
     {
         private readonly IApplicationRepositories repos;
 
-        public CrearUsuarioCmdMnjr(IApplicationRepositories repos)
+        public CrearCmdMnjr(IApplicationRepositories repos)
         {
             this.repos = repos;
         }
-        public async Task<Unit> Handle(CrearUsuarioCmd request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CrearCmd request, CancellationToken cancellationToken)
         {
             var entity = new Usuario(
                 request.Nombre,

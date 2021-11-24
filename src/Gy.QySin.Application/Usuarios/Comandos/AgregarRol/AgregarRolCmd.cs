@@ -7,22 +7,22 @@ using Gy.QySin.Domain.Enums;
 using MediatR;
 using System;
 
-namespace Gy.QySin.Application.Usuarios.Comandos.ExtenderUsuario
+namespace Gy.QySin.Application.Usuarios.Comandos.AgregarRol
 {
-    public class ExtenderUsuarioCmd : IRequest
+    public class AgregarRolCmd : IRequest
     {
         public string Clave { get; set; }
         public UsuarioRoles Rol { get; set; }
     }
-    public class ExtenderUsuarioCmdMnjr : IRequestHandler<ExtenderUsuarioCmd>
+    public class AgregarRolCmdMnjr : IRequestHandler<AgregarRolCmd>
     {
         private readonly IApplicationRepositories repos;
 
-        public ExtenderUsuarioCmdMnjr(IApplicationRepositories repos)
+        public AgregarRolCmdMnjr(IApplicationRepositories repos)
         {
             this.repos = repos;
         }
-        public async Task<Unit> Handle(ExtenderUsuarioCmd request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(AgregarRolCmd request, CancellationToken cancellationToken)
         {
             var pk = System.Guid.Parse(request.Clave);
             var entity = await repos.Usuarios
