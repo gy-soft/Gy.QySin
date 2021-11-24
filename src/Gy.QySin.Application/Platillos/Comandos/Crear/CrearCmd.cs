@@ -4,25 +4,25 @@ using Gy.QySin.Application.Common.Interfaces;
 using Gy.QySin.Domain.Entities;
 using MediatR;
 
-namespace Gy.QySin.Application.Platillos.Comandos.CrearPlatillo
+namespace Gy.QySin.Application.Platillos.Comandos.Crear
 {
-    public class CrearPlatilloCmd : IRequest<string>
+    public class CrearCmd : IRequest<string>
     {
         public string Nombre { get; set; }
         public decimal Precio { get; set; }
         public string Descripción { get; set; }
         public bool Vegetariano { get; set; }
     }
-    public class CrearPlatilloCmdMnjr : IRequestHandler<CrearPlatilloCmd, string>
+    public class CrearCmdMnjr : IRequestHandler<CrearCmd, string>
     {
         private readonly IApplicationRepositories repos;
 
-        public CrearPlatilloCmdMnjr(IApplicationRepositories repos)
+        public CrearCmdMnjr(IApplicationRepositories repos)
         {
             this.repos = repos;
         }
 
-        public async Task<string> Handle(CrearPlatilloCmd request, CancellationToken cancellationToken)
+        public async Task<string> Handle(CrearCmd request, CancellationToken cancellationToken)
         {
             var entity = new Platillo(
                 request.Nombre,

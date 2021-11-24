@@ -1,9 +1,9 @@
 using FluentValidation;
 using Gy.QySin.Application.Common.Interfaces;
 
-namespace Gy.QySin.Application.Platillos.Comandos.CrearPlatillo
+namespace Gy.QySin.Application.Platillos.Comandos.Crear
 {
-    public class CrearPlatilloCmdValidador : AbstractValidator<CrearPlatilloCmd>
+    public class CrearPlatilloCmdValidador : AbstractValidator<CrearCmd>
     {
         private readonly IDbConfigurations dbConfigurations;
 
@@ -17,7 +17,7 @@ namespace Gy.QySin.Application.Platillos.Comandos.CrearPlatillo
                 .NotEmpty()
                 .MaximumLength(dbConfigurations.LongTextColumnLength);
             RuleFor(cmd => cmd.Precio)
-                .GreaterThan<CrearPlatilloCmd, decimal>(0m);
+                .GreaterThan<CrearCmd, decimal>(0m);
         }
     }
 }

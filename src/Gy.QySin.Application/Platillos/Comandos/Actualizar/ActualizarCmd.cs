@@ -6,9 +6,9 @@ using Gy.QySin.Domain.Entities;
 using MediatR;
 using System;
 
-namespace Gy.QySin.Application.Platillos.ExtenderPlatillo
+namespace Gy.QySin.Application.Platillos.Actualizar
 {
-    public class ExtenderPlatilloCmd : IRequest
+    public class ActualizarCmd : IRequest
     {
         public string Clave { get; set; }
         public string Nombre { get; set; }
@@ -16,15 +16,15 @@ namespace Gy.QySin.Application.Platillos.ExtenderPlatillo
         public string Descripción { get; set; }
         public bool? Vegetariano { get; set; }
     }
-    public class ExtenderPlatilloCmdMnjr : IRequestHandler<ExtenderPlatilloCmd>
+    public class ActualizarCmdMnjr : IRequestHandler<ActualizarCmd>
     {
         private readonly IApplicationRepositories repos;
 
-        public ExtenderPlatilloCmdMnjr(IApplicationRepositories repos)
+        public ActualizarCmdMnjr(IApplicationRepositories repos)
         {
             this.repos = repos;
         }
-        public async Task<Unit> Handle(ExtenderPlatilloCmd request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(ActualizarCmd request, CancellationToken cancellationToken)
         {
             var pk = System.Guid.Parse(request.Clave);
             var entity = await repos.Platillos
