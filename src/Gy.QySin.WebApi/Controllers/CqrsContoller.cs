@@ -18,7 +18,9 @@ namespace Gy.QySin.WebApi.Controllers
             {
                 throw new InvalidCommandException();
             }
-            var consulta = await JsonSerializer.DeserializeAsync(Request.Body, tipoConsulta);
+            var consulta = Request.ContentLength.HasValue && Request.ContentLength.Value > 0 ?
+                await JsonSerializer.DeserializeAsync(Request.Body, tipoConsulta)
+                : Activator.CreateInstance(tipoConsulta);
             var response = await Mediator.Send(consulta);
 
             return new JsonResult(response);
@@ -36,6 +38,16 @@ namespace Gy.QySin.WebApi.Controllers
             var response = await Mediator.Send(comando);
                 
             return NoContent();
+        }
+
+        private static string CommandAssemblyName(string entity, string command)
+        {
+            return $"Gy.QySin.Application.{entity}.Comandos.{command}.{command}Cmd, Gy.QySin.Application";
+        }
+        private static string QueryAssemblyName(string entity, string query)
+        {
+            string queryName = $"{query}{entity}";
+            return $"Gy.QySin.Application.{entity}.Consultas.{query}.{query}Con, Gy.QySin.Application";
         }
     }
 }
