@@ -3,7 +3,7 @@ using Gy.QySin.Application.Common.Interfaces;
 
 namespace Gy.QySin.Application.Bebidas.Comandos.CrearBebida
 {
-    public class CrearBebidaCmdValidador : AbstractValidator<CrearBebidaCmd>
+    public class CrearBebidaCmdValidador : AbstractValidator<CrearCmd>
     {
         private readonly IDbConfigurations dbConfigurations;
 
@@ -17,9 +17,9 @@ namespace Gy.QySin.Application.Bebidas.Comandos.CrearBebida
                 .NotEmpty()
                 .MaximumLength(dbConfigurations.LongTextColumnLength);
             RuleFor(cmd => cmd.Precio)
-                .GreaterThan<CrearBebidaCmd, decimal>(0m);
+                .GreaterThan<CrearCmd, decimal>(0m);
             RuleFor(cmd => cmd.Contenido)
-                .GreaterThan<CrearBebidaCmd, int>(0);
+                .GreaterThan<CrearCmd, int>(0);
         }
     }
 }

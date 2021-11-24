@@ -6,9 +6,9 @@ using Gy.QySin.Domain.Entities;
 using MediatR;
 using System;
 
-namespace Gy.QySin.Application.Bebidas.Comandos.ExtenderBebida
+namespace Gy.QySin.Application.Bebidas.Comandos.Extender
 {
-    public class ExtenderBebidaCmd : IRequest
+    public class ExtenderCmd : IRequest
     {
         public string Clave { get; set; }
         public string Nombre { get; set; }
@@ -16,15 +16,15 @@ namespace Gy.QySin.Application.Bebidas.Comandos.ExtenderBebida
         public int? Contenido { get; set; }
         public bool? Rellenable { get; set; }
     }
-    public class ExtenderBebidaCmdMnjr : IRequestHandler<ExtenderBebidaCmd>
+    public class ExtenderCmdMnjr : IRequestHandler<ExtenderCmd>
     {
         private readonly IApplicationRepositories repos;
 
-        public ExtenderBebidaCmdMnjr(IApplicationRepositories repos)
+        public ExtenderCmdMnjr(IApplicationRepositories repos)
         {
             this.repos = repos;
         }
-        public async Task<Unit> Handle(ExtenderBebidaCmd request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(ExtenderCmd request, CancellationToken cancellationToken)
         {
             var pk = Guid.Parse(request.Clave);
             var entity = await repos.Bebidas
