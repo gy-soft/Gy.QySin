@@ -27,3 +27,13 @@ CREATE TABLE "Platillos" (
     "Vegetariano" BOOLEAN NOT NULL,
     CONSTRAINT "Platillos_Ordenables_Clave_fkey" FOREIGN KEY("Clave") REFERENCES "Ordenables"("Clave")
 );
+
+CREATE VIEW "vPlatillos" AS
+SELECT p."Clave", "Nombre", "Imagen", "Precio", "Descripción", "Vegetariano"
+FROM "Platillos" p JOIN "Ordenables" o
+ON p."Clave" = o."Clave";
+
+CREATE VIEW "vBebidas" AS
+SELECT b."Clave", "Nombre", "Imagen", "Precio", "Contenido", "Rellenable"
+FROM "Bebidas" b JOIN "Ordenables" o
+ON b."Clave" = o."Clave";
