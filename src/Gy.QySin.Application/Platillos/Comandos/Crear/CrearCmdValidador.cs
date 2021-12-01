@@ -16,8 +16,6 @@ namespace Gy.QySin.Application.Platillos.Comandos.Crear
             RuleFor(cmd => cmd.Nombre)
                 .NotEmpty()
                 .MaximumLength(dbConfigurations.LongTextColumnLength);
-            RuleFor(cmd => cmd.Precio)
-                .GreaterThan<CrearCmd, decimal>(0m);
         }
     }
 }

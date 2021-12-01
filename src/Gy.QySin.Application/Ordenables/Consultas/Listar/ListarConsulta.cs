@@ -41,7 +41,6 @@ namespace Gy.QySin.Application.Ordenables.Consultas.Listar
                     {
                         Clave = o.Clave.ToString(),
                         Nombre = o.Nombre,
-                        Precio = o.Precio,
                         Categoria = o.Categoria
                     })
                     .ToListAsync()

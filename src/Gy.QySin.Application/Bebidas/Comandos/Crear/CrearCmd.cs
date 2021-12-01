@@ -9,7 +9,6 @@ namespace Gy.QySin.Application.Bebidas.Comandos.Crear
     public class CrearCmd : IRequest
     {
         public string Nombre { get; set; }
-        public decimal Precio { get; set; }
         public int Contenido { get; set; }
         public bool Rellenable { get; set; }
     }
@@ -25,7 +24,6 @@ namespace Gy.QySin.Application.Bebidas.Comandos.Crear
         {
             var entity = new Bebida(
                 request.Nombre,
-                request.Precio,
                 request.Contenido,
                 request.Rellenable
             );
