@@ -13,14 +13,14 @@ CREATE TABLE "Ordenables" (
     "Categoria" "OrdenableCategorias" NOT NULL
 );
 
-CREATE TABLE "Bebidas" (
+CREATE TABLE "DetalleBebidas" (
     "Clave" UUID CONSTRAINT "Bebidas_pkey" PRIMARY KEY,
     "Contenido" INTEGER NOT NULL,
     "Rellenable" BOOLEAN NOT NULL,
     CONSTRAINT "Bebidas_Ordenables_Clave_fkey" FOREIGN KEY("Clave") REFERENCES "Ordenables"("Clave")
 );
 
-CREATE TABLE "Platillos" (
+CREATE TABLE "DetallePlatillos" (
     "Clave" UUID CONSTRAINT "Platillos_pkey" PRIMARY KEY,
     "Descripción" TEXT,
     "Vegetariano" BOOLEAN NOT NULL,
@@ -35,8 +35,8 @@ CREATE TABLE "PrecioOrdenables" (
     CONSTRAINT "Precio_Ordenables_Clave_fkey" FOREIGN KEY("Clave") REFERENCES "Ordenables"("Clave")
 );
 
-CREATE VIEW "vBebidas" AS
-SELECT p."Clave", "Nombre", "Precio", "Contenido", "Rellenable"
+CREATE VIEW "Bebidas" AS
+SELECT p."Clave", "Nombre", "Imagen", "Precio", "Contenido", "Rellenable"
 FROM (
     select "Clave", "Precio"
     from "PrecioOrdenables"
@@ -47,11 +47,11 @@ FROM (
     from "Ordenables"
     where "Categoria" = 'bebidas'
 ) o ON p."Clave" = o."Clave"
-JOIN "Bebidas" d
+JOIN "DetalleBebidas" d
 ON p."Clave" = d."Clave";
 
-CREATE VIEW "vPlatillos" AS
-SELECT p."Clave", "Nombre", "Precio", "Descripción", "Vegetariano"
+CREATE VIEW "Platillos" AS
+SELECT p."Clave", "Nombre", "Imagen", "Precio", "Descripción", "Vegetariano"
 FROM (
     select "Clave", "Precio"
     from "PrecioOrdenables"
@@ -62,5 +62,31 @@ FROM (
     from "Ordenables"
     where "Categoria" = 'platillos'
 ) o ON p."Clave" = o."Clave"
-JOIN "Platillos" d
+JOIN "DetallePlatillos" d
 ON p."Clave" = d."Clave";
+
+create or replace function insert_into_bebidas()
+returns trigger as $$
+begin
+    insert into "Ordenables"("Clave", "Nombre", "Imagen", "Categoria")
+    values(new."Clave", new."Nombre", new."Imagen", 'bebidas');
+    insert into "DetalleBebidas"("Clave", "Contenido", "Rellenable")
+    values (new."Clave", new."Contenido", new."Rellenable");
+    return new;
+end;
+$$ language plpgsql;
+create trigger insert_into_bebidas instead of insert on "Bebidas"
+    for each row execute function insert_into_bebidas();
+
+create or replace function insert_into_platillos()
+returns trigger as $$
+begin
+    insert into "Ordenables"("Clave", "Nombre", "Imagen", "Categoria")
+    values(new."Clave", new."Nombre", new."Imagen", 'platillos');
+    insert into "DetallePlatillos"("Clave", "Descripción", "Vegetariano")
+    values (new."Clave", new."Descripción", new."Vegetariano");
+    return new;
+end;
+$$ language plpgsql;
+create trigger insert_into_platillos instead of insert on "Platillos"
+    for each row execute function insert_into_platillos();
