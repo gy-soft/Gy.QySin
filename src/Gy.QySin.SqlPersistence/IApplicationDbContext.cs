@@ -7,10 +7,8 @@ namespace Gy.QySin.Application.Common.Interfaces
 {
     public interface IApplicationDbContext
     {
-        DbSet<Ordenable> Ordenables {get;set;}
         DbSet<Bebida> Bebidas { get; set; }
         DbSet<Platillo> Platillos { get; set; }
-        DbSet<Comanda> Comandas { get; set; }
         DbSet<Usuario> Usuarios { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
