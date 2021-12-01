@@ -10,7 +10,6 @@ CREATE TABLE "Ordenables" (
     "Clave" UUID UNIQUE NOT NULL,
     "Nombre" CHARACTER VARYING(50) UNIQUE NOT NULL,
     "Imagen" TEXT,
-    "Precio" MONEY NOT NULL,
     "Categoria" "OrdenableCategorias" NOT NULL
 );
 
@@ -28,12 +27,20 @@ CREATE TABLE "Platillos" (
     CONSTRAINT "Platillos_Ordenables_Clave_fkey" FOREIGN KEY("Clave") REFERENCES "Ordenables"("Clave")
 );
 
+CREATE TABLE "PrecioOrdenables" (
+    "Clave" UUID NOT NULL,
+    "Precio" MONEY NOT NULL,
+    "FechaInicio" DATE NOT NULL,
+    "FechaFin" DATE,
+    CONSTRAINT "Precio_Ordenables_Clave_fkey" FOREIGN KEY("Clave") REFERENCES "Ordenables"("Clave")
+);
+
 CREATE VIEW "vPlatillos" AS
-SELECT p."Clave", "Nombre", "Imagen", "Precio", "Descripción", "Vegetariano"
+SELECT p."Clave", "Nombre", "Imagen", "Descripción", "Vegetariano"
 FROM "Platillos" p JOIN "Ordenables" o
 ON p."Clave" = o."Clave";
 
 CREATE VIEW "vBebidas" AS
-SELECT b."Clave", "Nombre", "Imagen", "Precio", "Contenido", "Rellenable"
+SELECT b."Clave", "Nombre", "Imagen", "Contenido", "Rellenable"
 FROM "Bebidas" b JOIN "Ordenables" o
 ON b."Clave" = o."Clave";
