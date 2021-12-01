@@ -35,12 +35,17 @@ CREATE TABLE "PrecioOrdenables" (
     CONSTRAINT "Precio_Ordenables_Clave_fkey" FOREIGN KEY("Clave") REFERENCES "Ordenables"("Clave")
 );
 
-CREATE VIEW "vPlatillos" AS
-SELECT p."Clave", "Nombre", "Imagen", "Descripción", "Vegetariano"
-FROM "Platillos" p JOIN "Ordenables" o
-ON p."Clave" = o."Clave";
-
 CREATE VIEW "vBebidas" AS
-SELECT b."Clave", "Nombre", "Imagen", "Contenido", "Rellenable"
-FROM "Bebidas" b JOIN "Ordenables" o
-ON b."Clave" = o."Clave";
+select p."Clave", "Nombre", "Precio", "Contenido", "Rellenable"
+from (
+    select "Clave", "Precio"
+    from "PrecioOrdenables"
+    where "FechaInicio" <= current_date
+    and ("FechaFin" >= current_date or "FechaFin" is null)
+) p JOIN (
+    select *
+    from "Ordenables"
+    where "Categoria" = 'bebidas'
+) o JOIN "Bebidas" d
+ON p."Clave" = o."Clave"
+and p."Clave" = d."Clave"
