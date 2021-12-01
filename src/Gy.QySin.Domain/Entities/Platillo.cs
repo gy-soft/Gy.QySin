@@ -4,8 +4,8 @@ namespace Gy.QySin.Domain.Entities
 {
     public class Platillo : Ordenable
     {
-        public Platillo(string nombre, decimal precio, string descripción, bool vegetariano)
-            : base(nombre, precio)
+        public Platillo(string nombre, string descripción, bool vegetariano)
+            : base(nombre)
             {
             Descripción = descripción;
             Vegetariano = vegetariano;

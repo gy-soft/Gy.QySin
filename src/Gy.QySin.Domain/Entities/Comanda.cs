@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Gy.QySin.Domain.Enums;
 using Gy.QySin.Domain.Interfaces;
 
@@ -33,10 +32,6 @@ namespace Gy.QySin.Domain.Entities
                 Ordenes = new List<Orden>();
 
             Ordenes.AddRange(ordenes);
-        }
-        public decimal CalcularTotal()
-        {
-            return Ordenes.Sum(o => o.Ordenable.Precio);
         }
     }
 }
