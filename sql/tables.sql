@@ -36,8 +36,8 @@ CREATE TABLE "PrecioOrdenables" (
 );
 
 CREATE VIEW "vBebidas" AS
-select p."Clave", "Nombre", "Precio", "Contenido", "Rellenable"
-from (
+SELECT p."Clave", "Nombre", "Precio", "Contenido", "Rellenable"
+FROM (
     select "Clave", "Precio"
     from "PrecioOrdenables"
     where "FechaInicio" <= current_date
@@ -46,6 +46,21 @@ from (
     select *
     from "Ordenables"
     where "Categoria" = 'bebidas'
-) o JOIN "Bebidas" d
-ON p."Clave" = o."Clave"
-and p."Clave" = d."Clave"
+) o ON p."Clave" = o."Clave"
+JOIN "Bebidas" d
+ON p."Clave" = d."Clave";
+
+CREATE VIEW "vPlatillos" AS
+SELECT p."Clave", "Nombre", "Precio", "Descripción", "Vegetariano"
+FROM (
+    select "Clave", "Precio"
+    from "PrecioOrdenables"
+    where "FechaInicio" <= current_date
+    and ("FechaFin" >= current_date or "FechaFin" is null)
+) p JOIN (
+    select *
+    from "Ordenables"
+    where "Categoria" = 'platillos'
+) o ON p."Clave" = o."Clave"
+JOIN "Platillos" d
+ON p."Clave" = d."Clave";
