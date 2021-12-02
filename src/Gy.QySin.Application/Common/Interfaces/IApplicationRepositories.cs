@@ -7,5 +7,6 @@ namespace Gy.QySin.Application.Common.Interfaces
         IRepository<Usuario> Usuarios { get; }
         IRepository<Bebida> Bebidas { get; }
         IRepository<Platillo> Platillos { get; }
+        IRepository<PrecioOrdenable> PrecioOrdenables { get; }
     }
 }

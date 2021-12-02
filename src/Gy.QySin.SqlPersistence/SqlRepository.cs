@@ -11,7 +11,7 @@ namespace Gy.QySin.SqlPersistence
 {
     public class SqlRepository<TContext, TEntity> : IRepository<TEntity>
         where TContext : IApplicationDbContext
-        where TEntity : class, IEntity
+        where TEntity : class
     {
         private readonly TContext context;
         private readonly DbSet<TEntity> dbSet;
@@ -21,11 +21,10 @@ namespace Gy.QySin.SqlPersistence
             this.context = context;
             this.dbSet = dbSet;
         }
-        public async Task<object> AddAsync(TEntity entity, CancellationToken cancellationToken = default)
+        public async Task AddAsync(TEntity entity, CancellationToken cancellationToken = default)
         {
             await dbSet.AddAsync(entity, cancellationToken);
             await context.SaveChangesAsync(cancellationToken);
-            return entity.Id;
         }
 
         public async Task<TEntity> GetAsync(object pk, CancellationToken cancellationToken = default)
