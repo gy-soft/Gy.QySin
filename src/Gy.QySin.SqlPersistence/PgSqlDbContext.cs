@@ -30,9 +30,9 @@ namespace Gy.QySin.SqlPersistence
             modelBuilder.HasPostgresEnum<UsuarioRoles>();
             modelBuilder.HasPostgresEnum<OrdenableCategorias>();
             modelBuilder.Entity<Bebida>()
-                .ToView("Bebidas");
+                .ToTable("Bebidas");
             modelBuilder.Entity<Platillo>()
-                .ToView("Platillos");
+                .ToTable("Platillos");
         }
     }
 }

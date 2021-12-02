@@ -9,7 +9,6 @@ namespace Gy.QySin.Domain.Entities
             {
             Contenido = contenido;
             Rellenable = rellenable;
-            Categoria = OrdenableCategorias.Bebidas;
         }
         // Mililitros
         public int Contenido { get; set; }

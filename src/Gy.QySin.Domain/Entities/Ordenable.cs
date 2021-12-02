@@ -15,7 +15,6 @@ namespace Gy.QySin.Domain.Entities
         public string Nombre { get; set; }
         public string Imagen { get; set; }
         public decimal Precio { get; set; }
-        public virtual OrdenableCategorias Categoria { get; set; }
 
         [NotMapped]
         public object Id => Clave;

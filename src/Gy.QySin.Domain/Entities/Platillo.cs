@@ -9,7 +9,6 @@ namespace Gy.QySin.Domain.Entities
             {
             Descripción = descripción;
             Vegetariano = vegetariano;
-            Categoria = OrdenableCategorias.Platillos;
         }
         public string Descripción { get; set; }
         public bool Vegetariano { get; set; }
