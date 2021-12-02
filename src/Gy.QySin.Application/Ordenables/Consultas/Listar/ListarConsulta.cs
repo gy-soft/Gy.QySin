@@ -39,7 +39,7 @@ namespace Gy.QySin.Application.Ordenables.Consultas.Listar
                         Contenido = b.Contenido,
                         Precio = b.Precio
                     })
-                    .ToListAsync(),
+                    .ToListAsync(cancellationToken),
                 Platillos = await repos.Platillos
                     .AsQueryable()
                     .Select(p => new PlatilloDto
@@ -49,7 +49,7 @@ namespace Gy.QySin.Application.Ordenables.Consultas.Listar
                         Vegetariano = p.Vegetariano,
                         Precio = p.Precio
                     })
-                    .ToListAsync()
+                    .ToListAsync(cancellationToken)
             };
         }
     }
