@@ -27,7 +27,7 @@ namespace Gy.QySin.Application.Usuarios.Comandos.Crear
                 request.Rol
             );
 
-            var id = await repos.Usuarios.AddAsync(entity, cancellationToken);
+            await repos.Usuarios.AddAsync(entity, cancellationToken);
             
             return Unit.Value;
         }

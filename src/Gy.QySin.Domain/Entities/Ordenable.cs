@@ -1,11 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Gy.QySin.Domain.Enums;
 using Gy.QySin.Domain.Interfaces;
 
 namespace Gy.QySin.Domain.Entities
 {
-    public class Ordenable : IEntity
+    public class Ordenable
     {
         public Ordenable(string nombre) {
             Nombre = nombre;
@@ -15,8 +14,5 @@ namespace Gy.QySin.Domain.Entities
         public string Nombre { get; set; }
         public string Imagen { get; set; }
         public decimal Precio { get; set; }
-
-        [NotMapped]
-        public object Id => Clave;
     }
 }

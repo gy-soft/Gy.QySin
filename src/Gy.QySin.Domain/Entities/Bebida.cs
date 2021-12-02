@@ -1,5 +1,3 @@
-using Gy.QySin.Domain.Enums;
-
 namespace Gy.QySin.Domain.Entities
 {
     public class Bebida : Ordenable

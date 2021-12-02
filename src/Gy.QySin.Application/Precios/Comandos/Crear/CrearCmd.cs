@@ -1,16 +1,18 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Gy.QySin.Application.Common.Interfaces;
 using Gy.QySin.Domain.Entities;
 using MediatR;
 
-namespace Gy.QySin.Application.Bebidas.Comandos.Crear
+namespace Gy.QySin.Application.Precios.Comandos.Crear
 {
     public class CrearCmd : IRequest
     {
-        public string Nombre { get; set; }
-        public int Contenido { get; set; }
-        public bool Rellenable { get; set; }
+        public string Clave { get; set; }
+        public decimal Precio { get; set; }
+        public DateTime FechaInicio { get; set; }
+        public DateTime FechaFin { get; set; }
     }
     public class CrearCmdMnjr : IRequestHandler<CrearCmd>
     {
@@ -22,14 +24,13 @@ namespace Gy.QySin.Application.Bebidas.Comandos.Crear
         }
         public async Task<Unit> Handle(CrearCmd request, CancellationToken cancellationToken)
         {
-            var entity = new Bebida(
-                request.Nombre,
-                request.Contenido,
-                request.Rellenable
-            );
-
-            await repos.Bebidas.AddAsync(entity, cancellationToken);
-
+            Guid clave = Guid.Parse(request.Clave);
+            var entity = new PrecioOrdenable(clave, request.FechaInicio)
+            {
+                Precio = request.Precio,
+                FechaFin = request.FechaFin
+            };
+            await repos.PrecioOrdenables.AddAsync(entity);
             return Unit.Value;
         }
     }

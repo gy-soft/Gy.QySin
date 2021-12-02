@@ -11,7 +11,6 @@ namespace Gy.QySin.Domain.Entities
         public Usuario() {}
         public Usuario(string nombre, UsuarioRoles rol)
         {
-            Clave = Guid.NewGuid();
             Nombre = nombre;
             Roles = new List<UsuarioRoles>()
             {
