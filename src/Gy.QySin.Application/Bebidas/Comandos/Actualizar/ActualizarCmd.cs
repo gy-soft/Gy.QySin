@@ -28,7 +28,7 @@ namespace Gy.QySin.Application.Bebidas.Comandos.Actualizar
         {
             var pk = Guid.Parse(request.Clave);
             var entity = await repos.Bebidas
-                .GetAsync(pk, cancellationToken);
+                .GetAsync(new object[] { pk }, cancellationToken);
 
             if (entity == null)
             {

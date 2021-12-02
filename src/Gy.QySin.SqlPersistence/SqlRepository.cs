@@ -27,7 +27,7 @@ namespace Gy.QySin.SqlPersistence
             await context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<TEntity> GetAsync(object pk, CancellationToken cancellationToken = default)
+        public async Task<TEntity> GetAsync(object[] pk, CancellationToken cancellationToken = default)
         {
             return await dbSet.FindAsync(
                 new object[] { pk }, cancellationToken

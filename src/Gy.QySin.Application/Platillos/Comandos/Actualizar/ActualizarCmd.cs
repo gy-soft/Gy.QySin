@@ -28,7 +28,7 @@ namespace Gy.QySin.Application.Platillos.Actualizar
         {
             var pk = System.Guid.Parse(request.Clave);
             var entity = await repos.Platillos
-                .GetAsync(pk, cancellationToken);
+                .GetAsync(new object[] { pk }, cancellationToken);
 
             if (entity == null)
             {

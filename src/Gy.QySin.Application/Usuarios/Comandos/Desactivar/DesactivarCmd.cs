@@ -25,7 +25,7 @@ namespace Gy.QySin.Application.Usuarios.Comandos.Desactivar
         {
             var pk = System.Guid.Parse(request.Clave);
             var entity = await repos.Usuarios
-                .GetAsync(pk, cancellationToken);
+                .GetAsync(new object[] { pk }, cancellationToken);
 
             if (entity == null)
             {
