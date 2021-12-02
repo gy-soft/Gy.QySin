@@ -12,7 +12,7 @@ namespace Gy.QySin.Application.Precios.Comandos.Crear
         public string Clave { get; set; }
         public decimal Precio { get; set; }
         public DateTime FechaInicio { get; set; }
-        public DateTime FechaFin { get; set; }
+        public DateTime? FechaFin { get; set; }
     }
     public class CrearCmdMnjr : IRequestHandler<CrearCmd>
     {
@@ -28,7 +28,7 @@ namespace Gy.QySin.Application.Precios.Comandos.Crear
             var entity = new PrecioOrdenable(clave, request.FechaInicio)
             {
                 Precio = request.Precio,
-                FechaFin = request.FechaFin
+                FechaFin = request.FechaFin.Value
             };
             await repos.PrecioOrdenables.AddAsync(entity);
             return Unit.Value;
