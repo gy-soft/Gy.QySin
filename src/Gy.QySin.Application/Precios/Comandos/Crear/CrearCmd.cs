@@ -28,7 +28,7 @@ namespace Gy.QySin.Application.Precios.Comandos.Crear
             var entity = new PrecioOrdenable(clave, request.FechaInicio)
             {
                 Precio = request.Precio,
-                FechaFin = request.FechaFin.Value
+                FechaFin = request.FechaFin
             };
             await repos.PrecioOrdenables.AddAsync(entity);
             return Unit.Value;

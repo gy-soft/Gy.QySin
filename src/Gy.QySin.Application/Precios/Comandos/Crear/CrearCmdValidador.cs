@@ -12,10 +12,11 @@ namespace Gy.QySin.Application.Precios.Comandos.Crear
                 .GreaterThan(0m);
             RuleFor(cmd => cmd.FechaInicio)
                 .NotEmpty()
-                .GreaterThan(System.DateTime.Today);
+                .GreaterThanOrEqualTo(System.DateTime.Today);
             RuleFor(cmd => cmd.FechaFin)
                 .GreaterThan(cmd => cmd.FechaInicio)
-                .When(cmd => cmd.FechaFin is not null);
+                .When(cmd => cmd.FechaFin.HasValue)
+                .WithMessage("'Fecha Fin' debe ser mayor que 'Fecha Inicio'.");
         }
     }
 }

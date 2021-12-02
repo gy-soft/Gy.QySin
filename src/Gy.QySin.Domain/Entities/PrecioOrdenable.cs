@@ -12,6 +12,6 @@ namespace Gy.QySin.Domain.Entities
         public Guid Clave { get; set; }
         public decimal Precio { get; set; }
         public DateTime FechaInicio { get; set; }
-        public DateTime FechaFin { get; set; }
+        public DateTime? FechaFin { get; set; }
     }
 }
