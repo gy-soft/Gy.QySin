@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Gy.QySin.Application.Common.Interfaces;
+using Gy.QySin.Domain.Entities;
 using Gy.QySin.Domain.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -32,6 +33,9 @@ namespace Gy.QySin.Application.Ordenables.Consultas.Listar
                     .ToList(),
                 Bebidas = await repos.Bebidas
                     .AsQueryable()
+                    .Where(b => !request.Categoria.HasValue || request.Categoria == OrdenableCategorias.Bebidas)
+                    .Where(b => string.IsNullOrWhiteSpace(request.PalabraClave)
+                        || b.Nombre.Contains(request.PalabraClave))
                     .Select(b => new BebidaDto
                     {
                         Clave = b.Clave.ToString(),
@@ -42,6 +46,9 @@ namespace Gy.QySin.Application.Ordenables.Consultas.Listar
                     .ToListAsync(cancellationToken),
                 Platillos = await repos.Platillos
                     .AsQueryable()
+                    .Where(b => !request.Categoria.HasValue || request.Categoria == OrdenableCategorias.Platillos)
+                    .Where(b => string.IsNullOrWhiteSpace(request.PalabraClave)
+                        || b.Nombre.Contains(request.PalabraClave))
                     .Select(p => new PlatilloDto
                     {
                         Clave = p.Clave.ToString(),
