@@ -1,6 +1,8 @@
 -- drop functions
 DROP FUNCTION IF EXISTS insert_into_platillos;
+DROP FUNCTION IF EXISTS update_platillos;
 DROP FUNCTION IF EXISTS insert_into_bebidas;
+DROP FUNCTION IF EXISTS update_bebidas;
 
 -- drop tables
 DROP TABLE IF EXISTS "PrecioOrdenables";

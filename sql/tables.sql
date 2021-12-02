@@ -78,6 +78,25 @@ $$ language plpgsql;
 create trigger insert_into_bebidas instead of insert on "Bebidas"
     for each row execute function insert_into_bebidas();
 
+create or replace function update_bebidas()
+returns trigger as $$
+begin
+    update "Ordenables"
+    set
+        "Nombre" = new."Nombre"
+        , "Imagen" = new."Imagen"
+    where "Clave" = new."Clave";
+    update "DetalleBebidas"
+    set
+        "Contenido" = new."Contenido"
+        , "Rellenable" = new."Rellenable"
+    where "Clave" = new."Clave";
+    return new;
+end;
+$$ language plpgsql;
+create trigger update_bebidas instead of update on "Bebidas"
+    for each row execute function update_bebidas();
+
 create or replace function insert_into_platillos()
 returns trigger as $$
 begin
@@ -90,3 +109,22 @@ end;
 $$ language plpgsql;
 create trigger insert_into_platillos instead of insert on "Platillos"
     for each row execute function insert_into_platillos();
+
+create or replace function update_platillos()
+returns trigger as $$
+begin
+    update "Ordenables"
+    set
+        "Nombre" = new."Nombre"
+        , "Imagen" = new."Imagen"
+    where "Clave" = new."Clave";
+    update "DetallePlatillos"
+    set
+        "Descripción" = new."Descripción"
+        , "Vegetariano" = new."Vegetariano"
+    where "Clave" = new."Clave";
+    return new;
+end;
+$$ language plpgsql;
+create trigger update_platillos instead of update on "Platillos"
+    for each row execute function update_platillos();
