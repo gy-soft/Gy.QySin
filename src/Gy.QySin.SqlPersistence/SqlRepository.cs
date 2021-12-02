@@ -30,7 +30,7 @@ namespace Gy.QySin.SqlPersistence
         public async Task<TEntity> GetAsync(object[] pk, CancellationToken cancellationToken = default)
         {
             return await dbSet.FindAsync(
-                new object[] { pk }, cancellationToken
+                pk, cancellationToken
             );
         }
 
