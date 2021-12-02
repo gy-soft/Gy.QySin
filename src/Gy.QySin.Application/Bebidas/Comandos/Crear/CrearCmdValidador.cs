@@ -16,8 +16,6 @@ namespace Gy.QySin.Application.Bebidas.Comandos.Crear
             RuleFor(cmd => cmd.Nombre)
                 .NotEmpty()
                 .MaximumLength(dbConfigurations.LongTextColumnLength);
-            RuleFor(cmd => cmd.Precio)
-                .GreaterThan<CrearCmd, decimal>(0m);
             RuleFor(cmd => cmd.Contenido)
                 .GreaterThan<CrearCmd, int>(0);
         }

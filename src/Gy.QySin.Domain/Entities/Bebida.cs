@@ -4,12 +4,11 @@ namespace Gy.QySin.Domain.Entities
 {
     public class Bebida : Ordenable
     {
-        public Bebida(string nombre, decimal precio, int contenido, bool rellenable)
-            : base(nombre, precio)
+        public Bebida(string nombre, int contenido, bool rellenable)
+            : base(nombre)
             {
             Contenido = contenido;
             Rellenable = rellenable;
-            Categoria = OrdenableCategorias.Bebidas;
         }
         // Mililitros
         public int Contenido { get; set; }

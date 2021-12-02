@@ -9,7 +9,6 @@ namespace Gy.QySin.Application.Platillos.Comandos.Crear
     public class CrearCmd : IRequest<string>
     {
         public string Nombre { get; set; }
-        public decimal Precio { get; set; }
         public string Descripción { get; set; }
         public bool Vegetariano { get; set; }
     }
@@ -26,7 +25,6 @@ namespace Gy.QySin.Application.Platillos.Comandos.Crear
         {
             var entity = new Platillo(
                 request.Nombre,
-                request.Precio,
                 request.Descripción,
                 request.Vegetariano
             );

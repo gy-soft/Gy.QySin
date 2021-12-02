@@ -21,25 +21,18 @@ namespace Gy.QySin.SqlPersistence
             NpgsqlConnection.GlobalTypeMapper.MapEnum<OrdenableCategorias>("OrdenableCategorias");
         }
 
-        public DbSet<Ordenable> Ordenables { get; set; }
         public DbSet<Bebida> Bebidas { get; set; }
         public DbSet<Platillo> Platillos { get; set; }
-        public DbSet<Comanda> Comandas { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasPostgresEnum<UsuarioRoles>();
             modelBuilder.HasPostgresEnum<OrdenableCategorias>();
-            modelBuilder.Entity<Ordenable>()
-                .ToTable("Ordenables");
             modelBuilder.Entity<Bebida>()
                 .ToTable("Bebidas");
             modelBuilder.Entity<Platillo>()
                 .ToTable("Platillos");
-            modelBuilder.Entity<Comanda>()
-                .HasKey(c => c.NúmeroComanda)
-                .HasName("Comanda_pkey");
         }
     }
 }

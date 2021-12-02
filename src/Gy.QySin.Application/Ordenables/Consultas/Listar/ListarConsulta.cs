@@ -30,19 +30,24 @@ namespace Gy.QySin.Application.Ordenables.Consultas.Listar
                     .Cast<OrdenableCategorias>()
                     .Select(c => new OrdenableCategoriaDto { Value = (int)c, Name = c.ToString() })
                     .ToList(),
-                Ordenables = await repos.Ordenables
+                Bebidas = await repos.Bebidas
                     .AsQueryable()
-                    .Where(o => 
-                        string.IsNullOrWhiteSpace(request.PalabraClave)
-                        || o.Nombre.ToUpper().Contains(request.PalabraClave.ToUpper())
-                    )
-                    .Where(o => !request.Categoria.HasValue || o.Categoria == request.Categoria)
-                    .Select(o => new OrdenableDto
+                    .Select(b => new BebidaDto
                     {
-                        Clave = o.Clave.ToString(),
-                        Nombre = o.Nombre,
-                        Precio = o.Precio,
-                        Categoria = o.Categoria
+                        Clave = b.Clave.ToString(),
+                        Nombre = b.Nombre,
+                        Contenido = b.Contenido,
+                        Precio = b.Precio
+                    })
+                    .ToListAsync(),
+                Platillos = await repos.Platillos
+                    .AsQueryable()
+                    .Select(p => new PlatilloDto
+                    {
+                        Clave = p.Clave.ToString(),
+                        Nombre = p.Nombre,
+                        Vegetariano = p.Vegetariano,
+                        Precio = p.Precio
                     })
                     .ToListAsync()
             };
