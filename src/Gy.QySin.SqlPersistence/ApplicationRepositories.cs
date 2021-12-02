@@ -11,6 +11,7 @@ namespace Gy.QySin.SqlPersistence
             Bebidas = new SqlRepository<IApplicationDbContext, Bebida>(context, context.Bebidas);
             Platillos = new SqlRepository<IApplicationDbContext, Platillo>(context, context.Platillos);
             PrecioOrdenables = new SqlRepository<IApplicationDbContext, PrecioOrdenable>(context, context.PrecioOrdenables);
+            PrecioOrdenablesUi = new SqlRepository<IApplicationDbContext, PrecioOrdenableUi>(context, context.PrecioOrdenablesUi);
         }
         public IRepository<Usuario> Usuarios { get; private set; }
 
@@ -19,5 +20,6 @@ namespace Gy.QySin.SqlPersistence
         public IRepository<Platillo> Platillos { get; private set; }
 
         public IRepository<PrecioOrdenable> PrecioOrdenables { get; private set; }
+        public IRepository<PrecioOrdenableUi> PrecioOrdenablesUi { get; private set; }
     }
 }

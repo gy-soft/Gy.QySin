@@ -25,6 +25,7 @@ namespace Gy.QySin.SqlPersistence
         public DbSet<Platillo> Platillos { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<PrecioOrdenable> PrecioOrdenables { get; set; }
+        public DbSet<PrecioOrdenableUi> PrecioOrdenablesUi { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -36,6 +37,8 @@ namespace Gy.QySin.SqlPersistence
                 .ToTable("Platillos");
             modelBuilder.Entity<PrecioOrdenable>()
                 .HasKey(p => new { p.Clave, p.FechaInicio });
+            modelBuilder.Entity<PrecioOrdenableUi>()
+                .ToView("PrecioOrdenablesUi");
         }
     }
 }
