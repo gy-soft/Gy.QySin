@@ -27,15 +27,22 @@ namespace Gy.QySin.Application.Precios.Consultas.Listar
             return await repos.PrecioOrdenables
                 .AsQueryable()
                 .Join(
-                    repos.Ordenables.AsQueryable(),
+                    repos.Ordenables.AsQueryable()
+                    .Where(o => string.IsNullOrWhiteSpace(request.PalabraClave)
+                    || o.Nombre.Contains(request.PalabraClave))
+                    .Where(o => !request.Categoria.HasValue || o.Categoria == request.Categoria),
                     p => p.Clave,
                     o => o.Clave,
                     (precio, ordenable) => new PrecioOrdenableDto
                     {
-
+                        Clave = precio.Clave.ToString(),
+                        Precio = precio.Precio,
+                        FechaInicio = precio.FechaInicio,
+                        FechaFin = precio.FechaFin,
+                        Nombre = ordenable.Nombre,
+                        Categoria = ordenable.Categoria
                     })
-                    .ToListAsync(cancellationToken)
-            throw new System.NotImplementedException();
+                    .ToListAsync(cancellationToken);
         }
     }
 }
