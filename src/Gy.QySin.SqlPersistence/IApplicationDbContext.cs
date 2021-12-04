@@ -10,6 +10,7 @@ namespace Gy.QySin.Application.Common.Interfaces
         DbSet<Bebida> Bebidas { get; set; }
         DbSet<Platillo> Platillos { get; set; }
         DbSet<Usuario> Usuarios { get; set; }
+        DbSet<Ordenable> Ordenables { get; set; }
         DbSet<PrecioOrdenable> PrecioOrdenables { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

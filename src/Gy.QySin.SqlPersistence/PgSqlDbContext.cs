@@ -24,12 +24,15 @@ namespace Gy.QySin.SqlPersistence
         public DbSet<Bebida> Bebidas { get; set; }
         public DbSet<Platillo> Platillos { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Ordenable> Ordenables { get; set; }
         public DbSet<PrecioOrdenable> PrecioOrdenables { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasPostgresEnum<UsuarioRoles>();
             modelBuilder.HasPostgresEnum<OrdenableCategorias>();
+            modelBuilder.Entity<Ordenable>()
+                .ToTable("Ordenables");
             modelBuilder.Entity<Bebida>()
                 .ToTable("Bebidas");
             modelBuilder.Entity<Platillo>()

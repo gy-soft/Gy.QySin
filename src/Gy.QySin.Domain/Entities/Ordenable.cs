@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Gy.QySin.Domain.Interfaces;
+using Gy.QySin.Domain.Enums;
 
 namespace Gy.QySin.Domain.Entities
 {
@@ -14,5 +13,6 @@ namespace Gy.QySin.Domain.Entities
         public string Nombre { get; set; }
         public string Imagen { get; set; }
         public decimal Precio { get; set; }
+        public OrdenableCategorias Categoria {get;set;}
     }
 }
