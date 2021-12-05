@@ -12,7 +12,6 @@ namespace Gy.QySin.Domain.Entities
         public System.Guid Clave { get; set; }
         public string Nombre { get; set; }
         public string Imagen { get; set; }
-        public decimal Precio { get; set; }
         public OrdenableCategorias Categoria {get;set;}
     }
 }

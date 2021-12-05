@@ -10,6 +10,7 @@ namespace Gy.QySin.Domain.Entities
             Descripción = descripción;
             Vegetariano = vegetariano;
         }
+        public decimal Precio { get; set; }
         public string Descripción { get; set; }
         public bool Vegetariano { get; set; }
     }

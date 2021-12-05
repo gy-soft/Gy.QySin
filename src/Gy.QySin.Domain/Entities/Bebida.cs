@@ -8,6 +8,7 @@ namespace Gy.QySin.Domain.Entities
             Contenido = contenido;
             Rellenable = rellenable;
         }
+        public decimal Precio { get; set; }
         // Mililitros
         public int Contenido { get; set; }
         public bool Rellenable { get; set; }
