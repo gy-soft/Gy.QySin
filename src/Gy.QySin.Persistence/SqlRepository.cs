@@ -7,7 +7,7 @@ using Gy.QySin.Application.Common.Interfaces;
 using Gy.QySin.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Gy.QySin.SqlPersistence
+namespace Gy.QySin.Persistence
 {
     public class SqlRepository<TContext, TEntity> : IRepository<TEntity>
         where TContext : IApplicationDbContext

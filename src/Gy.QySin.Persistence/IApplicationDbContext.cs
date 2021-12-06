@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Gy.QySin.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Gy.QySin.Application.Common.Interfaces
+namespace Gy.QySin.Persistence
 {
     public interface IApplicationDbContext
     {

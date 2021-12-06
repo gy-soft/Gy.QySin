@@ -4,7 +4,7 @@ using Gy.QySin.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 
-namespace Gy.QySin.SqlPersistence
+namespace Gy.QySin.Persistence
 {
     public class PgSqlDbContext : DbContext, IApplicationDbContext
     {

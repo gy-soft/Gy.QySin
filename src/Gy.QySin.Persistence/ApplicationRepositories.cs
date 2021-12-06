@@ -1,7 +1,7 @@
 using Gy.QySin.Application.Common.Interfaces;
 using Gy.QySin.Domain.Entities;
 
-namespace Gy.QySin.SqlPersistence
+namespace Gy.QySin.Persistence
 {
     public class ApplicationRepositories : IApplicationRepositories
     {

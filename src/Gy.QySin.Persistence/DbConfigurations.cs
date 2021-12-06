@@ -1,6 +1,6 @@
 using Gy.QySin.Application.Common.Interfaces;
 
-namespace Gy.QySin.SqlPersistence
+namespace Gy.QySin.Persistence
 {
     public class DbConfigurations : IDbConfigurations
     {
