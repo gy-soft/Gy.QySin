@@ -6,6 +6,6 @@ namespace Gy.QySin.Application.Common.Interfaces
     public interface IAppendRepository<TEntity>
         where TEntity : class
     {
-        Task<TEntity> GetAsync(object[] pk, CancellationToken cancellationToken = default);
+        Task AddAsync(TEntity entity, CancellationToken cancellationToken = default);
     }
 }
