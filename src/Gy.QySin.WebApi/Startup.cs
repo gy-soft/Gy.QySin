@@ -1,5 +1,5 @@
 using Gy.QySin.Application;
-using Gy.QySin.Persistence;
+using Gy.QySin.Persistence.Sql;
 using Gy.QySin.WebApi.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
