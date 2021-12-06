@@ -1,13 +1,11 @@
 using System;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Gy.QySin.Application.Common.Interfaces;
-using Gy.QySin.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Gy.QySin.Persistence
+namespace Gy.QySin.Persistence.Sql
 {
     public class SqlRepository<TContext, TEntity> : IRepository<TEntity>
         where TContext : IApplicationDbContext

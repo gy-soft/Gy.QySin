@@ -1,5 +1,6 @@
 using Gy.QySin.Application.Common.Interfaces;
 using Gy.QySin.Domain.Entities;
+using Gy.QySin.Persistence.Sql;
 
 namespace Gy.QySin.Persistence
 {

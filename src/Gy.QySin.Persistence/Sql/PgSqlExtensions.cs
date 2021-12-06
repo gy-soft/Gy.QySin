@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Gy.QySin.Application.Common.Interfaces;
 
-namespace Gy.QySin.Persistence
+namespace Gy.QySin.Persistence.Sql
 {
     
     public static class PgSqlExtensions
