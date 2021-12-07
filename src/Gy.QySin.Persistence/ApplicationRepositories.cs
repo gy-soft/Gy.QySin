@@ -13,6 +13,7 @@ namespace Gy.QySin.Persistence
             Platillos = new SqlRepository<IApplicationDbContext, Platillo>(context, context.Platillos);
             Ordenables = new SqlRepository<IApplicationDbContext, Ordenable>(context, context.Ordenables);
             PrecioOrdenables = new SqlRepository<IApplicationDbContext, PrecioOrdenable>(context, context.PrecioOrdenables);
+            // TODO: Repositorio Ventas
         }
         public IRepository<Usuario> Usuarios { get; private set; }
 
@@ -22,5 +23,6 @@ namespace Gy.QySin.Persistence
         public IRepository<Ordenable> Ordenables { get; private set; }
 
         public IRepository<PrecioOrdenable> PrecioOrdenables { get; private set; }
+        public IAppendRepository<Venta> Ventas { get; private set; }
     }
 }

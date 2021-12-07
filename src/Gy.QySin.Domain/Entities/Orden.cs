@@ -1,4 +1,4 @@
-namespace Gy.QySin.Domain.ValueObjects
+namespace Gy.QySin.Domain.Entities
 {
     public class Orden
     {
@@ -13,6 +13,7 @@ namespace Gy.QySin.Domain.ValueObjects
         {
             Cantidad += agregando;
         }
+        public string IdVenta { get; set; }
         public string Clave { get; }
         public string Nombre { get; }
         public decimal PrecioUnitario { get; }

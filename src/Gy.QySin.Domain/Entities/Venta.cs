@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Gy.QySin.Domain.ValueObjects;
+using System.Linq;
 
 namespace Gy.QySin.Domain.Entities
 {
@@ -11,10 +11,10 @@ namespace Gy.QySin.Domain.Entities
             Anotación = anotación;
             FechaHora = DateTime.Now;
         }
-        public DateTime FechaHora { get; set; }
-        public string Anotación { get; set; }
-        public decimal GranTotal { get; set; }
-        public IEnumerable<Orden> Ordenes { get => ordenesDict.Values; }
+        public string Id { private get; set; }
+        public DateTime FechaHora { get; private set; }
+        public string Anotación { get; private set; }
+        public decimal GranTotal { get; private set; }
         public void AgregarOrdenes(IEnumerable<Orden> ordenes)
         {
             foreach (var orden in ordenes)
@@ -28,6 +28,17 @@ namespace Gy.QySin.Domain.Entities
                     ordenesDict.Add(orden.Clave, orden);
                 }
             }
+            GranTotal = ordenesDict.Values.Sum(o => o.Total);
+        }
+        public IEnumerable<Orden> ExtraerOrdenes()
+        {
+            if (Id is null)
+                throw new InvalidOperationException("El 'Id' de la Venta no puede ser nulo.");
+            return ordenesDict.Values
+                .Select(o => {
+                    o.IdVenta = Id;
+                    return o;
+                });
         }
         private Dictionary<string, Orden> ordenesDict = new Dictionary<string, Orden>();
     }
