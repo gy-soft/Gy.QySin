@@ -8,6 +8,10 @@ namespace Gy.QySin.Persistence.Document
 {
     public class VentasRepository : DocumentRepository<Venta>
     {
+        private readonly JsonSerializerOptions serializerOptions = new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        };
         public VentasRepository(ICouchClientFactory clientFactory) : base(clientFactory)
         {}
 
@@ -15,7 +19,7 @@ namespace Gy.QySin.Persistence.Document
         {
             using var ventasClient = clientFactory.ForDatabase("ventas");
             var res = await ventasClient.Documents.PostAsync(
-                JsonSerializer.Serialize(entity),
+                JsonSerializer.Serialize(entity, serializerOptions),
                 cancellationToken);
             if (!res.IsSuccess)
             {
@@ -26,7 +30,7 @@ namespace Gy.QySin.Persistence.Document
             using var detalleClient = clientFactory.ForDatabase("detalleventas");
             var responseTasks = entity.ExtraerOrdenes().Select(
                 o => detalleClient.Documents.PostAsync(
-                    JsonSerializer.Serialize(o),
+                    JsonSerializer.Serialize(o, serializerOptions),
                     cancellationToken
                 )
             );

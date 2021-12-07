@@ -14,6 +14,7 @@ namespace Gy.QySin.Domain.Entities
             Cantidad += agregando;
         }
         public string IdVenta { get; set; }
+        public long Ts { get; set; }
         public string Clave { get; }
         public string Nombre { get; }
         public decimal PrecioUnitario { get; }

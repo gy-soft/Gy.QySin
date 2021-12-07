@@ -9,10 +9,10 @@ namespace Gy.QySin.Domain.Entities
         public Venta(string anotación)
         {
             Anotación = anotación;
-            FechaHora = DateTime.Now;
+            Ts = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         }
         public string Id { private get; set; }
-        public DateTime FechaHora { get; private set; }
+        public long Ts { get; private set; }
         public string Anotación { get; private set; }
         public decimal GranTotal { get; private set; }
         public void AgregarOrdenes(IEnumerable<Orden> ordenes)
@@ -37,6 +37,7 @@ namespace Gy.QySin.Domain.Entities
             return ordenesDict.Values
                 .Select(o => {
                     o.IdVenta = Id;
+                    o.Ts = Ts;
                     return o;
                 });
         }
