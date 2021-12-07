@@ -1,10 +1,9 @@
-using Gy.QySin.Application.Common.Interfaces;
 using Gy.QySin.Domain.Entities;
 using Gy.QySin.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 
-namespace Gy.QySin.SqlPersistence
+namespace Gy.QySin.Persistence.Sql
 {
     public class PgSqlDbContext : DbContext, IApplicationDbContext
     {

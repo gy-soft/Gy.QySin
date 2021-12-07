@@ -1,16 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Gy.QySin.Application;
-using Gy.QySin.SqlPersistence;
+using Gy.QySin.Persistence.Document;
+using Gy.QySin.Persistence.Sql;
 using Gy.QySin.WebApi.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 namespace Gy.QySin.WebApi
 {
@@ -26,6 +21,7 @@ namespace Gy.QySin.WebApi
         {
             services
                 .UsePostgres(Configuration)
+                .UseCouchDb(Configuration)
                 .AddMiddleware()
                 .AddApplication()
                 .AddControllers();

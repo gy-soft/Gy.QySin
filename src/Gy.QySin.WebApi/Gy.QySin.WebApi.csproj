@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
-    <ProjectReference Include="..\Gy.QySin.SqlPersistence\Gy.QySin.SqlPersistence.csproj" />
+    <ProjectReference Include="..\Gy.QySin.Persistence\Gy.QySin.Persistence.csproj" />
     <ProjectReference Include="..\Gy.QySin.Application\Gy.QySin.Application.csproj" />
   </ItemGroup>
 

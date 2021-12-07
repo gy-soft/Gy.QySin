@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gy.QySin.Domain", "src\Gy.Q
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gy.QySin.Application", "src\Gy.QySin.Application\Gy.QySin.Application.csproj", "{1F6CC82E-9BFC-4DE8-BA0C-917BD108B094}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gy.QySin.SqlPersistence", "src\Gy.QySin.SqlPersistence\Gy.QySin.SqlPersistence.csproj", "{8EFDC2B7-41A6-41FB-B828-0EC26CCA4A9E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gy.QySin.SqlPersistence", "src\Gy.QySin.Persistence\Gy.QySin.Persistence.csproj", "{8EFDC2B7-41A6-41FB-B828-0EC26CCA4A9E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gy.QySin.WebApi", "src\Gy.QySin.WebApi\Gy.QySin.WebApi.csproj", "{0AEC8C00-7F45-4368-B3E3-7EABE090A97A}"
 EndProject

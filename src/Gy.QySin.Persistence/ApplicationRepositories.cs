@@ -1,7 +1,8 @@
 using Gy.QySin.Application.Common.Interfaces;
 using Gy.QySin.Domain.Entities;
+using Gy.QySin.Persistence.Sql;
 
-namespace Gy.QySin.SqlPersistence
+namespace Gy.QySin.Persistence
 {
     public class ApplicationRepositories : IApplicationRepositories
     {
@@ -12,6 +13,7 @@ namespace Gy.QySin.SqlPersistence
             Platillos = new SqlRepository<IApplicationDbContext, Platillo>(context, context.Platillos);
             Ordenables = new SqlRepository<IApplicationDbContext, Ordenable>(context, context.Ordenables);
             PrecioOrdenables = new SqlRepository<IApplicationDbContext, PrecioOrdenable>(context, context.PrecioOrdenables);
+            // TODO: Repositorio Ventas
         }
         public IRepository<Usuario> Usuarios { get; private set; }
 
@@ -21,5 +23,6 @@ namespace Gy.QySin.SqlPersistence
         public IRepository<Ordenable> Ordenables { get; private set; }
 
         public IRepository<PrecioOrdenable> PrecioOrdenables { get; private set; }
+        public IAppendRepository<Venta> Ventas { get; private set; }
     }
 }
