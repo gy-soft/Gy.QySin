@@ -3,7 +3,6 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Gy.QySin.Domain.Entities;
-using MyCouch.Requests;
 
 namespace Gy.QySin.Persistence.Document
 {

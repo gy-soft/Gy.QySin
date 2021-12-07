@@ -1,4 +1,5 @@
 using Gy.QySin.Application;
+using Gy.QySin.Persistence.Document;
 using Gy.QySin.Persistence.Sql;
 using Gy.QySin.WebApi.Middleware;
 using Microsoft.AspNetCore.Builder;
@@ -20,6 +21,7 @@ namespace Gy.QySin.WebApi
         {
             services
                 .UsePostgres(Configuration)
+                .UseCouchDb(Configuration)
                 .AddMiddleware()
                 .AddApplication()
                 .AddControllers();
