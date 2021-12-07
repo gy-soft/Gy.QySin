@@ -6,7 +6,6 @@ using Gy.QySin.Application.Common.Interfaces;
 using MediatR;
 using System;
 using Microsoft.EntityFrameworkCore;
-using Gy.QySin.Domain.ValueObjects;
 using Gy.QySin.Domain.Entities;
 
 namespace Gy.QySin.Application.Ventas.Comandos.Crear
@@ -30,29 +29,30 @@ namespace Gy.QySin.Application.Ventas.Comandos.Crear
         {
             var venta = new Venta(request.Anotación);
 
-            var bebidas = await repos.Bebidas
+            var bebidas = (await repos.Bebidas
                 .AsQueryable()
                 .Where(b => request.Bebidas.Select(x => Guid.Parse(x.Clave))
                     .Contains(b.Clave))
+                .ToListAsync())
                 .Join(request.Bebidas,
                     ent => ent.Clave.ToString(),
                     req => req.Clave,
-                    (ent, req) => new Orden(req.Clave, ent.Nombre, ent.Precio, req.Cantidad))
-                .ToListAsync();
+                    (ent, req) => new Orden(req.Clave, ent.Nombre, ent.Precio, req.Cantidad));
             venta.AgregarOrdenes(bebidas);
 
-            var platillos = await repos.Platillos
+            var platillos = (await repos.Platillos
                 .AsQueryable()
                 .Where(p => request.Platillos.Select(x => Guid.Parse(x.Clave))
                     .Contains(p.Clave))
+                .ToListAsync())
                 .Join(request.Platillos,
                     ent => ent.Clave.ToString(),
                     req => req.Clave,
-                    (ent, req) => new Orden(req.Clave, ent.Nombre, ent.Precio, req.Cantidad))
-                .ToListAsync();
+                    (ent, req) => new Orden(req.Clave, ent.Nombre, ent.Precio, req.Cantidad));
             venta.AgregarOrdenes(platillos);
-            // TODO: persistir venta
-            throw new System.NotImplementedException();
+            
+            await repos.Ventas.AddAsync(venta);
+            return Unit.Value;
         }
     }
 }

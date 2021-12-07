@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Gy.QySin.Persistence.Sql
 {
-    public interface IApplicationDbContext
+    public interface ISqlDbContext
     {
         DbSet<Bebida> Bebidas { get; set; }
         DbSet<Platillo> Platillos { get; set; }

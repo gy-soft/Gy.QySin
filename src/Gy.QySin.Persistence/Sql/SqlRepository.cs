@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Gy.QySin.Persistence.Sql
 {
     public class SqlRepository<TContext, TEntity> : IRepository<TEntity>
-        where TContext : IApplicationDbContext
+        where TContext : ISqlDbContext
         where TEntity : class
     {
         private readonly TContext context;

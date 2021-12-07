@@ -16,7 +16,7 @@ namespace Gy.QySin.Persistence.Sql
         /// <returns></returns>
         public static IServiceCollection UsePostgres(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<IApplicationDbContext, PgSqlDbContext>(options =>
+            services.AddDbContext<ISqlDbContext, PgSqlDbContext>(options =>
                 options.UseNpgsql(configuration.GetConnectionString("PostgresConnectionString"))
             );
             services.AddScoped<IApplicationRepositories, ApplicationRepositories>();

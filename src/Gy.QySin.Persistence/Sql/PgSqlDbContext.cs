@@ -5,7 +5,7 @@ using Npgsql;
 
 namespace Gy.QySin.Persistence.Sql
 {
-    public class PgSqlDbContext : DbContext, IApplicationDbContext
+    public class PgSqlDbContext : DbContext, ISqlDbContext
     {
 
         /// <summary>
