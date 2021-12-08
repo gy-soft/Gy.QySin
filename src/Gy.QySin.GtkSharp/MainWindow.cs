@@ -1,15 +1,16 @@
 using System;
 using Gtk;
 using Gy.QySin.Application.Common.Interfaces;
-using Gy.QySin.Domain.Entities;
+using Gy.QySin.GtkSharp.Models;
 using UI = Gtk.Builder.ObjectAttribute;
 
 namespace Gy.QySin.GtkSharp
 {
     class MainWindow : Window
     {
-        [UI] private Label _label1 = null;
-        [UI] private Button _button1 = null;
+        [UI] private Button _btn_registrar_venta = null;
+        [UI] private ComboBoxText _combo_categoria = null;
+        [UI] private ComboBoxText _combo_ordenable = null;
 
         private readonly IServiceProvider serviceProvider;
 
@@ -23,7 +24,9 @@ namespace Gy.QySin.GtkSharp
             builder.Autoconnect(this);
 
             DeleteEvent += Window_DeleteEvent;
-            _button1.Clicked += Button1_Clicked;
+            _btn_registrar_venta.Clicked += BtnRegistrar_Clicked;
+            ModelBinder.BindComboBoxTextModel(_combo_categoria, new CategoriaModel());
+            _combo_categoria.Changed += ComboCategoria_Changed;
         }
 
         private void Window_DeleteEvent(object sender, DeleteEventArgs a)
@@ -31,24 +34,25 @@ namespace Gy.QySin.GtkSharp
             Gtk.Application.Quit();
         }
 
-        private async void Button1_Clicked(object sender, EventArgs a)
+        private void ComboCategoria_Changed(object sender, EventArgs a)
         {
-            try
+            ComboBoxText combo = (ComboBoxText)sender;
+            switch (combo.ActiveId)
             {
-                 IApplicationRepositories repos = (IApplicationRepositories)serviceProvider
-                    .GetService(typeof(IApplicationRepositories));
-                string id = "d26aa9d2-52dd-11ec-b829-135430a773b0";
-                var bebida = await repos.Bebidas.GetAsync(
-                    new object[] { Guid.Parse(id) }
-                );
-                Console.WriteLine("Nombre bebida: {0}", bebida.Nombre);
+                case "0":
+                    ModelBinder.BindComboBoxTextModel(_combo_ordenable, new PlatillosModel());
+                    break;
+                case "1":
+                    ModelBinder.BindComboBoxTextModel(_combo_ordenable, new BebidasModel());
+                    break;
+                default:
+                    _combo_ordenable.RemoveAll();
+                    break;
             }
-            catch (System.Exception e)
-            {
-                
-                throw;
-            }
-            
+        }
+        private void BtnRegistrar_Clicked(object sender, EventArgs a)
+        {
+            //
         }
     }
 }
