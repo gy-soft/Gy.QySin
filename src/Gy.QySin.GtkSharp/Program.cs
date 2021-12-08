@@ -3,6 +3,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration.Json;
 using Gy.QySin.Persistence.Sql;
 using Gy.QySin.Persistence.Document;
+using Gy.QySin.Application;
 // Hay un conflicto entre la classe Gtk.Application
 // y el namespace Gy.QySin.Application
 // using Gtk;
@@ -17,6 +18,7 @@ namespace Gy.QySin.GtkSharp
             using IHost host = Host.CreateDefaultBuilder(args)
                 .ConfigureServices((ctx, services) =>
                 {
+                    services.AddApplication();
                     services.UsePostgres(ctx.Configuration);
                     services.UseCouchDb(ctx.Configuration);
                 })

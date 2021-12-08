@@ -28,17 +28,22 @@ namespace Gy.QySin.GtkSharp.ViewModels
             this.comboCategoria.Changed += ComboCategoria_Changed;
             this.comboOrdenable.Changed += ComboOrdenable_Changed;
             this.spinCantidad.ValueChanged += SpinCantidad_Changed;
-            Cantidad = this.spinCantidad.ValueAsInt;
+            cantidad = this.spinCantidad.ValueAsInt;
             this.btnAgregarOrden.Clicked += BtnAgregarOrden_Clicked;
         }
-        public string Clave { get; private set; }
-        public string Nombre { get; private set; }
-        public int Cantidad { get; private set; }
+        private int categoria;
+        private string clave;
+        private string nombre;
+        private int cantidad;
         public event EventHandler OrdenAgregada;
 
         private void ComboCategoria_Changed(object sender, EventArgs a)
         {
             ComboBoxText combo = (ComboBoxText)sender;
+            if (int.TryParse(combo.ActiveId, out int cat))
+            {
+                categoria = cat;
+            }
             switch (combo.ActiveId)
             {
                 case "0":
@@ -55,14 +60,14 @@ namespace Gy.QySin.GtkSharp.ViewModels
         private void ComboOrdenable_Changed(object sender, EventArgs a)
         {
             ComboBoxText combo = (ComboBoxText)sender;
-            Clave = combo.ActiveId;
-            Nombre = combo.ActiveText;
+            clave = combo.ActiveId;
+            nombre = combo.ActiveText;
             ValidarForma();
         }
         private void SpinCantidad_Changed(object sender, EventArgs a)
         {
             SpinButton spin = (SpinButton)sender;
-            Cantidad = spin.ValueAsInt;
+            cantidad = spin.ValueAsInt;
             ValidarForma();
         }
         private void BtnAgregarOrden_Clicked(object sender, EventArgs a)
@@ -70,18 +75,18 @@ namespace Gy.QySin.GtkSharp.ViewModels
             var valor = GetValue();
             comboCategoria.Active = -1;
             spinCantidad.Value = 1d;
-            Cantidad = 1;
+            cantidad = 1;
             ValidarForma();
             OrdenAgregada(valor, EventArgs.Empty);
         }
         private void ValidarForma()
         {
-            if (!string.IsNullOrEmpty(Clave)
-            && Cantidad > 0)
+            if (!string.IsNullOrEmpty(clave)
+            && cantidad > 0)
             {
                 btnAgregarOrden.Sensitive = true;
             }
         }
-        private OrdenDto GetValue() => new OrdenDto(Cantidad, Clave, Nombre);
+        private OrdenVal GetValue() => new OrdenVal(categoria, cantidad, clave, nombre);
     }
 }

@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Gy.QySin.Persistence\Gy.QySin.Persistence.csproj" />
+    <ProjectReference Include="..\Gy.QySin.Domain\Gy.QySin.Domain.csproj" />
   </ItemGroup>
 
 </Project>
