@@ -1,5 +1,7 @@
 using System;
 using Gtk;
+using Gy.QySin.Application.Common.Interfaces;
+using Gy.QySin.Domain.Entities;
 using UI = Gtk.Builder.ObjectAttribute;
 
 namespace Gy.QySin.GtkSharp
@@ -9,9 +11,12 @@ namespace Gy.QySin.GtkSharp
         [UI] private Label _label1 = null;
         [UI] private Button _button1 = null;
 
-        private int _counter;
+        private readonly IServiceProvider serviceProvider;
 
-        public MainWindow() : this(new Builder("MainWindow.glade")) { }
+        public MainWindow(IServiceProvider serviceProvider) : this(new Builder("MainWindow.glade"))
+        {
+            this.serviceProvider = serviceProvider;
+        }
 
         private MainWindow(Builder builder) : base(builder.GetRawOwnedObject("MainWindow"))
         {
@@ -23,13 +28,27 @@ namespace Gy.QySin.GtkSharp
 
         private void Window_DeleteEvent(object sender, DeleteEventArgs a)
         {
-            Application.Quit();
+            Gtk.Application.Quit();
         }
 
-        private void Button1_Clicked(object sender, EventArgs a)
+        private async void Button1_Clicked(object sender, EventArgs a)
         {
-            _counter++;
-            _label1.Text = "Hello World! This button has been clicked " + _counter + " time(s).";
+            try
+            {
+                 IApplicationRepositories repos = (IApplicationRepositories)serviceProvider
+                    .GetService(typeof(IApplicationRepositories));
+                string id = "d26aa9d2-52dd-11ec-b829-135430a773b0";
+                var bebida = await repos.Bebidas.GetAsync(
+                    new object[] { Guid.Parse(id) }
+                );
+                Console.WriteLine("Nombre bebida: {0}", bebida.Nombre);
+            }
+            catch (System.Exception e)
+            {
+                
+                throw;
+            }
+            
         }
     }
 }

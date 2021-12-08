@@ -2,6 +2,14 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": ".NET Core Lsunch (Gtk)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-gui",
+            "program": "${workspaceFolder}/src/Gy.QySin.GtkSharp/bin/Debug/net5.0/Gy.QySin.GtkSharp.dll",
+            "cwd": "${workspaceFolder}/src/Gy.QySin.GtkSharp"
+        },
+        {
             // Use IntelliSense to find out which attributes exist for C# debugging
             // Use hover for the description of the existing attributes
             // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
@@ -25,11 +33,6 @@
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"
             }
-        },
-        {
-            "name": ".NET Core Attach",
-            "type": "coreclr",
-            "request": "attach"
         }
     ]
 }
