@@ -24,69 +24,65 @@ namespace Gy.QySin.GtkSharp.ViewModels
             this.btnAgregarOrden = btnAgregarOrden;
 
             this.btnAgregarOrden.Sensitive = false;
-            ModelBinder.BindComboBoxTextModel(comboCategoria, new CategoriaModel());
+            ModelFactory.ConfigurarCategoriaListModel(comboCategoria);
+            ModelFactory.ConfigurarOrdenableFilteredListModel(comboOrdenable, FiltrarComboOrdenableFunc);
             this.comboCategoria.Changed += ComboCategoria_Changed;
             this.comboOrdenable.Changed += ComboOrdenable_Changed;
+
             this.spinCantidad.ValueChanged += SpinCantidad_Changed;
-            cantidad = this.spinCantidad.ValueAsInt;
             this.btnAgregarOrden.Clicked += BtnAgregarOrden_Clicked;
         }
-        private int categoria;
-        private string clave;
-        private string nombre;
-        private int cantidad;
         public event EventHandler OrdenAgregada;
 
         private void ComboCategoria_Changed(object sender, EventArgs a)
         {
-            ComboBoxText combo = (ComboBoxText)sender;
-            if (int.TryParse(combo.ActiveId, out int cat))
-            {
-                categoria = cat;
-            }
-            switch (combo.ActiveId)
-            {
-                case "0":
-                    ModelBinder.BindComboBoxTextModel(comboOrdenable, new PlatillosModel());
-                    break;
-                case "1":
-                    ModelBinder.BindComboBoxTextModel(comboOrdenable, new BebidasModel());
-                    break;
-                default:
-                    comboOrdenable.RemoveAll();
-                    break;
-            }
+            comboOrdenable.Active = 0;
+            var filter = (TreeModelFilter)comboOrdenable.Model;
+            filter.Refilter();
+            ValidarForma();
         }
         private void ComboOrdenable_Changed(object sender, EventArgs a)
         {
-            ComboBoxText combo = (ComboBoxText)sender;
-            clave = combo.ActiveId;
-            nombre = combo.ActiveText;
             ValidarForma();
+        }
+        private bool FiltrarComboOrdenableFunc(ITreeModel model, TreeIter iter)
+        {
+            string idOpción = (string)model.GetValue(iter, 1);
+            int categoriaOpción = (int)model.GetValue(iter, 2);
+            int categoriaActiva = Convert.ToInt32(comboCategoria.ActiveId);
+            return idOpción == "-1" ||
+                categoriaActiva == -1 ||
+                categoriaActiva == categoriaOpción;
         }
         private void SpinCantidad_Changed(object sender, EventArgs a)
         {
-            SpinButton spin = (SpinButton)sender;
-            cantidad = spin.ValueAsInt;
             ValidarForma();
         }
         private void BtnAgregarOrden_Clicked(object sender, EventArgs a)
         {
             var valor = GetValue();
-            comboCategoria.Active = -1;
+            comboCategoria.Active = 0;
+            comboOrdenable.Active = 0;
             spinCantidad.Value = 1d;
-            cantidad = 1;
             ValidarForma();
             OrdenAgregada(valor, EventArgs.Empty);
         }
         private void ValidarForma()
         {
-            if (!string.IsNullOrEmpty(clave)
-            && cantidad > 0)
-            {
-                btnAgregarOrden.Sensitive = true;
-            }
+            btnAgregarOrden.Sensitive = 
+            (
+                comboOrdenable.ActiveId != "-1"
+                && spinCantidad.ValueAsInt > 0
+            );
         }
-        private OrdenVal GetValue() => new OrdenVal(categoria, cantidad, clave, nombre);
+        private OrdenVal GetValue()
+        {
+            comboOrdenable.GetActiveIter(out TreeIter iter);
+            return new OrdenVal(
+                (int)comboOrdenable.Model.GetValue(iter, 2),
+                spinCantidad.ValueAsInt,
+                comboOrdenable.ActiveId,
+                (string)comboOrdenable.Model.GetValue(iter, 0));
+        }
     }
 }
