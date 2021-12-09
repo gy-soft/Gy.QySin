@@ -6,15 +6,15 @@ using Gy.QySin.GtkSharp.ValueObjects;
 
 namespace Gy.QySin.GtkSharp.ViewModels
 {
-    class ListadoOrdenesVm
+    class RegistrarVentaVM
     {
         private readonly ListBox listOrdenes;
         private readonly Entry textNota;
         private readonly Button btnRegistrarVenta;
-        private readonly List<OrdenVal> ordenes = new List<OrdenVal>();
+        private readonly List<DetalleVenta> ordenes = new List<DetalleVenta>();
         public event EventHandler RegistrarVenta;
 
-        public ListadoOrdenesVm(ListBox listOrdenes, Entry textNota, Button btnRegistrarVenta)
+        public RegistrarVentaVM(ListBox listOrdenes, Entry textNota, Button btnRegistrarVenta)
         {
             this.listOrdenes = listOrdenes;
             this.textNota = textNota;
@@ -22,7 +22,7 @@ namespace Gy.QySin.GtkSharp.ViewModels
             this.btnRegistrarVenta.Sensitive = false;
             this.btnRegistrarVenta.Clicked += BtnRegistrarVenta_Clicked;
         }
-        public void AgregarOrden(OrdenVal nuevaOrden)
+        public void AgregarOrden(DetalleVenta nuevaOrden)
         {
             string text = $"{nuevaOrden.Cantidad} - {nuevaOrden.Nombre}";
             var label = new Label(text);
@@ -59,7 +59,8 @@ namespace Gy.QySin.GtkSharp.ViewModels
             ordenes.Clear();
             foreach (var item in listOrdenes.Children)
             {
-                listOrdenes.Remove(item);
+                item.Destroy();
+                // listOrdenes.Remove(item);
             }
             textNota.Text = string.Empty;
             btnRegistrarVenta.Sensitive = false;

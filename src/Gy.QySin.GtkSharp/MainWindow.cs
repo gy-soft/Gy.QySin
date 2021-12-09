@@ -18,7 +18,7 @@ namespace Gy.QySin.GtkSharp
         [UI] private Button _btn_registrar_venta = null;
 
         private AgregarOrdenVM agregarOrdenVM = null;
-        private ListadoOrdenesVm listadoOrdenesVm = null;
+        private RegistrarVentaVM listadoOrdenesVm = null;
         private ISender mediator = null;
 
         public MainWindow(IServiceProvider serviceProvider) : this(new Builder("MainWindow.glade"))
@@ -33,7 +33,7 @@ namespace Gy.QySin.GtkSharp
             DeleteEvent += Window_DeleteEvent;
             agregarOrdenVM = new AgregarOrdenVM(_combo_categoria, _combo_ordenable, _spin_cantidad, _btn_agregar_orden);
             agregarOrdenVM.OrdenAgregada += AgregarOrden_OrdenAgregada;
-            listadoOrdenesVm = new ListadoOrdenesVm(_list_ordenes, _text_nota, _btn_registrar_venta);
+            listadoOrdenesVm = new RegistrarVentaVM(_list_ordenes, _text_nota, _btn_registrar_venta);
             listadoOrdenesVm.RegistrarVenta += BtnRegistrarVenta_Clicked;
         }
 
@@ -44,7 +44,7 @@ namespace Gy.QySin.GtkSharp
 
         private void AgregarOrden_OrdenAgregada(object sender, EventArgs a)
         {
-            OrdenVal orden = (OrdenVal)sender;
+            DetalleVenta orden = (DetalleVenta)sender;
             listadoOrdenesVm.AgregarOrden(orden);
         }
         private void BtnRegistrarVenta_Clicked(object sender, EventArgs a)
