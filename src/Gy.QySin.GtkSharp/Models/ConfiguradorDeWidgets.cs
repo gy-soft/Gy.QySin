@@ -23,6 +23,18 @@ namespace Gy.QySin.GtkSharp.Models
             treeView.AppendColumn(
                 new TreeViewColumn("Nombre", new CellRendererText(), new object[] {"text", 0})
             );
+            var eliminarRenderer = new CellRendererToggle();
+            eliminarRenderer.Radio = true;
+            eliminarRenderer.Toggled += (sender, args) =>
+            {
+                var renderer = (CellRendererToggle)sender;
+                var model = (ListStore)treeView.Model;
+                model.GetIter(out TreeIter iter, new TreePath(args.Path));
+                model.Remove(ref iter);
+            };
+            treeView.AppendColumn(
+                new TreeViewColumn("Eliminar", eliminarRenderer, System.Array.Empty<object>())
+            );
         }
         public static void ConfigurarComboCategorias(ITreeModel model, ComboBox combo)
         {
