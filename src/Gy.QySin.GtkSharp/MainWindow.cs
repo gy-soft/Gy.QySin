@@ -13,7 +13,7 @@ namespace Gy.QySin.GtkSharp
         [UI] private ComboBoxText _combo_ordenable = null;
         [UI] private SpinButton _spin_cantidad = null;
         [UI] private Button _btn_agregar_orden = null;
-        [UI] private ListBox _list_ordenes = null;
+        [UI] private TreeView _list_ordenes = null;
         [UI] private Entry _text_nota = null;
         [UI] private Button _btn_registrar_venta = null;
 
@@ -50,7 +50,7 @@ namespace Gy.QySin.GtkSharp
         private void BtnRegistrarVenta_Clicked(object sender, EventArgs a)
         {
             Application.Ventas.Comandos.Crear.CrearCmd cmd = (Application.Ventas.Comandos.Crear.CrearCmd)sender;
-            mediator.Send(cmd);
+            // mediator.Send(cmd);
         }
     }
 }

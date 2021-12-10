@@ -2,48 +2,47 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Gtk;
+using Gy.QySin.GtkSharp.Models;
 using Gy.QySin.GtkSharp.ValueObjects;
 
 namespace Gy.QySin.GtkSharp.ViewModels
 {
     class RegistrarVentaVM
     {
-        private readonly ListBox listOrdenes;
+        private readonly TreeView listOrdenes;
         private readonly Entry textNota;
         private readonly Button btnRegistrarVenta;
-        private readonly List<DetalleVenta> ordenes = new List<DetalleVenta>();
         public event EventHandler RegistrarVenta;
 
-        public RegistrarVentaVM(ListBox listOrdenes, Entry textNota, Button btnRegistrarVenta)
+        public RegistrarVentaVM(TreeView treeVentaDetalles, Entry textNota, Button btnRegistrarVenta)
         {
-            this.listOrdenes = listOrdenes;
+            this.listOrdenes = treeVentaDetalles;
+            this.listOrdenes.Model = new VentaDetallesModel();
+            ConfiguradorDeWidgets.ConfigurarTreeVentaDetalles(this.listOrdenes);
             this.textNota = textNota;
             this.btnRegistrarVenta = btnRegistrarVenta;
             this.btnRegistrarVenta.Sensitive = false;
             this.btnRegistrarVenta.Clicked += BtnRegistrarVenta_Clicked;
         }
-        public void AgregarOrden(DetalleVenta nuevaOrden)
+        public void AgregarOrden(DetalleVenta detalleVenta)
         {
-            string text = $"{nuevaOrden.Cantidad} - {nuevaOrden.Nombre}";
-            var label = new Label(text);
-            listOrdenes.Add(label);
-            label.Show();
-            ordenes.Add(nuevaOrden);
+            ((VentaDetallesModel)listOrdenes.Model).AgregarVentaDetalle(detalleVenta);
             btnRegistrarVenta.Sensitive = true;
         }
         private void BtnRegistrarVenta_Clicked(object sender, EventArgs a)
         {
+            List<DetalleVenta> detalleVentas = ((VentaDetallesModel)listOrdenes.Model).ExtraerVentaDetalles();
             var comando = new Application.Ventas.Comandos.Crear.CrearCmd
             {
                 Anotación = textNota.Text,
-                Bebidas = ordenes
+                Bebidas = detalleVentas
                     .Where(o => o.Categoria == Domain.Enums.OrdenableCategorias.Bebidas)
                     .Select(o => new Application.Ventas.Comandos.Crear.OrdenDto
                     {
                         Cantidad = o.Cantidad,
                         Clave = o.Clave
                     }).ToList(),
-                Platillos = ordenes
+                Platillos = detalleVentas
                     .Where(o => o.Categoria == Domain.Enums.OrdenableCategorias.Platillos)
                     .Select(o => new Application.Ventas.Comandos.Crear.OrdenDto
                     {
@@ -56,12 +55,7 @@ namespace Gy.QySin.GtkSharp.ViewModels
         }
         private void LimpiarForma()
         {
-            ordenes.Clear();
-            foreach (var item in listOrdenes.Children)
-            {
-                item.Destroy();
-                // listOrdenes.Remove(item);
-            }
+            this.listOrdenes.Model = new VentaDetallesModel();
             textNota.Text = string.Empty;
             btnRegistrarVenta.Sensitive = false;
         }
