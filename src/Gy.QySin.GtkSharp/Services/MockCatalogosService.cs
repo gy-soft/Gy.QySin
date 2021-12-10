@@ -7,7 +7,7 @@ using Gy.QySin.GtkSharp.ValueObjects;
 
 namespace Gy.QySin.GtkSharp.Services
 {
-    class CatálogosService : ICatálogos
+    class MockCatálogosService : ICatálogosService
     {
         public Task<ReadOnlyCollection<IdNombre>> CargarCategoriasAsync()
         {

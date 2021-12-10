@@ -10,14 +10,14 @@ namespace Gy.QySin.GtkSharp.ViewModels
 {
     class AgregarOrdenVM
     {
-        private readonly ICatálogos catálogosService;
+        private readonly ICatálogosService catálogosService;
         private readonly ComboBoxText comboCategoria;
         private readonly ComboBoxText comboOrdenable;
         private readonly SpinButton spinCantidad;
         private readonly Button btnAgregarOrden;
 
         public AgregarOrdenVM(
-            ICatálogos catálogosService,
+            ICatálogosService catálogosService,
             ComboBoxText comboCategoria,
             ComboBoxText comboOrdenable,
             SpinButton spinCantidad,

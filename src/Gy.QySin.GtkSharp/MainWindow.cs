@@ -23,7 +23,7 @@ namespace Gy.QySin.GtkSharp
         private AgregarOrdenVM agregarOrdenVM = null;
         private RegistrarVentaVM listadoOrdenesVm = null;
         private ISender mediator = null;
-        private ICatálogos catálogosService = null;
+        private ICatálogosService catálogosService = null;
 
         public MainWindow(IServiceProvider serviceProvider) : this(serviceProvider, new Builder("MainWindow.glade"))
         {
@@ -37,7 +37,7 @@ namespace Gy.QySin.GtkSharp
         {
             builder.Autoconnect(this);
             this.mediator = (ISender)serviceProvider.GetService(typeof(ISender));
-            this.catálogosService = (ICatálogos)serviceProvider.GetService(typeof(ICatálogos));
+            this.catálogosService = (ICatálogosService)serviceProvider.GetService(typeof(ICatálogosService));
             DeleteEvent += Window_DeleteEvent;
             ConfigurarWidgetsPorDefecto();
         }
