@@ -23,7 +23,7 @@ namespace Gy.QySin.GtkSharp
                     services.AddApplication();
                     services.UsePostgres(ctx.Configuration);
                     services.UseCouchDb(ctx.Configuration);
-                    services.AddTransient<ICatálogosService, MockCatálogosService>();
+                    services.AddTransient<ICatálogosService, CatálogosService>();
                 })
                 .Build();
             Gtk.Application.Init();
