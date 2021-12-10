@@ -9,14 +9,14 @@ namespace Gy.QySin.GtkSharp.Services
 {
     class CatálogosService : ICatálogos
     {
-        public Task<ReadOnlyCollection<IdNombre>> CargarCategorias()
+        public Task<ReadOnlyCollection<IdNombre>> CargarCategoriasAsync()
         {
             return Task.FromResult(
                 new ReadOnlyCollection<IdNombre>(categoriaOpciones)
             );
         }
 
-        public Task<ReadOnlyCollection<Ordenable>> CargarOrdenables()
+        public Task<ReadOnlyCollection<Ordenable>> CargarOrdenablesAsync()
         {
             return Task.FromResult(
                 new ReadOnlyCollection<Ordenable>(ordenableOpciones)

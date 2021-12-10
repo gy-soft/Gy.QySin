@@ -1,5 +1,8 @@
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Gtk;
+using Gy.QySin.GtkSharp.Interfaces;
 using Gy.QySin.GtkSharp.Models;
 using Gy.QySin.GtkSharp.ValueObjects;
 
@@ -7,25 +10,27 @@ namespace Gy.QySin.GtkSharp.ViewModels
 {
     class AgregarOrdenVM
     {
+        private readonly ICatálogos catálogosService;
         private readonly ComboBoxText comboCategoria;
         private readonly ComboBoxText comboOrdenable;
         private readonly SpinButton spinCantidad;
         private readonly Button btnAgregarOrden;
 
         public AgregarOrdenVM(
+            ICatálogos catálogosService,
             ComboBoxText comboCategoria,
             ComboBoxText comboOrdenable,
             SpinButton spinCantidad,
             Button btnAgregarOrden
         ) {
+            this.catálogosService = catálogosService;
             this.comboCategoria = comboCategoria;
             this.comboOrdenable = comboOrdenable;
             this.spinCantidad = spinCantidad;
             this.btnAgregarOrden = btnAgregarOrden;
 
+            ConfigurarCombos();
             this.btnAgregarOrden.Sensitive = false;
-            ModelFactory.ConfigurarCategoriaListModel(comboCategoria);
-            ModelFactory.ConfigurarOrdenableFilteredListModel(comboOrdenable, FiltrarComboOrdenableFunc);
             this.comboCategoria.Changed += ComboCategoria_Changed;
             this.comboOrdenable.Changed += ComboOrdenable_Changed;
 
@@ -33,7 +38,30 @@ namespace Gy.QySin.GtkSharp.ViewModels
             this.btnAgregarOrden.Clicked += BtnAgregarOrden_Clicked;
         }
         public event EventHandler OrdenAgregada;
+        private void ConfigurarCombos()
+        {
+            Task.Run(async () =>
+            {
+                var categoriasCat = await catálogosService.CargarCategoriasAsync();
+                var model = new CategoriaModel(categoriasCat);
+                Gtk.Application.Invoke((sender, args) =>
+                {
+                    ConfiguradorDeWidgets.ConfigurarComboCategorias(model, comboCategoria);
+                });
+            });
 
+            Task.Run(async () =>
+            {
+                var ordenablesCat = await catálogosService.CargarOrdenablesAsync();
+                var model = new OrdenablesModel(ordenablesCat);
+                Gtk.Application.Invoke((sender, args) =>
+                {
+                    ConfiguradorDeWidgets.ConfigurarComboOrdenables(
+                        model, comboOrdenable, FiltrarComboOrdenableFunc
+                    );
+                });
+            });
+        }
         private void ComboCategoria_Changed(object sender, EventArgs a)
         {
             comboOrdenable.Active = 0;

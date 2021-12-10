@@ -9,13 +9,13 @@ namespace Gy.QySin.GtkSharp.Models
         public CategoriaModel(IEnumerable<IdNombre> categorias)
             : base(
                 typeof(string), // Nombre
-                typeof(int) // Id
+                typeof(string) // Id
             )
         {
-            AppendValues(new object[] { "Seleccionar...", -1 });
+            AppendValues(new object[] { "Seleccionar...", "-1" });
             foreach (var cat in categorias)
             {
-                AppendValues(new object[] { cat.Nombre, cat.Id });
+                AppendValues(new object[] { cat.Nombre, cat.Id.ToString() });
             }
         }
     }

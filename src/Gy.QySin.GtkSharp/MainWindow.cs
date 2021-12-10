@@ -1,5 +1,8 @@
 using System;
+using System.Threading.Tasks;
 using Gtk;
+using Gy.QySin.GtkSharp.Interfaces;
+using Gy.QySin.GtkSharp.Models;
 using Gy.QySin.GtkSharp.ValueObjects;
 using Gy.QySin.GtkSharp.ViewModels;
 using MediatR;
@@ -20,21 +23,23 @@ namespace Gy.QySin.GtkSharp
         private AgregarOrdenVM agregarOrdenVM = null;
         private RegistrarVentaVM listadoOrdenesVm = null;
         private ISender mediator = null;
+        private ICatálogos catálogosService = null;
 
-        public MainWindow(IServiceProvider serviceProvider) : this(new Builder("MainWindow.glade"))
+        public MainWindow(IServiceProvider serviceProvider) : this(serviceProvider, new Builder("MainWindow.glade"))
         {
-            this.mediator = (ISender)serviceProvider.GetService(typeof(ISender));
-        }
-
-        private MainWindow(Builder builder) : base(builder.GetRawOwnedObject("MainWindow"))
-        {
-            builder.Autoconnect(this);
-
-            DeleteEvent += Window_DeleteEvent;
-            agregarOrdenVM = new AgregarOrdenVM(_combo_categoria, _combo_ordenable, _spin_cantidad, _btn_agregar_orden);
+            agregarOrdenVM = new AgregarOrdenVM(catálogosService, _combo_categoria, _combo_ordenable, _spin_cantidad, _btn_agregar_orden);
             agregarOrdenVM.OrdenAgregada += AgregarOrden_OrdenAgregada;
             listadoOrdenesVm = new RegistrarVentaVM(_list_ordenes, _text_nota, _btn_registrar_venta);
             listadoOrdenesVm.RegistrarVenta += BtnRegistrarVenta_Clicked;
+        }
+
+        private MainWindow(IServiceProvider serviceProvider, Builder builder) : base(builder.GetRawOwnedObject("MainWindow"))
+        {
+            builder.Autoconnect(this);
+            this.mediator = (ISender)serviceProvider.GetService(typeof(ISender));
+            this.catálogosService = (ICatálogos)serviceProvider.GetService(typeof(ICatálogos));
+            DeleteEvent += Window_DeleteEvent;
+            ConfigurarWidgetsPorDefecto();
         }
 
         private void Window_DeleteEvent(object sender, DeleteEventArgs a)
@@ -50,7 +55,17 @@ namespace Gy.QySin.GtkSharp
         private void BtnRegistrarVenta_Clicked(object sender, EventArgs a)
         {
             Application.Ventas.Comandos.Crear.CrearCmd cmd = (Application.Ventas.Comandos.Crear.CrearCmd)sender;
-            // mediator.Send(cmd);
+            mediator.Send(cmd);
+        }
+
+        private void ConfigurarWidgetsPorDefecto()
+        {
+            ListStore model = new ListStore(
+                typeof(string),
+                typeof(string)
+            );
+            model.AppendValues(new object[] { "Seleccionar...", "-1" });
+            _combo_ordenable.Model = new TreeModelFilter(model, null);
         }
     }
 }

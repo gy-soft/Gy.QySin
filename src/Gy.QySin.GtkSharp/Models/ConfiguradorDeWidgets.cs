@@ -24,5 +24,23 @@ namespace Gy.QySin.GtkSharp.Models
                 new TreeViewColumn("Nombre", new CellRendererText(), new object[] {"text", 0})
             );
         }
+        public static void ConfigurarComboCategorias(ITreeModel model, ComboBox combo)
+        {
+            combo.Model = model;
+            combo.IdColumn = 1;
+            combo.Active = 0;
+        }
+        public static void ConfigurarComboOrdenables(
+            ITreeModel model,
+            ComboBox combo,
+            TreeModelFilterVisibleFunc visibleFunc
+        )
+        {
+            var filteredModel = new TreeModelFilter(model, null);
+            filteredModel.VisibleFunc = visibleFunc;
+            combo.Model = filteredModel;
+            combo.IdColumn = 1;
+            combo.Active = 0;
+        }
     }
 }
