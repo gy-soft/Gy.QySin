@@ -14,18 +14,18 @@ namespace Gy.QySin.GtkSharp.Models
                 typeof(int)// Categoria
             ) {}
 
-        public void AgregarVentaDetalle(VentaDetalle detalleVenta)
+        public void AgregarVentaDetalle(VentaDetalle ventaDetalle)
         {
             AppendValues(new object[] { 
-                detalleVenta.Nombre,
-                detalleVenta.Cantidad,
-                detalleVenta.Clave,
-                (int)detalleVenta.Categoria
+                ventaDetalle.Nombre,
+                ventaDetalle.Cantidad,
+                ventaDetalle.Clave,
+                (int)ventaDetalle.Categoria
             });
         }
         public List<VentaDetalle> ExtraerVentaDetalles()
         {
-            List<VentaDetalle> detalleVentas = new List<VentaDetalle>();
+            List<VentaDetalle> ventaDetalle = new List<VentaDetalle>();
             TreeIter iter;
             if (GetIterFirst(out iter))
             {
@@ -39,12 +39,12 @@ namespace Gy.QySin.GtkSharp.Models
                     cantidad = (int)GetValue(iter, 1);
                     clave = (string)GetValue(iter, 2);
                     categoria = (int)GetValue(iter, 3);
-                    detalleVentas.Add(new VentaDetalle(
+                    ventaDetalle.Add(new VentaDetalle(
                         categoria, cantidad, clave, nombre
                     ));
                 } while (IterNext(ref iter));
             }
-            return detalleVentas;
+            return ventaDetalle;
         }
     }
 }

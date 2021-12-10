@@ -24,25 +24,25 @@ namespace Gy.QySin.GtkSharp.ViewModels
             this.btnRegistrarVenta.Sensitive = false;
             this.btnRegistrarVenta.Clicked += BtnRegistrarVenta_Clicked;
         }
-        public void AgregarOrden(VentaDetalle detalleVenta)
+        public void AgregarOrden(VentaDetalle ventaDetalle)
         {
-            ((VentaDetallesModel)treeVentaDetalles.Model).AgregarVentaDetalle(detalleVenta);
+            ((VentaDetallesModel)treeVentaDetalles.Model).AgregarVentaDetalle(ventaDetalle);
             btnRegistrarVenta.Sensitive = true;
         }
         private void BtnRegistrarVenta_Clicked(object sender, EventArgs a)
         {
-            List<VentaDetalle> detalleVentas = ((VentaDetallesModel)treeVentaDetalles.Model).ExtraerVentaDetalles();
+            List<VentaDetalle> ventaDetalles = ((VentaDetallesModel)treeVentaDetalles.Model).ExtraerVentaDetalles();
             var comando = new Application.Ventas.Comandos.Crear.CrearCmd
             {
                 Anotación = textNota.Text,
-                Bebidas = detalleVentas
+                Bebidas = ventaDetalles
                     .Where(o => o.Categoria == Domain.Enums.OrdenableCategorias.Bebidas)
                     .Select(o => new Application.Ventas.Comandos.Crear.OrdenDto
                     {
                         Cantidad = o.Cantidad,
                         Clave = o.Clave
                     }).ToList(),
-                Platillos = detalleVentas
+                Platillos = ventaDetalles
                     .Where(o => o.Categoria == Domain.Enums.OrdenableCategorias.Platillos)
                     .Select(o => new Application.Ventas.Comandos.Crear.OrdenDto
                     {
