@@ -49,7 +49,7 @@ namespace Gy.QySin.GtkSharp
 
         private void AgregarOrden_OrdenAgregada(object sender, EventArgs a)
         {
-            DetalleVenta orden = (DetalleVenta)sender;
+            VentaDetalle orden = (VentaDetalle)sender;
             listadoOrdenesVm.AgregarOrden(orden);
         }
         private void BtnRegistrarVenta_Clicked(object sender, EventArgs a)

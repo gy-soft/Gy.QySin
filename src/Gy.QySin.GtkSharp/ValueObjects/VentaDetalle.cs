@@ -2,9 +2,9 @@ using Gy.QySin.Domain.Enums;
 
 namespace Gy.QySin.GtkSharp.ValueObjects
 {
-    class DetalleVenta
+    class VentaDetalle
     {
-        public DetalleVenta(int categoria, int cantidad, string clave, string nombre)
+        public VentaDetalle(int categoria, int cantidad, string clave, string nombre)
         {
             Categoria = (OrdenableCategorias)categoria;
             Cantidad = cantidad;

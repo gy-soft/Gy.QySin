@@ -103,10 +103,10 @@ namespace Gy.QySin.GtkSharp.ViewModels
                 && spinCantidad.ValueAsInt > 0
             );
         }
-        private DetalleVenta GetValue()
+        private VentaDetalle GetValue()
         {
             comboOrdenable.GetActiveIter(out TreeIter iter);
-            return new DetalleVenta(
+            return new VentaDetalle(
                 (int)comboOrdenable.Model.GetValue(iter, 2),
                 spinCantidad.ValueAsInt,
                 comboOrdenable.ActiveId,

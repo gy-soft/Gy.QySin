@@ -14,7 +14,7 @@ namespace Gy.QySin.GtkSharp.Models
                 typeof(int)// Categoria
             ) {}
 
-        public void AgregarVentaDetalle(DetalleVenta detalleVenta)
+        public void AgregarVentaDetalle(VentaDetalle detalleVenta)
         {
             AppendValues(new object[] { 
                 detalleVenta.Nombre,
@@ -23,9 +23,9 @@ namespace Gy.QySin.GtkSharp.Models
                 (int)detalleVenta.Categoria
             });
         }
-        public List<DetalleVenta> ExtraerVentaDetalles()
+        public List<VentaDetalle> ExtraerVentaDetalles()
         {
-            List<DetalleVenta> detalleVentas = new List<DetalleVenta>();
+            List<VentaDetalle> detalleVentas = new List<VentaDetalle>();
             TreeIter iter;
             if (GetIterFirst(out iter))
             {
@@ -39,7 +39,7 @@ namespace Gy.QySin.GtkSharp.Models
                     cantidad = (int)GetValue(iter, 1);
                     clave = (string)GetValue(iter, 2);
                     categoria = (int)GetValue(iter, 3);
-                    detalleVentas.Add(new DetalleVenta(
+                    detalleVentas.Add(new VentaDetalle(
                         categoria, cantidad, clave, nombre
                     ));
                 } while (IterNext(ref iter));
