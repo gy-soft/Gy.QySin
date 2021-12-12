@@ -33,12 +33,13 @@ namespace Gy.QySin.Domain.Entities
             }
             GranTotal = ordenesDict.Values.Sum(o => o.Total);
         }
-        public IEnumerable<VentaDetalle> ExtraerOrdenes()
+        public List<VentaDetalle> ExtraerDetalles()
         {
             if (Id is null)
                 throw new InvalidOperationException("El 'Id' de la Venta no puede ser nulo.");
-            return ordenesDict.Values;
+            return ordenesDict.Values.ToList();
         }
+
         private Dictionary<string, VentaDetalle> ordenesDict = new Dictionary<string, VentaDetalle>();
     }
 }
