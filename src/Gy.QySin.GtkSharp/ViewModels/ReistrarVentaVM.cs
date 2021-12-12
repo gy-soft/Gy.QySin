@@ -31,6 +31,7 @@ namespace Gy.QySin.GtkSharp.ViewModels
         }
         private void BtnRegistrarVenta_Clicked(object sender, EventArgs a)
         {
+            var hoy = DateTime.Now;
             List<VentaDetalle> ventaDetalles = ((VentaDetallesModel)treeVentaDetalles.Model).ExtraerVentaDetalles();
             var comando = new Application.Ventas.Comandos.Crear.CrearCmd
             {
@@ -48,7 +49,8 @@ namespace Gy.QySin.GtkSharp.ViewModels
                     {
                         Cantidad = o.Cantidad,
                         Clave = o.Clave
-                    }).ToList()
+                    }).ToList(),
+                Fecha = new int[] { hoy.Year, hoy.Month, hoy.Day }
             };
             LimpiarForma();
             RegistrarVenta(comando, EventArgs.Empty);

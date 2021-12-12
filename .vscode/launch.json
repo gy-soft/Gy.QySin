@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": ".NET Core Lsunch (Gtk)",
+            "name": "GtkSharp Launch",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-gui",
