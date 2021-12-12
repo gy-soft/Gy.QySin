@@ -7,14 +7,14 @@ namespace Gy.QySin.Domain.Entities
 {
     public class Venta
     {
-        public Venta(string anotación)
+        public Venta(string anotación, int[] ts)
         {
             Anotación = anotación;
-            Ts = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            Ts = ts;
         }
         [JsonPropertyName("_id")]
         public string Id { get; set; }
-        public long Ts { get; private set; }
+        public int[] Ts { get; private set; }
         public string Anotación { get; private set; }
         public decimal GranTotal { get; private set; }
         public void AgregarOrdenes(IEnumerable<Orden> ordenes)
