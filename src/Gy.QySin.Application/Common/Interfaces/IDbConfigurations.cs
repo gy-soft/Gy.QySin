@@ -4,5 +4,6 @@ namespace Gy.QySin.Application.Common.Interfaces
     {
         int ShortTextColumnLength { get; }
         int LongTextColumnLength { get; }
+        int ResultsLimit { get; }
     }
 }
