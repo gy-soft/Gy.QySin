@@ -15,7 +15,7 @@ namespace Gy.QySin.Application.Ventas.Comandos.Crear
         public string Anotación { get; set; }
         public List<OrdenDto> Bebidas { get; set; }
         public List<OrdenDto> Platillos { get; set; }
-        public DateTime FechaHora { get; set; }
+        public int[] Fecha { get; set; }
     }
     public class CrearCmdMnjr
     {
@@ -28,7 +28,7 @@ namespace Gy.QySin.Application.Ventas.Comandos.Crear
 
         public async Task<Unit> Handle(CrearCmd request, CancellationToken cancellationToken)
         {
-            var venta = new Venta(request.Anotación);
+            var venta = new Venta(request.Anotación, request.Fecha);
 
             var bebidas = (await repos.Bebidas
                 .AsQueryable()
@@ -38,7 +38,7 @@ namespace Gy.QySin.Application.Ventas.Comandos.Crear
                 .Join(request.Bebidas,
                     ent => ent.Clave.ToString(),
                     req => req.Clave,
-                    (ent, req) => new Orden(req.Clave, ent.Nombre, ent.Precio, req.Cantidad));
+                    (ent, req) => new VentaDetalle(req.Clave, ent.Nombre, ent.Precio, req.Cantidad));
             venta.AgregarOrdenes(bebidas);
 
             var platillos = (await repos.Platillos
@@ -49,7 +49,7 @@ namespace Gy.QySin.Application.Ventas.Comandos.Crear
                 .Join(request.Platillos,
                     ent => ent.Clave.ToString(),
                     req => req.Clave,
-                    (ent, req) => new Orden(req.Clave, ent.Nombre, ent.Precio, req.Cantidad));
+                    (ent, req) => new VentaDetalle(req.Clave, ent.Nombre, ent.Precio, req.Cantidad));
             venta.AgregarOrdenes(platillos);
             
             await repos.Ventas.AddAsync(venta);

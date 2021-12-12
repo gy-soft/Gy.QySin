@@ -19,15 +19,19 @@ namespace Gy.QySin.Application.Ventas.Comandos.Crear
         }
         public async Task<Unit> Handle(CrearCmd request, CancellationToken cancellationToken)
         {
-            var venta = new Venta(request.Anotación);
+            var venta = new Venta(request.Anotación, request.Fecha);
+            var fechaVenta = new DateTime(
+                request.Fecha[0], request.Fecha[1], request.Fecha[2],
+                0, 0, 0, DateTimeKind.Utc
+            );
             var precioBebidas = await repos.Ordenables
                 .AsQueryable()
                 .Where(b => request.Bebidas.Select(x => Guid.Parse(x.Clave))
                     .Contains(b.Clave))
                 .Join(repos.PrecioOrdenables
                     .AsQueryable()
-                    .Where(p => p.FechaInicio >= request.FechaHora)
-                    .Where(p => p.FechaFin == null || p.FechaFin < request.FechaHora),
+                    .Where(p => p.FechaInicio >= fechaVenta)
+                    .Where(p => p.FechaFin == null || p.FechaFin < fechaVenta),
                     b => b.Clave,
                     p => p.Clave,
                 (bebida, precio) => new {
@@ -39,7 +43,7 @@ namespace Gy.QySin.Application.Ventas.Comandos.Crear
             var bebidas = precioBebidas.Join(request.Bebidas,
                 p => p.Clave,
                 b => b.Clave,
-                (pb, orden) => new Orden(orden.Clave, pb.Nombre, pb.Precio, orden.Cantidad));
+                (pb, orden) => new VentaDetalle(orden.Clave, pb.Nombre, pb.Precio, orden.Cantidad));
             venta.AgregarOrdenes(bebidas);
 
             var precioPlatillos = await repos.Ordenables
@@ -48,8 +52,8 @@ namespace Gy.QySin.Application.Ventas.Comandos.Crear
                     .Contains(b.Clave))
                 .Join(repos.PrecioOrdenables
                     .AsQueryable()
-                    .Where(p => p.FechaInicio >= request.FechaHora)
-                    .Where(p => p.FechaFin == null || p.FechaFin < request.FechaHora),
+                    .Where(p => p.FechaInicio >= fechaVenta)
+                    .Where(p => p.FechaFin == null || p.FechaFin < fechaVenta),
                     pr => pr.Clave,
                     pl => pl.Clave,
                 (platillo, precio) => new {
@@ -61,7 +65,7 @@ namespace Gy.QySin.Application.Ventas.Comandos.Crear
             var platillos = precioPlatillos.Join(request.Platillos,
                 pr => pr.Clave,
                 pl => pl.Clave,
-                (pp, orden) => new Orden(pp.Clave, pp.Nombre, pp.Precio, orden.Cantidad));
+                (pp, orden) => new VentaDetalle(pp.Clave, pp.Nombre, pp.Precio, orden.Cantidad));
             venta.AgregarOrdenes(platillos);
 
             await repos.Ventas.AddAsync(venta);

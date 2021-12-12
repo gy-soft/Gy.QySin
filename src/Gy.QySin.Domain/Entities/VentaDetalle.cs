@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace Gy.QySin.Domain.Entities
 {
     public class VentaDetalle
@@ -13,7 +15,8 @@ namespace Gy.QySin.Domain.Entities
         {
             Cantidad += agregando;
         }
-        public string IdVenta { get; set; }
+        [JsonPropertyName("_id")]
+        public string Id { get; set; }
         public int[] Ts { get; set; }
         public string Clave { get; }
         public string Nombre { get; }

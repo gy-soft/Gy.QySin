@@ -21,6 +21,7 @@ namespace Gy.QySin.Domain.Entities
         {
             foreach (var orden in ordenes)
             {
+                orden.Ts = Ts;
                 if (ordenesDict.ContainsKey(orden.Clave))
                 {
                     ordenesDict[orden.Clave].AgregarCantidad(orden.Cantidad);
@@ -36,12 +37,7 @@ namespace Gy.QySin.Domain.Entities
         {
             if (Id is null)
                 throw new InvalidOperationException("El 'Id' de la Venta no puede ser nulo.");
-            return ordenesDict.Values
-                .Select(o => {
-                    o.IdVenta = Id;
-                    o.Ts = Ts;
-                    return o;
-                });
+            return ordenesDict.Values;
         }
         private Dictionary<string, VentaDetalle> ordenesDict = new Dictionary<string, VentaDetalle>();
     }
