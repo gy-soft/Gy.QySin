@@ -15,8 +15,9 @@ namespace Gy.QySin.Application.Ventas.Comandos.Crear
         public string Anotación { get; set; }
         public List<OrdenDto> Bebidas { get; set; }
         public List<OrdenDto> Platillos { get; set; }
+        public DateTime FechaHora { get; set; }
     }
-    public class CrearCmdMnjr : IRequestHandler<CrearCmd>
+    public class CrearCmdMnjr
     {
         private readonly IApplicationRepositories repos;
 
