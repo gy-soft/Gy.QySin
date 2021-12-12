@@ -37,7 +37,12 @@ namespace Gy.QySin.Domain.Entities
         {
             if (Id is null)
                 throw new InvalidOperationException("El 'Id' de la Venta no puede ser nulo.");
-            return ordenesDict.Values.ToList();
+            return ordenesDict.Values
+            .Select(o => {
+                o.IdVenta = Id;
+                return o;
+            })
+            .ToList();
         }
 
         private Dictionary<string, VentaDetalle> ordenesDict = new Dictionary<string, VentaDetalle>();
