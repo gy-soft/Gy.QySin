@@ -22,7 +22,7 @@ namespace Gy.QySin.Application.Ventas.Comandos.Crear
             var venta = new Venta(request.Anotación, request.Fecha);
             var fechaVenta = new DateTime(
                 request.Fecha[0], request.Fecha[1], request.Fecha[2],
-                0, 0, 0, DateTimeKind.Utc
+                0, 0, 0, DateTimeKind.Unspecified
             );
             var precioBebidas = await repos.Ordenables
                 .AsQueryable()
@@ -30,8 +30,8 @@ namespace Gy.QySin.Application.Ventas.Comandos.Crear
                     .Contains(b.Clave))
                 .Join(repos.PrecioOrdenables
                     .AsQueryable()
-                    .Where(p => p.FechaInicio >= fechaVenta)
-                    .Where(p => p.FechaFin == null || p.FechaFin < fechaVenta),
+                    .Where(p => p.FechaInicio <= fechaVenta)
+                    .Where(p => p.FechaFin == null || p.FechaFin > fechaVenta),
                     b => b.Clave,
                     p => p.Clave,
                 (bebida, precio) => new {
@@ -52,8 +52,8 @@ namespace Gy.QySin.Application.Ventas.Comandos.Crear
                     .Contains(b.Clave))
                 .Join(repos.PrecioOrdenables
                     .AsQueryable()
-                    .Where(p => p.FechaInicio >= fechaVenta)
-                    .Where(p => p.FechaFin == null || p.FechaFin < fechaVenta),
+                    .Where(p => p.FechaInicio <= fechaVenta)
+                    .Where(p => p.FechaFin == null || p.FechaFin > fechaVenta),
                     pr => pr.Clave,
                     pl => pl.Clave,
                 (platillo, precio) => new {
