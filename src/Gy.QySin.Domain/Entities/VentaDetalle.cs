@@ -1,8 +1,8 @@
 namespace Gy.QySin.Domain.Entities
 {
-    public class Orden
+    public class VentaDetalle
     {
-        public Orden(string clave, string nombre, decimal precioUnitario, int cantidad)
+        public VentaDetalle(string clave, string nombre, decimal precioUnitario, int cantidad)
         {
             Clave = clave;
             Nombre = nombre;

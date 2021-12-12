@@ -17,7 +17,7 @@ namespace Gy.QySin.Domain.Entities
         public int[] Ts { get; private set; }
         public string Anotación { get; private set; }
         public decimal GranTotal { get; private set; }
-        public void AgregarOrdenes(IEnumerable<Orden> ordenes)
+        public void AgregarOrdenes(IEnumerable<VentaDetalle> ordenes)
         {
             foreach (var orden in ordenes)
             {
@@ -32,7 +32,7 @@ namespace Gy.QySin.Domain.Entities
             }
             GranTotal = ordenesDict.Values.Sum(o => o.Total);
         }
-        public IEnumerable<Orden> ExtraerOrdenes()
+        public IEnumerable<VentaDetalle> ExtraerOrdenes()
         {
             if (Id is null)
                 throw new InvalidOperationException("El 'Id' de la Venta no puede ser nulo.");
@@ -43,6 +43,6 @@ namespace Gy.QySin.Domain.Entities
                     return o;
                 });
         }
-        private Dictionary<string, Orden> ordenesDict = new Dictionary<string, Orden>();
+        private Dictionary<string, VentaDetalle> ordenesDict = new Dictionary<string, VentaDetalle>();
     }
 }
