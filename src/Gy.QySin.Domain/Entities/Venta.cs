@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 
 namespace Gy.QySin.Domain.Entities
 {
@@ -11,7 +12,8 @@ namespace Gy.QySin.Domain.Entities
             Anotación = anotación;
             Ts = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         }
-        public string Id { private get; set; }
+        [JsonPropertyName("_id")]
+        public string Id { get; set; }
         public long Ts { get; private set; }
         public string Anotación { get; private set; }
         public decimal GranTotal { get; private set; }
