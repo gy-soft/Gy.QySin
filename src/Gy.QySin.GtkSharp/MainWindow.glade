@@ -50,10 +50,12 @@
       </packing>
     </child>
     <child>
-      <object class="GtkLabel">
+      <object class="GtkTreeView" id="_list_reporte">
         <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="label" translatable="yes">En construcción</property>
+        <property name="can-focus">True</property>
+        <child internal-child="selection">
+          <object class="GtkTreeSelection"/>
+        </child>
       </object>
       <packing>
         <property name="expand">False</property>
@@ -251,6 +253,9 @@
           <object class="GtkTreeView" id="_list_ordenes">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
+            <child internal-child="selection">
+              <object class="GtkTreeSelection"/>
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>
