@@ -18,7 +18,6 @@ namespace Gy.QySin.Domain.Entities
         [JsonPropertyName("_id")]
         public string Id { get; set; }
         public string IdVenta { get; set; }
-        public int[] Ts { get; set; }
         public string Clave { get; }
         public string Nombre { get; }
         public decimal PrecioUnitario { get; }

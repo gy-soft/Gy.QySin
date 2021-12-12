@@ -17,11 +17,11 @@ namespace Gy.QySin.Domain.Entities
         public int[] Ts { get; private set; }
         public string Anotación { get; private set; }
         public decimal GranTotal { get; private set; }
+        public int Unidades { get; set; }
         public void AgregarOrdenes(IEnumerable<VentaDetalle> ordenes)
         {
             foreach (var orden in ordenes)
             {
-                orden.Ts = Ts;
                 if (ordenesDict.ContainsKey(orden.Clave))
                 {
                     ordenesDict[orden.Clave].AgregarCantidad(orden.Cantidad);
@@ -32,6 +32,7 @@ namespace Gy.QySin.Domain.Entities
                 }
             }
             GranTotal = ordenesDict.Values.Sum(o => o.Total);
+            Unidades = ordenesDict.Values.Sum(o => o.Cantidad);
         }
         public List<VentaDetalle> ExtraerDetalles()
         {
