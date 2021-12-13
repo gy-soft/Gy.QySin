@@ -22,6 +22,7 @@ namespace Gy.QySin.Domain.Entities
         {
             foreach (var orden in ordenes)
             {
+                orden.Ts = Ts;
                 if (ordenesDict.ContainsKey(orden.Clave))
                 {
                     ordenesDict[orden.Clave].AgregarCantidad(orden.Cantidad);
