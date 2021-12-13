@@ -11,11 +11,11 @@ namespace Gy.QySin.Application.Common.Interfaces
         int[] Date { get; }
         bool IncludeAggregates { get; }
     }
-    public interface IDateIndexedRepository<TEntity>
+    public interface IReportRepository<TEntity>
     {
-        Task AddAsync(TEntity entity, CancellationToken cancellationToken = default);
         Task<IEnumerable<TEntity>> QueryByDateAsync(
             IByDateQuery query,
             CancellationToken cancellationToken = default);
+        // Task<IEnumerable<T>>
     }
 }

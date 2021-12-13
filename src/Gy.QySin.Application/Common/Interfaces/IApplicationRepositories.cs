@@ -9,6 +9,6 @@ namespace Gy.QySin.Application.Common.Interfaces
         IRepository<Platillo> Platillos { get; }
         IRepository<Ordenable> Ordenables { get; }
         IRepository<PrecioOrdenable> PrecioOrdenables { get; }
-        IDateIndexedRepository<Venta> Ventas { get; }
+        IAppendRepository<Venta> Ventas { get; }
     }
 }
