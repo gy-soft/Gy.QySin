@@ -24,6 +24,6 @@ namespace Gy.QySin.Persistence
         public IRepository<Ordenable> Ordenables { get; private set; }
 
         public IRepository<PrecioOrdenable> PrecioOrdenables { get; private set; }
-        public IDateIndexedRepository<Venta> Ventas { get; private set; }
+        public IAppendRepository<Venta> Ventas { get; private set; }
     }
 }

@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Gy.QySin.Application.Ventas.Comandos.Crear
 {
-    public class CrearCmdMnjr2 : IRequestHandler<CrearCmd>
+    public class CrearCmdMnjr : IRequestHandler<CrearCmd>
     {
         private readonly IApplicationRepositories repos;
 
-        public CrearCmdMnjr2(IApplicationRepositories repos)
+        public CrearCmdMnjr(IApplicationRepositories repos)
         {
             this.repos = repos;
         }
@@ -35,6 +35,7 @@ namespace Gy.QySin.Application.Ventas.Comandos.Crear
                     b => b.Clave,
                     p => p.Clave,
                 (bebida, precio) => new {
+                    Categoria = bebida.Categoria,
                     Clave = bebida.Clave.ToString(),
                     Nombre = bebida.Nombre,
                     Precio = precio.Precio
@@ -43,7 +44,7 @@ namespace Gy.QySin.Application.Ventas.Comandos.Crear
             var bebidas = precioBebidas.Join(request.Bebidas,
                 p => p.Clave,
                 b => b.Clave,
-                (pb, orden) => new VentaDetalle(orden.Clave, pb.Nombre, pb.Precio, orden.Cantidad));
+                (pb, orden) => new VentaDetalle(pb.Categoria, orden.Clave, pb.Nombre, pb.Precio, orden.Cantidad));
             venta.AgregarOrdenes(bebidas);
 
             var precioPlatillos = await repos.Ordenables
@@ -57,6 +58,7 @@ namespace Gy.QySin.Application.Ventas.Comandos.Crear
                     pr => pr.Clave,
                     pl => pl.Clave,
                 (platillo, precio) => new {
+                    Categoria = platillo.Categoria,
                     Clave = platillo.Clave.ToString(),
                     Nombre = platillo.Nombre,
                     Precio = precio.Precio
@@ -65,7 +67,7 @@ namespace Gy.QySin.Application.Ventas.Comandos.Crear
             var platillos = precioPlatillos.Join(request.Platillos,
                 pr => pr.Clave,
                 pl => pl.Clave,
-                (pp, orden) => new VentaDetalle(pp.Clave, pp.Nombre, pp.Precio, orden.Cantidad));
+                (pp, orden) => new VentaDetalle(pp.Categoria, pp.Clave, pp.Nombre, pp.Precio, orden.Cantidad));
             venta.AgregarOrdenes(platillos);
 
             await repos.Ventas.AddAsync(venta);
