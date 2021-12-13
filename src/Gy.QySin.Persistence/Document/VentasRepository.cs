@@ -49,38 +49,5 @@ namespace Gy.QySin.Persistence.Document
             
             await Task.WhenAll(responseTasks);
         }
-        public override async Task<IEnumerable<Venta>> QueryByDateAsync(
-            IByDateQuery byDateQuery,
-            CancellationToken cancellationToken = default)
-        {
-            var hoy = System.DateTime.Now;
-            ViewQueryResponse<Venta> ventasResponse;
-            var queryRequest = RequestFactory.NewQueryViewRequest(
-                "all_docs",
-                byDateQuery
-            );
-
-            using var ventasClient = clientFactory.ForDatabase("ventas");
-            ventasResponse = await ventasClient.Views.QueryAsync<Venta>(queryRequest, cancellationToken);
-            var ventas = ventasResponse.Rows.Select(r => r.Value);
-
-            if (byDateQuery.IncludeAggregates)
-            {
-                ViewQueryResponse<VentaDetalle> ventaDetallesResponse;
-                using var detallesClient = clientFactory.ForDatabase("detalleventas");
-                ventaDetallesResponse = await detallesClient.Views.QueryAsync<VentaDetalle>(
-                    queryRequest, cancellationToken);
-                var grouped = ventaDetallesResponse
-                    .Rows.Select(r => r.Value)
-                    .GroupBy(v => v.IdVenta);
-                foreach (var venta in ventas)
-                {
-                    venta.AgregarOrdenes(
-                        grouped.FirstOrDefault(g => g.Key == venta.Id));
-                }
-            }
-
-            return ventas;
-        }
     }
 }

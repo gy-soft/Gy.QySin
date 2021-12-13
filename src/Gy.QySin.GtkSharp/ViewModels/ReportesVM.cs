@@ -26,17 +26,10 @@ namespace Gy.QySin.GtkSharp.ViewModels
             Task.Run(async () =>
             {
                 var hoy = DateTime.Now;
-                var consulta = new Application.Ventas.Consultas.ListarPorFechaCon()
-                {
-                    Año = hoy.Year,
-                    Mes = hoy.Month,
-                    Día = hoy.Day,
-                    IncluirDetalle = true
-                };
-                var result = await mediator.Send(consulta);
+                // Cargar reporte
                 Gtk.Application.Invoke((sender, args) =>
                 {
-                    //
+                    // Mostar reporte
                 });
             });
         }

@@ -6,23 +6,16 @@ namespace Gy.QySin.Persistence.Document
 {
     public class RequestFactory
     {
-        public static QueryViewRequest NewQueryViewRequest(
+        public static QueryViewRequest NewDaylyReportRequest(
+            string designDocument,
             string viewName,
-            IByDateQuery byDateQuery
+            IDateParams DateParams
         )
         {
-            var sb = new StringBuilder();
-            foreach (var comp in byDateQuery.Date)
-            {
-                sb.Append($"{comp}:");
-            }
-            string key = sb.ToString();
-            var query = new QueryViewRequest(viewName);
-            query.Limit = byDateQuery.Limit;
-            query.StartKey = key + "0";
-            query.EndKey = key + ":";
-            // query.StartKey = $"{hoy.Year}:{hoy.Month}:{hoy.Day}:0";
-            // query.EndKey = $"{hoy.Year}:{hoy.Month}:{hoy.Day}::";
+            var query = new QueryViewRequest(designDocument, viewName);
+            query.StartKey = new object[] { DateParams.Year, DateParams.Month, DateParams.Day };
+            query.EndKey = new object[] { DateParams.Year, DateParams.Month, DateParams.Day, "z" };
+            query.Reduce = true;
             return query;
         }
     }

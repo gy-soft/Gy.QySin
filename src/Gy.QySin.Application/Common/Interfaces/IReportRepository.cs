@@ -4,18 +4,16 @@ using System.Threading.Tasks;
 
 namespace Gy.QySin.Application.Common.Interfaces
 {
-    public interface IByDateQuery
+    public interface IDateParams
     {
-        int Limit { get; }
-        // new object[] { year, month, date }
-        int[] Date { get; }
-        bool IncludeAggregates { get; }
+        int Year { get; }
+        int Month { get; }
+        int Day { get; }
     }
-    public interface IReportRepository<TEntity>
+    public interface IReportRepository
     {
-        Task<IEnumerable<TEntity>> QueryByDateAsync(
-            IByDateQuery query,
+        Task<IEnumerable<TEntity>> GetDailyReportAsync<TEntity>(
+            IDateParams query,
             CancellationToken cancellationToken = default);
-        // Task<IEnumerable<T>>
     }
 }
