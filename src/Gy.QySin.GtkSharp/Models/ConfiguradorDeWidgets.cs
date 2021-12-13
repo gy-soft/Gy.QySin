@@ -54,5 +54,11 @@ namespace Gy.QySin.GtkSharp.Models
             combo.IdColumn = 1;
             combo.Active = 0;
         }
+        public static void ConfigurarTreeReporteVentas(TreeView treeView)
+        {
+            treeView.AppendColumn(
+                new TreeViewColumn("Concepto", new CellRendererText(), new object[] { "text", 0 })
+            );
+        }
     }
 }

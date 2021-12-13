@@ -32,7 +32,7 @@
       </packing>
     </child>
   </object>
-  <object class="GtkBox">
+  <object class="GtkBox" id="BoxReportes">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
     <property name="orientation">vertical</property>
