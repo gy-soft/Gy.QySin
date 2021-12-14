@@ -1,6 +1,6 @@
 namespace Gy.QySin.Domain.ValueObjects
 {
-    public class DailyReportItem
+    public class ArrObjectKeyDecimalValue
     {
         public object[] Key { get; set; }
         public decimal Value { get; set; }

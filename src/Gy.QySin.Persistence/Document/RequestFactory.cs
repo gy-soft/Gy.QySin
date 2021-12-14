@@ -9,12 +9,12 @@ namespace Gy.QySin.Persistence.Document
         public static QueryViewRequest NewDaylyReportRequest(
             string designDocument,
             string viewName,
-            IDateParams DateParams
+            IFechaParams DateParams
         )
         {
             var query = new QueryViewRequest(designDocument, viewName);
-            query.StartKey = new object[] { DateParams.Year, DateParams.Month, DateParams.Day };
-            query.EndKey = new object[] { DateParams.Year, DateParams.Month, DateParams.Day, "z" };
+            query.StartKey = new object[] { DateParams.Año, DateParams.Mes, DateParams.Día };
+            query.EndKey = new object[] { DateParams.Año, DateParams.Mes, DateParams.Día, "z" };
             query.Reduce = true;
             return query;
         }

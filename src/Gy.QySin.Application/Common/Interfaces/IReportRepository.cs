@@ -4,16 +4,16 @@ using System.Threading.Tasks;
 
 namespace Gy.QySin.Application.Common.Interfaces
 {
-    public interface IDateParams
+    public interface IFechaParams
     {
-        int Year { get; }
-        int Month { get; }
-        int Day { get; }
+        int Año { get; }
+        int Mes { get; }
+        int Día { get; }
     }
     public interface IReportRepository
     {
         Task<IEnumerable<TEntity>> GetDailyReportAsync<TEntity>(
-            IDateParams query,
+            IFechaParams query,
             CancellationToken cancellationToken = default);
     }
 }
