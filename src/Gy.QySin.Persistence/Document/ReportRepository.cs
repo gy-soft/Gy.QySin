@@ -8,7 +8,7 @@ using MyCouch.Requests;
 
 namespace Gy.QySin.Persistence.Document
 {
-    public class ReportRepository : IReportRepository
+    public class ReportRepository : IReportRepository<ArrObjectKeyDecimalValue>
     {
         protected readonly ICouchClientFactory clientFactory;
 
@@ -16,8 +16,11 @@ namespace Gy.QySin.Persistence.Document
         {
             this.clientFactory = clientFactory;
         }
-        public async Task<IEnumerable<ArrObjectKeyDecimalValue>> GetDailyReportAsync<ArrObjectKeyDecimalValue>(
-            IFechaParams fechaParams, CancellationToken cancellationToken = default)
+    
+        public async Task<IEnumerable<ArrObjectKeyDecimalValue>> GetDailyReportAsync(
+            IFechaParams query,
+            CancellationToken cancellationToken = default
+        )
         {
             var hoy = System.DateTime.Now;
             QueryViewRequest request = new QueryViewRequest(
@@ -26,7 +29,7 @@ namespace Gy.QySin.Persistence.Document
 
             using var ventasClient = clientFactory.ForDatabase("detalleventas");
             var ventasResponse = await ventasClient.Views.QueryAsync<ArrObjectKeyDecimalValue>(
-                RequestFactory.NewDaylyReportRequest("qysin", "reporteDiario", fechaParams),
+                RequestFactory.NewDaylyReportRequest("qysin", "reporteDiario", query),
                 cancellationToken
             );
             var ventas = ventasResponse.Rows.Select(r => r.Value);

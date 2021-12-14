@@ -1,4 +1,5 @@
 using Gy.QySin.Domain.Entities;
+using Gy.QySin.Domain.ValueObjects;
 
 namespace Gy.QySin.Application.Common.Interfaces
 {
@@ -10,5 +11,6 @@ namespace Gy.QySin.Application.Common.Interfaces
         IRepository<Ordenable> Ordenables { get; }
         IRepository<PrecioOrdenable> PrecioOrdenables { get; }
         IAppendRepository<Venta> Ventas { get; }
+        IReportRepository<ArrObjectKeyDecimalValue> ReportRepository { get; }
     }
 }

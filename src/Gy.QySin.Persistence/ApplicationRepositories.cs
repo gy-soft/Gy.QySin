@@ -1,5 +1,6 @@
 using Gy.QySin.Application.Common.Interfaces;
 using Gy.QySin.Domain.Entities;
+using Gy.QySin.Domain.ValueObjects;
 using Gy.QySin.Persistence.Document;
 using Gy.QySin.Persistence.Sql;
 
@@ -15,15 +16,18 @@ namespace Gy.QySin.Persistence
             Ordenables = new SqlRepository<ISqlDbContext, Ordenable>(context, context.Ordenables);
             PrecioOrdenables = new SqlRepository<ISqlDbContext, PrecioOrdenable>(context, context.PrecioOrdenables);
             Ventas = new VentasRepository(docClientFactory);
+            ReportRepository = new ReportRepository(docClientFactory);
         }
         public IRepository<Usuario> Usuarios { get; private set; }
 
-        public IRepository<Bebida> Bebidas { get; private set;}
+        public IRepository<Bebida> Bebidas { get; private set; }
 
         public IRepository<Platillo> Platillos { get; private set; }
         public IRepository<Ordenable> Ordenables { get; private set; }
 
         public IRepository<PrecioOrdenable> PrecioOrdenables { get; private set; }
         public IAppendRepository<Venta> Ventas { get; private set; }
+
+        public IReportRepository<ArrObjectKeyDecimalValue> ReportRepository { get; private set; }
     }
 }

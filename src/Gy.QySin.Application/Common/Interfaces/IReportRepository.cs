@@ -10,9 +10,9 @@ namespace Gy.QySin.Application.Common.Interfaces
         int Mes { get; }
         int Día { get; }
     }
-    public interface IReportRepository
+    public interface IReportRepository<TDaily>
     {
-        Task<IEnumerable<TEntity>> GetDailyReportAsync<TEntity>(
+        Task<IEnumerable<TDaily>> GetDailyReportAsync(
             IFechaParams query,
             CancellationToken cancellationToken = default);
     }
