@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Gy.QySin.Domain.ValueObjects;
 using Gy.QySin.Application.Common.Interfaces;
 using MyCouch.Requests;
+using MyCouch.Responses;
 
 namespace Gy.QySin.Persistence.Document
 {
@@ -23,17 +24,19 @@ namespace Gy.QySin.Persistence.Document
         )
         {
             var hoy = System.DateTime.Now;
-            QueryViewRequest request = new QueryViewRequest(
-                "qysin", "reporteDiario"
-            );
+            QueryViewRequest request = RequestFactory.NewDaylyReportRequest("qysin", "reporteDiario", query);
 
             using var ventasClient = clientFactory.ForDatabase("detalleventas");
-            var ventasResponse = await ventasClient.Views.QueryAsync<ArrObjectKeyDecimalValue>(
+            
+            var ventasResponse = await ventasClient.Views.QueryAsync<decimal>(
                 RequestFactory.NewDaylyReportRequest("qysin", "reporteDiario", query),
                 cancellationToken
             );
-            var ventas = ventasResponse.Rows.Select(r => r.Value);
-
+            var ventas = ventasResponse.Rows.Select(r => new ArrObjectKeyDecimalValue
+            {
+                Key = (object[])r.Key,
+                Value = r.Value
+            });
             return ventas;
         }
     }

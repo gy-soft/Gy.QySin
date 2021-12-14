@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Gy.QySin.Application.Ventas.Consultas
 {
-    public class ReporteDiarioCon : IRequest<IEnumerable<ArrObjectKeyDecimalValue>>
+    public class ReporteDiarioCon : IRequest<IEnumerable<ArrObjectKeyDecimalValue>>, IFechaParams
     {
         public int Año { get; set; }
         public int Mes { get; set; }
@@ -22,10 +22,9 @@ namespace Gy.QySin.Application.Ventas.Consultas
             this.repos = repos;
         }
 
-        public Task<IEnumerable<ArrObjectKeyDecimalValue>> Handle(ReporteDiarioCon request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<ArrObjectKeyDecimalValue>> Handle(ReporteDiarioCon request, CancellationToken cancellationToken)
         {
-            // return await this.repos.ReportsRepository.GetDailyReportAsync(request)
-            throw new System.NotImplementedException();
+            return await repos.ReportRepository.GetDailyReportAsync(request, cancellationToken);
         }
     }
 }

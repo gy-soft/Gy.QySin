@@ -16,6 +16,7 @@ namespace Gy.QySin.Persistence.Document
             query.StartKey = new object[] { DateParams.Año, DateParams.Mes, DateParams.Día };
             query.EndKey = new object[] { DateParams.Año, DateParams.Mes, DateParams.Día, "z" };
             query.Reduce = true;
+            query.Group = true;
             return query;
         }
     }
