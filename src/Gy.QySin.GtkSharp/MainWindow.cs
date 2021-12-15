@@ -22,7 +22,7 @@ namespace Gy.QySin.GtkSharp
 
         public MainWindow(IServiceProvider serviceProvider) : this(serviceProvider, new Builder("MainWindow.glade"))
         {
-            MostrarVista(Vistas.Operación);
+            MostrarVista(Vistas.Reportes);
             _btn_operacion.Clicked += (sender, args) =>
             {
                 MostrarVista(Vistas.Operación);
