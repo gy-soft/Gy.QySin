@@ -7,5 +7,6 @@ namespace Gy.QySin.Persistence
         public int ShortTextColumnLength => 15;
 
         public int LongTextColumnLength => 50;
+        public int ResultsLimit => 50;
     }
 }

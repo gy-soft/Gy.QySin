@@ -9,7 +9,6 @@ namespace Gy.QySin.Application.Common.Interfaces
         where TEntity : class
     {
         Task<TEntity> GetAsync(object[] pk, CancellationToken cancellationToken = default);
-        
         Task UpdateAsync(TEntity entity, Action<TEntity> updateAction, CancellationToken cancellationToken = default);
         IQueryable<TEntity> AsQueryable();
     }
