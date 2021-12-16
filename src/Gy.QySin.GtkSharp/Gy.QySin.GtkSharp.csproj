@@ -24,4 +24,8 @@
     <ProjectReference Include="..\Gy.QySin.Domain\Gy.QySin.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="icons\**" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>
