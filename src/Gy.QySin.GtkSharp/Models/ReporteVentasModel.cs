@@ -1,98 +1,86 @@
 using System.Collections.Generic;
 using System.Linq;
 using Gtk;
-using Gy.QySin.Application.Ordenables.Consultas.Listar;
-using Gy.QySin.Domain.Entities;
 using Gy.QySin.Domain.ValueObjects;
 
 namespace Gy.QySin.GtkSharp.Models
 {
     class ReporteVentasModel : ListStore
     {
-        private readonly Dictionary<string, string> Ordenables;
         public ReporteVentasModel(
-            Application.Ordenables.Consultas.Listar.OrdenablesVm ordenables,
-            IEnumerable<ArrObjectKeyDecimalValue> itemsReporte)
-            : base(
+            Application.Ordenables.Consultas.Listar.OrdenablesVm ordenablesVm,
+            IEnumerable<ReporteVentasItem> itemsReporte)
+            : this()
+        {
+            var nombresPorClave = CargarNombresPorClave(ordenablesVm);
+            var total = itemsReporte.SingleOrDefault(i => i.Clave == "total");
+            int montoPorcentaje = 0, unidadesPorcentaje = 0;
+            foreach (var item in itemsReporte)
+            {
+                if (total is not null)
+                {
+                    montoPorcentaje = (int)(100 * item.Monto / total.Monto);
+                    unidadesPorcentaje = (int)(100m * item.Unidades / total.Unidades);
+                }
+                AppendValues(new object[] {
+                    (nombresPorClave.ContainsKey(item.Clave) ? nombresPorClave[item.Clave] : item.Clave),
+                    item.Unidades,
+                    unidadesPorcentaje,
+                    item.Monto.ToString(),
+                    montoPorcentaje,
+                    CalcularPesoDeFuente(item.Clave)
+                });
+            }
+        }
+        public ReporteVentasModel()
+        : base(
                 typeof(string), // Concepto
                 typeof(string), // Unidades
                 typeof(int), // Porcentaje unidades
                 typeof(string), // Monto
                 typeof(int), // Porcentaje monto
                 typeof(int) // Font weight
-            )
+            ) {}
+        public void MostrarValores(IEnumerable<ReporteVentasItem> itemsReporte)
         {
-            Ordenables = new Dictionary<string, string>(ordenables.Bebidas.Count + ordenables.Platillos.Count);
-            foreach (var bebida in ordenables.Bebidas)
+            TreeIter iter;
+            if (GetIterFirst(out iter))
             {
-                Ordenables.Add(bebida.Clave, bebida.Nombre);
-            }
-            foreach (var platillo in ordenables.Platillos)
-            {
-                Ordenables.Add(platillo.Clave, platillo.Nombre);
-            }
-
-            MostrarDatos(itemsReporte);
-        }
-        private void MostrarDatos(IEnumerable<ArrObjectKeyDecimalValue> itemsReporte)
-        {
-            var rows = new Dictionary<string, ReporteVentasItem>();
-            string clave, propiedad;
-            ReporteVentasItem row;
-            foreach (var item in itemsReporte)
-            {
-                clave = item.Key.Length > 5 ?
-                    (string)item.Key[5] :
-                    (string)item.Key[4];
-                propiedad = (string)item.Key[3];
-                if(!rows.TryGetValue(clave, out row))
+                do
                 {
-                    row = new ReporteVentasItem(clave, Ordenables);
-                    rows.Add(clave, row);
-                }
-                if (propiedad == "unidades")
-                    row.Unidades = (int)item.Value;
-                if (propiedad == "monto")
-                    row.Monto = item.Value;
+                    Remove(ref iter);
+                } while (IterNext(ref iter));
             }
             
-            var total = rows.ContainsKey("total") ? rows["total"] : null;
-            int montoPorcentaje = 0, unidadesPorcentaje = 0;
-            foreach (var valor in rows.Values)
-            {
-                if (total is not null)
-                {
-                    montoPorcentaje = (int)(100 * valor.Monto / total.Monto);
-                    unidadesPorcentaje = (int)(100m * valor.Unidades / total.Unidades);
-                }
-                AppendValues(new object[] {
-                    valor.Concepto,
-                    valor.Unidades,
-                    unidadesPorcentaje,
-                    valor.Monto.ToString(),
-                    montoPorcentaje,
-                    valor.FontWeight
-                });
-            }
         }
-        class ReporteVentasItem
+        private Dictionary<string, string> CargarNombresPorClave(
+            Application.Ordenables.Consultas.Listar.OrdenablesVm ordenablesVm
+        )
         {
-            private static string[] categorias = new string[] { "total", "bebidas", "platillos" };
-            public ReporteVentasItem(string clave, Dictionary<string, string> Ordenables)
+            var nombresPorClave = new Dictionary<string, string>(
+                ordenablesVm.Bebidas.Count + ordenablesVm.Platillos.Count
+            );
+            foreach (var bebida in ordenablesVm.Bebidas)
             {
-                Clave = clave;
-                Concepto = Ordenables.ContainsKey(clave) ?
-                    Ordenables[clave] :
-                    clave;
-                FontWeight = categorias.Contains(clave) ?
-                    Pango.Weight.Bold :
-                    Pango.Weight.Normal;
+                nombresPorClave.Add(bebida.Clave, bebida.Nombre);
             }
-            public string Clave { get; set; }
-            public string Concepto { get; set; }
-            public int Unidades { get; set; }
-            public decimal Monto { get; set; }
-            public Pango.Weight FontWeight { get; set; }
+            foreach (var platillo in ordenablesVm.Platillos)
+            {
+                nombresPorClave.Add(platillo.Clave, platillo.Nombre);
+            }
+            return nombresPorClave;
         }
+        private Pango.Weight CalcularPesoDeFuente(string clave)
+        {
+            return nombresSecciones.Contains(clave) ?
+                Pango.Weight.Bold :
+                Pango.Weight.Normal;
+        }
+        private readonly string[] nombresSecciones = new string[]
+        {
+            ReporteVentasItem.BEBIDAS,
+            ReporteVentasItem.PLATILLOS,
+            ReporteVentasItem.TOTAL
+        };
     }
 }

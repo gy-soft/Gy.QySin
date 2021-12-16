@@ -28,6 +28,6 @@ namespace Gy.QySin.Persistence
         public IRepository<PrecioOrdenable> PrecioOrdenables { get; private set; }
         public IAppendRepository<Venta> Ventas { get; private set; }
 
-        public IReportRepository<ArrObjectKeyDecimalValue> ReportRepository { get; private set; }
+        public IReportRepository<ReporteVentasItem> ReportRepository { get; private set; }
     }
 }

@@ -59,7 +59,6 @@ namespace Gy.QySin.GtkSharp.ViewModels
                 Gtk.Application.Invoke((sender, args) =>
                 {
                     _list_reporte.Model = new ReporteVentasModel(ordenables, reporte);
-                    _list_reporte.ShowAll();
                 });
             });
         }

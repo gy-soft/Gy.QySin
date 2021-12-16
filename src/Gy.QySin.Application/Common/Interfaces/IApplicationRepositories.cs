@@ -11,6 +11,6 @@ namespace Gy.QySin.Application.Common.Interfaces
         IRepository<Ordenable> Ordenables { get; }
         IRepository<PrecioOrdenable> PrecioOrdenables { get; }
         IAppendRepository<Venta> Ventas { get; }
-        IReportRepository<ArrObjectKeyDecimalValue> ReportRepository { get; }
+        IReportRepository<ReporteVentasItem> ReportRepository { get; }
     }
 }

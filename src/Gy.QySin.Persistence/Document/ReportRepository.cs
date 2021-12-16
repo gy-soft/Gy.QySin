@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 using Gy.QySin.Domain.ValueObjects;
 using Gy.QySin.Application.Common.Interfaces;
 using MyCouch.Requests;
-using MyCouch.Responses;
 
 namespace Gy.QySin.Persistence.Document
 {
-    public class ReportRepository : IReportRepository<ArrObjectKeyDecimalValue>
+    public class ReportRepository : IReportRepository<ReporteVentasItem>
     {
         protected readonly ICouchClientFactory clientFactory;
 
@@ -18,7 +17,7 @@ namespace Gy.QySin.Persistence.Document
             this.clientFactory = clientFactory;
         }
     
-        public async Task<IEnumerable<ArrObjectKeyDecimalValue>> GetDailyReportAsync(
+        public async Task<IEnumerable<ReporteVentasItem>> GetDailyReportAsync(
             IFechaParams query,
             CancellationToken cancellationToken = default
         )
@@ -32,12 +31,14 @@ namespace Gy.QySin.Persistence.Document
                 RequestFactory.NewDaylyReportRequest("qysin", "reporteDiario", query),
                 cancellationToken
             );
-            var ventas = ventasResponse.Rows.Select(r => new ArrObjectKeyDecimalValue
+            var ventas = ventasResponse.Rows
+            .Select(r => new ArrObjectKeyDecimalValue
             {
                 Key = (object[])r.Key,
                 Value = r.Value
-            });
-            return ventas;
+            })
+            .Select(kv => new ReporteVentasValorPuntual(kv, ReporteVentasValorPuntual.Periodos.Diario));
+            return ventas.AReporteVentasItems();
         }
     }
 }

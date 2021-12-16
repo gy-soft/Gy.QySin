@@ -16,6 +16,9 @@ namespace Gy.QySin.Domain.ValueObjects
         public string Clave { get; set; }
         public int Unidades { get; set; }
         public decimal Monto { get; set; }
+        public const string TOTAL = "total";
+        public const string BEBIDAS = "bebidas";
+        public const string PLATILLOS = "platillos";
     }
     public static class ReporteVentasExtensions
     {

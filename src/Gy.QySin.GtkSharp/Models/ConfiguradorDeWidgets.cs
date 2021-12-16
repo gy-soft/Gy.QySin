@@ -56,6 +56,7 @@ namespace Gy.QySin.GtkSharp.Models
         }
         public static void ConfigurarTreeReporteVentas(TreeView treeView)
         {
+            treeView.Model = new ReporteVentasModel();
             treeView.AppendColumn(
                 new TreeViewColumn("Concepto", new CellRendererText(), new object[] { "text", 0, "weight", 5 })
             );
