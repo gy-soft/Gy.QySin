@@ -219,6 +219,7 @@
         </child>
         <child>
           <object class="GtkTreeView" id="_list_ordenes">
+            <property name="height-request">20</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <child internal-child="selection">

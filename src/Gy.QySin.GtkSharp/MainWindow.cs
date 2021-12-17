@@ -18,7 +18,6 @@ namespace Gy.QySin.GtkSharp
         [UI] private Button _btn_operacion = null;
         [UI] private Button _btn_reportes = null;
         [UI] private Button _btn_catalogos = null;
-        private Box vistaActiva = null;
 
         public MainWindow(IServiceProvider serviceProvider) : this(serviceProvider, new Builder("MainWindow.glade"))
         {
@@ -52,12 +51,13 @@ namespace Gy.QySin.GtkSharp
 
         private void MostrarVista(Vistas vista)
         {
-            if (vistaActiva != null)
+            if (_box_contenedor.Children.GetLength(0) > 1)
             {
+                var vistaActiva = _box_contenedor.Children[1];
                 vistaActiva.Destroy();
+                vistaActiva.Dispose();
             }
-            vistaActiva = vistasFactory[vista]();
-            _box_contenedor.Add(vistaActiva);
+            _box_contenedor.Add(vistasFactory[vista]());
             _box_contenedor.ShowAll();
         }
 
