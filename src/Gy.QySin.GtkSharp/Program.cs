@@ -28,7 +28,7 @@ namespace Gy.QySin.GtkSharp
                 .Build();
             Gtk.Application.Init();
 
-            var app = new Gtk.Application("org.Gy.QySin.GtkSharp.Gy.QySin.GtkSharp", GLib.ApplicationFlags.None);
+            var app = new Gtk.Application("Gy.QySin.GtkSharp", GLib.ApplicationFlags.None);
             app.Register(GLib.Cancellable.Current);
 
             var win = new MainWindow(host.Services);
