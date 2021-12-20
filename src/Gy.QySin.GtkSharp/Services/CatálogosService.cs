@@ -22,6 +22,32 @@ namespace Gy.QySin.GtkSharp.Services
             );
         }
 
+        public async Task<ReadOnlyDictionary<string, Ordenable>> CargarOrdenablesDictAsync()
+        {
+            var response = await mediator.Send(
+                new Application.Ordenables.Consultas.Listar.ListarCon()
+            );
+            var dict = new Dictionary<string, Ordenable>(
+                response.Bebidas.Count + response.Platillos.Count
+            );
+            foreach(var b in response.Bebidas)
+            {
+                dict.Add(b.Clave, new Ordenable(
+                    (int)OrdenableCategorias.Bebidas,
+                    b.Clave,
+                    b.Nombre
+                ));
+            }
+            foreach (var p in response.Platillos)
+            {
+                dict.Add(p.Clave, new Ordenable(
+                    (int)OrdenableCategorias.Platillos,
+                    p.Clave,
+                    p.Nombre
+                ));
+            }
+            return new ReadOnlyDictionary<string, Ordenable>(dict);
+        }
         public async Task<ReadOnlyCollection<Ordenable>> CargarOrdenablesAsync()
         {
             var response = await mediator.Send(

@@ -7,6 +7,6 @@ namespace Gy.QySin.GtkSharp.Interfaces
     interface ICatálogosService
     {
         Task<ReadOnlyCollection<IdNombre>> CargarCategoriasAsync();
-        Task<ReadOnlyCollection<Ordenable>> CargarOrdenablesAsync();
+        Task<ReadOnlyDictionary<string, Ordenable>> CargarOrdenablesDictAsync();
     }
 }
