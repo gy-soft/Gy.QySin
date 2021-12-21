@@ -52,8 +52,8 @@ namespace Gy.QySin.GtkSharp.ViewModels
 
             Task.Run(async () =>
             {
-                var ordenablesCat = await catálogosService.CargarOrdenablesAsync();
-                var model = new OrdenablesModel(ordenablesCat);
+                var ordenablesCat = await catálogosService.CargarOrdenablesDictAsync();
+                var model = new OrdenablesModel(ordenablesCat.Values);
                 Gtk.Application.Invoke((sender, args) =>
                 {
                     ConfiguradorDeWidgets.ConfigurarComboOrdenables(

@@ -1,18 +1,19 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Gtk;
 using Gy.QySin.Domain.ValueObjects;
+using Gy.QySin.GtkSharp.ValueObjects;
 
 namespace Gy.QySin.GtkSharp.Models
 {
     class ReporteVentasModel : ListStore
     {
         public ReporteVentasModel(
-            Application.Ordenables.Consultas.Listar.OrdenablesVm ordenablesVm,
+            ReadOnlyDictionary<string, Ordenable> nombresPorClave,
             IEnumerable<ReporteVentasItem> itemsReporte)
             : this()
         {
-            var nombresPorClave = CargarNombresPorClave(ordenablesVm);
             var total = itemsReporte.SingleOrDefault(i => i.Clave == "total");
             int montoPorcentaje = 0, unidadesPorcentaje = 0;
             foreach (var item in itemsReporte)
@@ -23,7 +24,7 @@ namespace Gy.QySin.GtkSharp.Models
                     unidadesPorcentaje = (int)(100m * item.Unidades / total.Unidades);
                 }
                 AppendValues(new object[] {
-                    (nombresPorClave.ContainsKey(item.Clave) ? nombresPorClave[item.Clave] : item.Clave),
+                    (nombresPorClave.ContainsKey(item.Clave) ? nombresPorClave[item.Clave].Nombre : item.Clave),
                     item.Unidades,
                     unidadesPorcentaje,
                     item.Monto.ToString(),
@@ -52,23 +53,6 @@ namespace Gy.QySin.GtkSharp.Models
                 } while (IterNext(ref iter));
             }
             
-        }
-        private Dictionary<string, string> CargarNombresPorClave(
-            Application.Ordenables.Consultas.Listar.OrdenablesVm ordenablesVm
-        )
-        {
-            var nombresPorClave = new Dictionary<string, string>(
-                ordenablesVm.Bebidas.Count + ordenablesVm.Platillos.Count
-            );
-            foreach (var bebida in ordenablesVm.Bebidas)
-            {
-                nombresPorClave.Add(bebida.Clave, bebida.Nombre);
-            }
-            foreach (var platillo in ordenablesVm.Platillos)
-            {
-                nombresPorClave.Add(platillo.Clave, platillo.Nombre);
-            }
-            return nombresPorClave;
         }
         private Pango.Weight CalcularPesoDeFuente(string clave)
         {

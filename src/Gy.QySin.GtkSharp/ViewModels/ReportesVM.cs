@@ -1,7 +1,10 @@
 using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Gtk;
+using Gy.QySin.GtkSharp.Interfaces;
 using Gy.QySin.GtkSharp.Models;
+using Gy.QySin.GtkSharp.ValueObjects;
 using MediatR;
 using UI = Gtk.Builder.ObjectAttribute;
 
@@ -14,9 +17,10 @@ namespace Gy.QySin.GtkSharp.ViewModels
         [UI] private Label _text_fecha = null;
         [UI] private TreeView _list_reporte = null;
         private readonly ISender mediator;
+        private readonly ICatálogosService catálogosService;
         private System.Globalization.Calendar Calendario = System.Globalization.CultureInfo.InvariantCulture.Calendar;
         private DateTime fechaReporte = DateTime.Now;
-        private Application.Ordenables.Consultas.Listar.OrdenablesVm ordenables = null;
+        private ReadOnlyDictionary<string, Ordenable> ordenables = null;
 
         public ReportesVM(IServiceProvider serviceProvider) : this(serviceProvider, new Builder("MainWindow.glade"))
         {
@@ -29,6 +33,7 @@ namespace Gy.QySin.GtkSharp.ViewModels
         private ReportesVM(IServiceProvider serviceProvider, Builder builder) : base(builder.GetRawObject("BoxReportes"))
         {
             this.mediator = (ISender)serviceProvider.GetService(typeof(ISender));
+            this.catálogosService = (ICatálogosService)serviceProvider.GetService(typeof(ICatálogosService));
             builder.Autoconnect(this);
         }
         private void BtnAnterior_Clicked(object sender, EventArgs args)
@@ -54,7 +59,7 @@ namespace Gy.QySin.GtkSharp.ViewModels
                     Día = fechaReporte.Day
                 };
                 if (ordenables is null)
-                    ordenables = await mediator.Send(new Application.Ordenables.Consultas.Listar.ListarCon());
+                    ordenables = await catálogosService.CargarOrdenablesDictAsync();
                 var reporte = await mediator.Send(fechaParams);
                 Gtk.Application.Invoke((sender, args) =>
                 {
