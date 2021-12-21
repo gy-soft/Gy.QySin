@@ -1,12 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Gtk;
-using Gy.QySin.GtkSharp.Interfaces;
-using Gy.QySin.GtkSharp.Models;
-using Gy.QySin.GtkSharp.ValueObjects;
 using Gy.QySin.GtkSharp.ViewModels;
-using MediatR;
 using UI = Gtk.Builder.ObjectAttribute;
 
 namespace Gy.QySin.GtkSharp
@@ -21,7 +16,7 @@ namespace Gy.QySin.GtkSharp
 
         public MainWindow(IServiceProvider serviceProvider) : this(serviceProvider, new Builder("MainWindow.glade"))
         {
-            MostrarVista(Vistas.Operación);
+            MostrarVista(Vistas.Catálogos);
             _btn_operacion.Clicked += (sender, args) =>
             {
                 MostrarVista(Vistas.Operación);
