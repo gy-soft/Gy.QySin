@@ -16,7 +16,7 @@ namespace Gy.QySin.GtkSharp.ViewModels
         [UI] private TreeView _tree_catalogos = null;
         private ISender mediator = null;
         private ReadOnlyDictionary<string, Ordenable> ordenables = null;
-        public CatálogosVM(IServiceProvider serviceProvider) : this(serviceProvider, new Builder("MainWindow.glade"))
+        public CatálogosVM(IServiceProvider serviceProvider) : this(serviceProvider, new Builder("Catálogos.glade"))
         {
             _text_nombre.Changed += BúsquedaNombre_Changed;
             CargarPrecios();
