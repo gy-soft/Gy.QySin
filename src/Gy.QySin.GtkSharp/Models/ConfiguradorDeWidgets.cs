@@ -73,23 +73,5 @@ namespace Gy.QySin.GtkSharp.Models
                 new TreeViewColumn("Porcentaje", new CellRendererProgress(), new object[] { "value", 4 })
             );
         }
-        public static void ConfigurarTreePrecios(TreeView treeView, TreeModelFilterVisibleFunc visibleFunc)
-        {
-            var filteredModel = new CatálogoPreciosModel();
-            filteredModel.VisibleFunc = visibleFunc;
-            treeView.Model = filteredModel;
-            treeView.AppendColumn(
-                "Nombre", new CellRendererText(), new object[] { "text", 0}
-            );
-            treeView.AppendColumn(
-                "Precio", new CellRendererText(), new object[] { "text", 1 }
-            );
-            treeView.AppendColumn(
-                "Fecha Inicio", new CellRendererText(), new object[] { "text", 2 }
-            );
-            treeView.AppendColumn(
-                "Fecha Fin", new CellRendererText(), new object[] { "text", 3 }
-            );
-        }
     }
 }
